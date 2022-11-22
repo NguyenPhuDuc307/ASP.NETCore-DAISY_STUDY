@@ -5,6 +5,10 @@ using DaisyStudy.Core;
 using DaisyStudy.Core.Repositories;
 using DaisyStudy.Repositories;
 using DaisyStudy.Application.Common;
+using DaisyStudy.Application.System.Users;
+using DaisyStudy.Application.Catalog.Classes;
+using System.Configuration;
+using DaisyStudy.Models.VNPAY;
 
 var builder = WebApplication.CreateBuilder(args);
 var mvcBuilder = builder.Services.AddRazorPages();
@@ -16,6 +20,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 if (builder.Environment.IsDevelopment())
 {
@@ -53,7 +60,11 @@ AddAuthorizationPolicies();
 
 #endregion
 
-AddScoped();
+AddTransient();
+
+builder.Services.AddSingleton(builder.Configuration.GetSection("VNPayConfig").Get<VNPayConfig>());
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
@@ -71,6 +82,8 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
@@ -95,9 +108,11 @@ void AddAuthorizationPolicies()
     });
 }
 
-void AddScoped()
+void AddTransient()
 {
-    builder.Services.AddScoped<IUserRepository, UserRepository>();
-    builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-    builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+    builder.Services.AddTransient<IUserRepository, UserRepository>();
+    builder.Services.AddTransient<IRoleRepository, RoleRepository>();
+    builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+    builder.Services.AddTransient<IUserService, UserService>();
+    builder.Services.AddTransient<IClassService, ClassService>();
 }

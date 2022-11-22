@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DaisyStudy.Controllers
 {
-    public class RoleViewsController : Controller
+    public class RoleViewsController : BaseController
     {
         public IActionResult Index()
         {

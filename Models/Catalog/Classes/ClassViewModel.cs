@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DaisyStudy.Data;
 using DaisyStudy.Data.Enums;
 using DaisyStudy.Models.Catalog.Classes;
 using DaisyStudy.Models.Catalog.Notifications;
 
-namespace DaisyStudy.ViewModels.Catalog.Classes;
+namespace DaisyStudy.Models.Catalog.Classes;
 
 public class ClassViewModel
 {
@@ -55,7 +56,7 @@ public class ClassViewModel
     [Display(Name = "Công khai")]
     public IsPublic isPublic { set; get; }
 
-    public ICollection<ClassDetailViewModel>? ClassDetails { set; get; }
+    public ICollection<ClassDetail>? ClassDetails { set; get; }
     public ICollection<NotificationViewModel>? Notifications { set; get; }
 }
 

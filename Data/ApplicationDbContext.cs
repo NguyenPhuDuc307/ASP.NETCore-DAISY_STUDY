@@ -44,7 +44,21 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
         builder.Entity<IdentityUserToken<string>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
     }
 
-    public DbSet<DaisyStudy.Data.Class> Class { get; set; } = default!;
+    public DbSet<Answer> Answers { set; get; } = default!;
+    public DbSet<Class> Classes { set; get; } = default!;
+    public DbSet<ClassDetail> ClassDetails { set; get; } = default!;
+    public DbSet<Comment> Comments { set; get; } = default!;
+    public DbSet<Contact> Contacts { set; get; } = default!;
+    public DbSet<ExamSchedule> ExamSchedules { set; get; } = default!;
+    public DbSet<Homework> Homeworks { set; get; } = default!;
+    public DbSet<Notification> Notifications { set; get; } = default!;
+    public DbSet<Question> Questions { set; get; } = default!;
+    public DbSet<StudentExam> StudentExams { set; get; } = default!;
+    public DbSet<StudentExamDetail> StudentExamDetails { set; get; } = default!;
+    public DbSet<Submission> Submissions { set; get; } = default!;
+    public DbSet<NotificationImage> NotificationImages { set; get; } = default!;
+    public DbSet<Room> Rooms { set; get; } = default!;
+    public DbSet<Message> Messages { set; get; } = default!;
 }
 
 
@@ -54,7 +68,7 @@ public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<Appli
     {
         builder.ToTable("AppUsers");
 
-        builder.Property(x => x.FirstName).IsRequired().HasMaxLength(255);
+        builder.Property(x => x.FirstName).HasMaxLength(255);
         builder.Property(x => x.LastName).IsRequired().HasMaxLength(255);
         builder.Property(x => x.Dob).IsRequired();
         builder.Property(x => x.AccountBalance).IsRequired().HasColumnType("decimal(18,2)");

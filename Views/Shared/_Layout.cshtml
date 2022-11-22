@@ -90,7 +90,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
                     aria-expanded="true" aria-controls="collapseThree">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fa-solid fa-user"></i>
                     <span>Người dùng</span>
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
@@ -98,8 +98,24 @@
                         <h6 class="collapse-header">Quản lý người dùng:</h6>
                         <a class="collapse-item" asp-area="" asp-controller="User" asp-action="Index">Danh sách người
                             dùng</a>
-                        <a class="collapse-item" asp-area="" asp-controller="RoleViews"
-                            asp-action="Admin">Administrator</a>
+                        <a class="collapse-item" asp-area="" asp-controller="User"
+                            asp-action="Create">Thêm người dùng mới</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+                    aria-expanded="true" aria-controls="collapseFour">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Lớp học</span>
+                </a>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản lý lớp học:</h6>
+                        <a class="collapse-item" asp-area="" asp-controller="Class" asp-action="Index">Danh sách lớp học</a>
+                        <a class="collapse-item" asp-area="" asp-controller="Class"
+                            asp-action="Create">Thêm lớp học mới</a>
                     </div>
                 </div>
             </li>

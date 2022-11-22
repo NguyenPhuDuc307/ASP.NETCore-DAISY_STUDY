@@ -21,4 +21,6 @@ public class UserUpdateRequest
 
     [Display(Name = "Số điện thoại")]
     public string PhoneNumber { get; set; }
+
+    public string Avatar { get; set; }
 }
