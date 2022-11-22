@@ -121,7 +121,7 @@
                 'bulletedList', 'numberedList', 'todoList', '|',
                 'outdent', 'indent', '|',
                 'undo', 'redo',
-                
+
                 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
                 'alignment', '|',
                 'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', '|',
@@ -246,58 +246,85 @@
         });
 </script>
 }
-<div class="container-fluid">
-    <h1 class="mt-4">Cập nhật lớp học</h1>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-        <li class="breadcrumb-item active">Cập nhật lớp học</li>
-    </ol>
-    <div class="card mb-4">
-        <div class="card-header">
-            <a class="btn btn-success" asp-action="Index" asp-controller="User">Về danh sách</a>
-        </div>
+<h1 class="mt-4">Cập nhật lớp học</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+    <li class="breadcrumb-item active">Cập nhật lớp học</li>
+</ol>
+<div class="card mb-4">
+    <div class="card-header">
+        <a class="btn btn-success" asp-action="Index" asp-controller="Class">Về danh sách</a>
+    </div>
 
-        <div class="card-body">
-            <div class="col-md-12">
-                <form asp-action="Edit" enctype="multipart/form-data" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="ID" />
-                    <div class="form-group">
-                        <label asp-for="ClassName" class="control-label"></label>
-                        <input asp-for="ClassName" class="form-control" />
-                        <span asp-validation-for="ClassName" class="text-danger"></span>
-                    </div>
+    <div class="card-body">
+        <div class="col-md-12">
+            <form asp-action="Edit" enctype="multipart/form-data" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ID" />
+                <div class="form-group">
+                    <label asp-for="ClassName" class="control-label"></label>
+                    <input asp-for="ClassName" class="form-control" />
+                    <span asp-validation-for="ClassName" class="text-danger"></span>
+                </div>
 
-                    <div class="form-group">
-                        <label asp-for="Description" class="control-label"></label>
-                        <textarea id="editor" asp-for="Description" class="form-control"></textarea>
-                        <span asp-validation-for="Description" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ClassRoom" class="control-label"></label>
-                        <input asp-for="ClassRoom" class="form-control" />
-                        <span asp-validation-for="ClassRoom" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Topic" class="control-label"></label>
-                        <input asp-for="Topic" class="form-control" />
-                        <span asp-validation-for="Topic" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Tuition" class="control-label"></label>
-                        <input asp-for="Tuition" class="form-control" />
-                        <span asp-validation-for="Tuition" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ThumbnailImage" class="control-label"></label>
-                        <input asp-for="ThumbnailImage" type="file" class="form-control" />
-                        <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Cập nhật" class="btn btn-primary" />
-                    </div>
-                </form>
-            </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea id="editor" asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ClassRoom" class="control-label"></label>
+                    <input asp-for="ClassRoom" class="form-control" />
+                    <span asp-validation-for="ClassRoom" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Topic" class="control-label"></label>
+                    <input asp-for="Topic" class="form-control" />
+                    <span asp-validation-for="Topic" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tuition" class="control-label"></label>
+                    <input asp-for="Tuition" class="form-control" />
+                    <span asp-validation-for="Tuition" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Công khai</label>
+                    <select name="IsPublic" class="form-control" aria-label="Default select example">
+                        @if(Convert.ToString(Model.IsPublic) == "NotPublic"){
+                            <option value="1">Công khai</option>
+                            <option value="0" selected>Không công khai</option>
+                        }
+                        else{
+                            <option value="1" selected>Công khai</option>
+                            <option value="0">Không công khai</option>
+                        }
+                    </select>
+                    <span asp-validation-for="IsPublic" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Trạng thái</label>
+                    <select name="Status" class="form-control" aria-label="Default select example">
+                        @if(Convert.ToString(Model.Status) == "InActive"){
+                            <option value="1">Đang hoạt động</option>
+                            <option value="0" selected>Đã ngừng hoạt động</option>
+                        }
+                        else{
+                            <option value="1" selected>Đang hoạt động</option>
+                            <option value="0">Đã ngừng hoạt động</option>
+                        }
+                    </select>
+                    
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ThumbnailImage" class="control-label"></label>
+                    <input asp-for="ThumbnailImage" type="file" class="form-control" />
+                    <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                </div>
+            </form>
         </div>
     </div>
 </div>

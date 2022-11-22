@@ -9,6 +9,9 @@ using DaisyStudy.Application.System.Users;
 using DaisyStudy.Application.Catalog.Classes;
 using System.Configuration;
 using DaisyStudy.Models.VNPAY;
+using DaisyStudy.Controllers.Hubs;
+using DaisyStudy.Application.Common.SignalR;
+using DaisyStudy.Application.Catalog.Rooms;
 
 var builder = WebApplication.CreateBuilder(args);
 var mvcBuilder = builder.Services.AddRazorPages();
@@ -51,6 +54,8 @@ builder.Services.AddAuthentication()
     
     builder.Services.AddTransient<IStorageService, FileStorageService>();
 
+    builder.Services.AddSignalR();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -89,6 +94,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapHub<ChatHub>("/chatHub");
+
 app.MapRazorPages();
 
 app.Run();
@@ -115,4 +122,6 @@ void AddTransient()
     builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
     builder.Services.AddTransient<IUserService, UserService>();
     builder.Services.AddTransient<IClassService, ClassService>();
+    builder.Services.AddTransient<IFileValidator, FileValidator>();
+    builder.Services.AddTransient<IRoomService, RoomService>();
 }

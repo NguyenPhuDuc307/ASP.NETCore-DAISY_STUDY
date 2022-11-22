@@ -12,5 +12,4 @@ public class MessageViewModel
     [Required]
     public string? Room { get; set; }
     public string? Avatar { get; set; }
-    public string? UserName { get; set; }
 }

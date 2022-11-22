@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DaisyStudy.Data.Enums;
 
 namespace DaisyStudy.Models.Catalog.Classes;
 
@@ -21,4 +22,6 @@ public string? Description { set; get; }
 [Display(Name = "Hình ảnh")]
 public IFormFile? ThumbnailImage { get; set; }
 public decimal? Tuition { get; set; }
+public IsPublic IsPublic { get; set; }
+public Status Status { get; set; }
 }

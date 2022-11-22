@@ -3,19 +3,29 @@ using DaisyStudy.Data;
 using DaisyStudy.Models.Catalog.Classes;
 using DaisyStudy.Application.Catalog.Classes;
 using AutoMapper;
+using DaisyStudy.Application.Catalog.Rooms;
+using DaisyStudy.Application.System.Users;
+using DaisyStudy.Models.System.Users;
 
 namespace DaisyStudy.Controllers
 {
     public class ClassController : BaseController
     {
         private readonly IClassService _classService;
+        private readonly IRoomService _roomService;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public ClassController(IClassService classService
-        , IMapper mapper)
+        public ClassController(
+            IClassService classService,
+            IMapper mapper,
+            IRoomService roomService,
+            IUserService userService)
         {
             _classService = classService;
             _mapper = mapper;
+            _roomService = roomService;
+            _userService = userService;
         }
 
         // GET: Classes
@@ -77,6 +87,9 @@ namespace DaisyStudy.Controllers
                 return View(request);
 
             var result = await _classService.Create(request);
+
+            await _roomService.Create(request.UserName, request.ClassName);
+
             if (result != 0)
             {
                 TempData["result"] = "Thêm mới lớp học thành công";

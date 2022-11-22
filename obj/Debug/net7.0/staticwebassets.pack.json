@@ -5,6 +5,26 @@
       "PackagePath": "staticwebassets/DaisyStudy.bundle.scp.css"
     },
     {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/css/_auth.scss",
+      "PackagePath": "staticwebassets/css/_auth.scss"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/css/_content.scss",
+      "PackagePath": "staticwebassets/css/_content.scss"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/css/_misc.scss",
+      "PackagePath": "staticwebassets/css/_misc.scss"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/css/_sidebar.scss",
+      "PackagePath": "staticwebassets/css/_sidebar.scss"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/css/_userslist.scss",
+      "PackagePath": "staticwebassets/css/_userslist.scss"
+    },
+    {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/css/sb-admin-2.css",
       "PackagePath": "staticwebassets/css/sb-admin-2.css"
     },
@@ -15,6 +35,42 @@
     {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/css/site.css.map",
+      "PackagePath": "staticwebassets/css/site.css.map"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/css/site.scss",
+      "PackagePath": "staticwebassets/css/site.scss"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/images/emojis/emoji1.png",
+      "PackagePath": "staticwebassets/images/emojis/emoji1.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/images/emojis/emoji2.png",
+      "PackagePath": "staticwebassets/images/emojis/emoji2.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/images/emojis/emoji3.png",
+      "PackagePath": "staticwebassets/images/emojis/emoji3.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/images/emojis/emoji4.png",
+      "PackagePath": "staticwebassets/images/emojis/emoji4.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/images/emojis/emoji5.png",
+      "PackagePath": "staticwebassets/images/emojis/emoji5.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/images/emojis/emoji6.png",
+      "PackagePath": "staticwebassets/images/emojis/emoji6.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/images/emojis/emoji7.png",
+      "PackagePath": "staticwebassets/images/emojis/emoji7.png"
     },
     {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/images/logo.png",
@@ -65,6 +121,10 @@
       "PackagePath": "staticwebassets/img/undraw_rocket.svg"
     },
     {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/js/chat.js",
+      "PackagePath": "staticwebassets/js/chat.js"
+    },
+    {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/js/ckeditor.js",
       "PackagePath": "staticwebassets/js/ckeditor.js"
     },
@@ -91,6 +151,98 @@
     {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/js/sb-admin-2.min.js",
       "PackagePath": "staticwebassets/js/sb-admin-2.min.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/js/site.js",
+      "PackagePath": "staticwebassets/js/site.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/bootstrap/css/bootstrap.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/css/bootstrap.min.css"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/bootstrap/js/bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/js/bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/LICENSE.txt"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/jquery-validation/LICENSE.md",
+      "PackagePath": "staticwebassets/lib/jquery-validation/LICENSE.md"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/jquery-validation/dist/additional-methods.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/additional-methods.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/jquery-validation/dist/additional-methods.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/additional-methods.min.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/jquery.validate.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/jquery.validate.min.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/jquery/LICENSE.txt",
+      "PackagePath": "staticwebassets/lib/jquery/LICENSE.txt"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/jquery/dist/jquery.js",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/jquery/dist/jquery.min.js",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.min.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/jquery/dist/jquery.min.map",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.min.map"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/knockout/knockout-latest.debug.js",
+      "PackagePath": "staticwebassets/lib/knockout/knockout-latest.debug.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/knockout/knockout-latest.debug.min.js",
+      "PackagePath": "staticwebassets/lib/knockout/knockout-latest.debug.min.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/knockout/knockout-latest.debug.min.js.map",
+      "PackagePath": "staticwebassets/lib/knockout/knockout-latest.debug.min.js.map"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/knockout/knockout-latest.js",
+      "PackagePath": "staticwebassets/lib/knockout/knockout-latest.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/knockout/knockout-latest.min.js",
+      "PackagePath": "staticwebassets/lib/knockout/knockout-latest.min.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/knockout/knockout-latest.min.js.map",
+      "PackagePath": "staticwebassets/lib/knockout/knockout-latest.min.js.map"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/microsoft-signalr/signalr.js",
+      "PackagePath": "staticwebassets/lib/microsoft-signalr/signalr.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/lib/microsoft-signalr/signalr.min.js",
+      "PackagePath": "staticwebassets/lib/microsoft-signalr/signalr.min.js"
     },
     {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/scss/_buttons.scss",
@@ -185,16 +337,68 @@
       "PackagePath": "staticwebassets/scss/utilities/_text.scss"
     },
     {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/uploads/202251201103_android.png",
+      "PackagePath": "staticwebassets/uploads/202251201103_android.png"
+    },
+    {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/02386232-48da-445d-a2fa-5c3798a94afc.png",
       "PackagePath": "staticwebassets/user-content/02386232-48da-445d-a2fa-5c3798a94afc.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/02fd0906-7f7d-44cf-8f68-79d3e1093bd8.png",
+      "PackagePath": "staticwebassets/user-content/02fd0906-7f7d-44cf-8f68-79d3e1093bd8.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/07a0d071-f68f-4006-92e2-baf00d373482.png",
+      "PackagePath": "staticwebassets/user-content/07a0d071-f68f-4006-92e2-baf00d373482.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/0825d4d2-93e6-4721-8654-7dddfa962250.png",
+      "PackagePath": "staticwebassets/user-content/0825d4d2-93e6-4721-8654-7dddfa962250.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/18b3599f-4387-44d2-a156-0494a0e617f3.png",
+      "PackagePath": "staticwebassets/user-content/18b3599f-4387-44d2-a156-0494a0e617f3.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/21cd4f26-df1c-4e2c-9c78-93b37a5252aa.png",
+      "PackagePath": "staticwebassets/user-content/21cd4f26-df1c-4e2c-9c78-93b37a5252aa.png"
     },
     {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/255ae7fa-0a29-4952-b6bb-e0f4cb9dfad0.svg",
       "PackagePath": "staticwebassets/user-content/255ae7fa-0a29-4952-b6bb-e0f4cb9dfad0.svg"
     },
     {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/2cf8119c-fb76-494c-9b98-91d841e8b5e0.png",
+      "PackagePath": "staticwebassets/user-content/2cf8119c-fb76-494c-9b98-91d841e8b5e0.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/42b78e6c-1378-4b53-9d1f-610140f36938.png",
+      "PackagePath": "staticwebassets/user-content/42b78e6c-1378-4b53-9d1f-610140f36938.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/45a0179a-687d-491f-94ea-56e5fc6c5b22.png",
+      "PackagePath": "staticwebassets/user-content/45a0179a-687d-491f-94ea-56e5fc6c5b22.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/48ce46f9-d71a-4d0c-bfc0-bfe5772af365.svg",
+      "PackagePath": "staticwebassets/user-content/48ce46f9-d71a-4d0c-bfc0-bfe5772af365.svg"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/4eae0eeb-9b74-4adc-bb4d-41c17cd8f658.png",
+      "PackagePath": "staticwebassets/user-content/4eae0eeb-9b74-4adc-bb4d-41c17cd8f658.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/50c146fb-5dcb-47b3-b749-d97a951d9379.png",
+      "PackagePath": "staticwebassets/user-content/50c146fb-5dcb-47b3-b749-d97a951d9379.png"
+    },
+    {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/55b3e03c-3bc8-497c-bf15-f027ca10e159.svg",
       "PackagePath": "staticwebassets/user-content/55b3e03c-3bc8-497c-bf15-f027ca10e159.svg"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/579392f5-51ba-4e06-b767-4a2a14d205bc.png",
+      "PackagePath": "staticwebassets/user-content/579392f5-51ba-4e06-b767-4a2a14d205bc.png"
     },
     {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/5d2298b5-4d21-44ef-a05b-00bb4d2d29bc.svg",
@@ -203,6 +407,18 @@
     {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/5d3ebf5e-42c8-4316-ba61-088e8329108b.svg",
       "PackagePath": "staticwebassets/user-content/5d3ebf5e-42c8-4316-ba61-088e8329108b.svg"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/5f86e6c0-73b1-4ff3-a089-1b3a1d925d2d.png",
+      "PackagePath": "staticwebassets/user-content/5f86e6c0-73b1-4ff3-a089-1b3a1d925d2d.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/616d746c-9d1a-43d5-9b7b-ba9a8ec9b087.png",
+      "PackagePath": "staticwebassets/user-content/616d746c-9d1a-43d5-9b7b-ba9a8ec9b087.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/6e8815c3-2fa3-47f8-a09e-0487f9b499d6.png",
+      "PackagePath": "staticwebassets/user-content/6e8815c3-2fa3-47f8-a09e-0487f9b499d6.png"
     },
     {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/70e794be-8553-4f67-8161-1f62fb9d2131.svg",
@@ -217,20 +433,44 @@
       "PackagePath": "staticwebassets/user-content/79fe962b-4f9b-4a43-abaa-b5ed99e91a0a.jpeg"
     },
     {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/8c99bfee-1d64-4ab5-ae1b-2abf2283786f.png",
+      "PackagePath": "staticwebassets/user-content/8c99bfee-1d64-4ab5-ae1b-2abf2283786f.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/8fe982c3-0dab-471b-a168-891d52623e01.png",
+      "PackagePath": "staticwebassets/user-content/8fe982c3-0dab-471b-a168-891d52623e01.png"
+    },
+    {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/98d6d433-4d7e-4281-85e2-3280e57a7f93.svg",
       "PackagePath": "staticwebassets/user-content/98d6d433-4d7e-4281-85e2-3280e57a7f93.svg"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/a21b9458-1726-4dfa-8417-dfad180c0171.png",
+      "PackagePath": "staticwebassets/user-content/a21b9458-1726-4dfa-8417-dfad180c0171.png"
     },
     {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/a3b79d59-804b-4418-8c87-76f2560fc138.svg",
       "PackagePath": "staticwebassets/user-content/a3b79d59-804b-4418-8c87-76f2560fc138.svg"
     },
     {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/a3da4642-7503-488b-ad9f-b703cab356d5.png",
+      "PackagePath": "staticwebassets/user-content/a3da4642-7503-488b-ad9f-b703cab356d5.png"
+    },
+    {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/a5a97248-dbdc-4fde-b9d2-038e0ce89f6a.png",
       "PackagePath": "staticwebassets/user-content/a5a97248-dbdc-4fde-b9d2-038e0ce89f6a.png"
     },
     {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/c12c5486-1bc9-4cc3-8d50-456f38eec143.png",
+      "PackagePath": "staticwebassets/user-content/c12c5486-1bc9-4cc3-8d50-456f38eec143.png"
+    },
+    {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/c7262d8a-cd53-4b44-bdfe-86c4b5eb43f8.png",
       "PackagePath": "staticwebassets/user-content/c7262d8a-cd53-4b44-bdfe-86c4b5eb43f8.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/caf5a267-b1bf-4144-bf80-1a3e6243808c.png",
+      "PackagePath": "staticwebassets/user-content/caf5a267-b1bf-4144-bf80-1a3e6243808c.png"
     },
     {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/dc13d54f-aa26-44b1-900e-1f4b4af12d38.svg",
@@ -251,6 +491,14 @@
     {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/e111d286-ea93-4dcc-8fb7-d2712bb5912f.png",
       "PackagePath": "staticwebassets/user-content/e111d286-ea93-4dcc-8fb7-d2712bb5912f.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/e9899694-cddc-4a55-89d2-241a944948a8.png",
+      "PackagePath": "staticwebassets/user-content/e9899694-cddc-4a55-89d2-241a944948a8.png"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/ede44669-48e4-4ee1-afaf-08febfa97175.png",
+      "PackagePath": "staticwebassets/user-content/ede44669-48e4-4ee1-afaf-08febfa97175.png"
     },
     {
       "Id": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/wwwroot/user-content/fcc42cca-f63b-40b9-b0e7-aacd49c3a74d.png",

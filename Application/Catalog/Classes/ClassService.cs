@@ -302,7 +302,10 @@ namespace DaisyStudy.Application.Catalog.Classes
             _class.Topic = request.Topic;
             _class.ClassRoom = request.ClassRoom;
             _class.Description = request.Description;
+            _class.isPublic = request.IsPublic;
+            _class.Status = request.Status;
 
+            if(_class.Status != request.Status) 
             //Save image
             if (request.ThumbnailImage != null)
             {
