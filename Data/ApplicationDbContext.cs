@@ -28,6 +28,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
         builder.ApplyConfiguration(new ContactConfiguration());
         builder.ApplyConfiguration(new ExamScheduleConfiguration());
         builder.ApplyConfiguration(new HomeworkConfiguration());
+        builder.ApplyConfiguration(new HomeworkImageConfiguration());
         builder.ApplyConfiguration(new MessageConfiguration());
         builder.ApplyConfiguration(new NotificationConfiguration());
         builder.ApplyConfiguration(new NotificationImageConfiguration());
@@ -36,6 +37,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
         builder.ApplyConfiguration(new StudentExamConfiguration());
         builder.ApplyConfiguration(new StudentExamDetailConfiguration());
         builder.ApplyConfiguration(new SubmissionConfiguration());
+        builder.ApplyConfiguration(new SubmissionImageConfiguration());
         builder.Entity<IdentityRole<string>>().ToTable("AppRoles");
         builder.Entity<IdentityUserClaim<string>>().ToTable("AppUserClaims");
         builder.Entity<IdentityUserRole<string>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -51,11 +53,13 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
     public DbSet<Contact> Contacts { set; get; } = default!;
     public DbSet<ExamSchedule> ExamSchedules { set; get; } = default!;
     public DbSet<Homework> Homeworks { set; get; } = default!;
+    public DbSet<HomeworkImage> HomeworkImages { set; get; } = default!;
     public DbSet<Notification> Notifications { set; get; } = default!;
     public DbSet<Question> Questions { set; get; } = default!;
     public DbSet<StudentExam> StudentExams { set; get; } = default!;
     public DbSet<StudentExamDetail> StudentExamDetails { set; get; } = default!;
     public DbSet<Submission> Submissions { set; get; } = default!;
+    public DbSet<SubmissionImage> SubmissionImages { set; get; } = default!;
     public DbSet<NotificationImage> NotificationImages { set; get; } = default!;
     public DbSet<Room> Rooms { set; get; } = default!;
     public DbSet<Message> Messages { set; get; } = default!;
@@ -191,8 +195,25 @@ public class HomeworkConfiguration : IEntityTypeConfiguration<Homework>
         builder.Property(x => x.ClassID).IsRequired();
         builder.Property(x => x.Deadline).IsRequired();
         builder.Property(x => x.DateTimeCreated).IsRequired();
+        builder.Property(x => x.SubmissionDateTime).IsRequired();
 
         builder.HasOne(x => x.Class).WithMany(x => x.Homeworks).HasForeignKey(x => x.ClassID);
+    }
+}
+
+public class HomeworkImageConfiguration : IEntityTypeConfiguration<HomeworkImage>
+{
+    public void Configure(EntityTypeBuilder<HomeworkImage> builder)
+    {
+        builder.ToTable("HomeworkImages");
+
+        builder.HasKey(x => x.ImageID);
+
+        builder.Property(x => x.HomeworkID).IsRequired();
+        builder.Property(x => x.ImageID).UseIdentityColumn();
+        builder.Property(x => x.ImagePath).HasMaxLength(200).IsRequired();
+
+        builder.HasOne(x => x.Homework).WithMany(x => x.HomeworkImages).HasForeignKey(x => x.HomeworkID);
     }
 }
 
@@ -222,9 +243,7 @@ public class NotificationConfiguration : IEntityTypeConfiguration<Notification>
         builder.Property(x => x.NotificationID).UseIdentityColumn();
         builder.Property(x => x.ClassID).IsRequired();
         builder.Property(x => x.Title).IsRequired();
-        builder.Property(x => x.Content).IsRequired();
         builder.Property(x => x.DateTimeCreated).IsRequired();
-
         builder.HasOne(x => x.Class).WithMany(x => x.Notifications).HasForeignKey(x => x.ClassID);
     }
 }
@@ -317,12 +336,29 @@ public class SubmissionConfiguration : IEntityTypeConfiguration<Submission>
     {
         builder.ToTable("Submissions");
 
-        builder.HasKey(x => new { x.HomeworkID, x.StudentID });
+        builder.HasKey(x => new { x.SubmissionID });
 
+        builder.Property(x => x.SubmissionID).UseIdentityColumn();
         builder.Property(x => x.Mark).IsRequired().HasDefaultValue(0);
         builder.Property(x => x.Mark).IsRequired();
 
         builder.HasOne(x => x.Homework).WithMany(x => x.Submissions).HasForeignKey(x => x.HomeworkID);
         builder.HasOne(x => x.Student).WithMany(x => x.Submissions).HasForeignKey(x => x.StudentID);
+    }
+}
+
+public class SubmissionImageConfiguration : IEntityTypeConfiguration<SubmissionImage>
+{
+    public void Configure(EntityTypeBuilder<SubmissionImage> builder)
+    {
+        builder.ToTable("SubmissionImages");
+
+        builder.HasKey(x => x.ImageID);
+
+        builder.Property(x => x.SubmissionID).IsRequired();
+        builder.Property(x => x.ImageID).UseIdentityColumn();
+        builder.Property(x => x.ImagePath).HasMaxLength(200).IsRequired();
+
+        builder.HasOne(x => x.Submission).WithMany(x => x.SubmissionImages).HasForeignKey(x => x.SubmissionID);
     }
 }

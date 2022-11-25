@@ -10,6 +10,7 @@ public class NotificationViewModel
 
     [Display(Name = "Mã lớp học")]
     public string? ClassID { set; get; }
+    public int? ID { set; get; }
 
     [Display(Name = "Tên lớp học")]
     public string? ClassName { set; get; }

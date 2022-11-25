@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DaisyStudy.Data;
 using DaisyStudy.Data.Enums;
 
 namespace DaisyStudy.Models.Catalog.Submissions;
 
 public class SubmissionViewModel
 {
+    public int SubmissionID { set; get; }
     public int HomeworkID { set; get; }
-
     public string? StudentID { set; get; }
 
     [Display(Name = "Tên")]
@@ -58,7 +59,6 @@ public class SubmissionViewModel
     [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
     public DateTime? DateTimeUpdated { set; get; }
 
-    [Display(Name = "Nộp trễ")]
-    public Delay Delay { set; get; }
+    public ICollection<SubmissionImage>? SubmissionImages { get; set; }
 }
 

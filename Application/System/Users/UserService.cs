@@ -46,7 +46,6 @@ namespace DaisyStudy.Application.System.Users
                 LastName = request.LastName,
                 UserName = request.UserName,
                 PhoneNumber = request.PhoneNumber,
-                Avatar = request.Avatar,
                 AccountBalance = 0
             };
             var result = await _userManager.CreateAsync(user, request.Password);

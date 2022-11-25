@@ -11174,11 +11174,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/DaisyStudy.csproj",
+      "projectUniqueName": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/DaisyStudy.csproj",
       "projectName": "DaisyStudy",
-      "projectPath": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/DaisyStudy.csproj",
+      "projectPath": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/DaisyStudy.csproj",
       "packagesPath": "/Users/nguyenphuduc/.nuget/packages/",
-      "outputPath": "/Users/nguyenphuduc/Downloads/.NET-Core-Identity-Custom-master/ASP.NETCoreIdentityCustom/obj/",
+      "outputPath": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/nguyenphuduc/.nuget/NuGet/NuGet.Config"

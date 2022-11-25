@@ -274,7 +274,7 @@
             var form = document.getElementById("uploadForm");
             $.ajax({
                 type: "POST",
-                url: '/api/Upload',
+                url: '/api/Uploads',
                 data: new FormData(form),
                 contentType: false,
                 processData: false,

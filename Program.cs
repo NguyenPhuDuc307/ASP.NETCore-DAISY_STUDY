@@ -7,11 +7,15 @@ using DaisyStudy.Repositories;
 using DaisyStudy.Application.Common;
 using DaisyStudy.Application.System.Users;
 using DaisyStudy.Application.Catalog.Classes;
-using System.Configuration;
 using DaisyStudy.Models.VNPAY;
 using DaisyStudy.Controllers.Hubs;
 using DaisyStudy.Application.Common.SignalR;
 using DaisyStudy.Application.Catalog.Rooms;
+using DaisyStudy.Application.Catalog.Notifications;
+using DaisyStudy.Application.Catalog.Comments;
+using Microsoft.AspNetCore.Authentication;
+using DaisyStudy.Application.Catalog.Homeworks;
+using DaisyStudy.Application.Catalog.Submissions;
 
 var builder = WebApplication.CreateBuilder(args);
 var mvcBuilder = builder.Services.AddRazorPages();
@@ -38,6 +42,7 @@ builder.Services.AddAuthentication()
             IConfigurationSection googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
             googleOptions.ClientId = googleAuthNSection["ClientId"];
             googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
+            googleOptions.ClaimActions.MapJsonKey("image", "picture");
         })
     .AddFacebook(facebookOptions =>
     {
@@ -51,10 +56,10 @@ builder.Services.AddAuthentication()
         microsoftOptions.ClientId = microsoftAuthNSection["ClientId"];
         microsoftOptions.ClientSecret = microsoftAuthNSection["ClientSecret"];
     });
-    
-    builder.Services.AddTransient<IStorageService, FileStorageService>();
 
-    builder.Services.AddSignalR();
+builder.Services.AddTransient<IStorageService, FileStorageService>();
+
+builder.Services.AddSignalR();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -124,4 +129,8 @@ void AddTransient()
     builder.Services.AddTransient<IClassService, ClassService>();
     builder.Services.AddTransient<IFileValidator, FileValidator>();
     builder.Services.AddTransient<IRoomService, RoomService>();
+    builder.Services.AddTransient<INotificationService, NotificationService>();
+    builder.Services.AddTransient<ICommentService, CommentService>();
+    builder.Services.AddTransient<IHomeworkService, HomeworkService>();
+    builder.Services.AddTransient<ISubmissionService, SubmissionService>();
 }

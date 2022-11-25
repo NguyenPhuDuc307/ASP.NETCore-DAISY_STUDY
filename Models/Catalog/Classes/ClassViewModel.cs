@@ -57,6 +57,7 @@ public class ClassViewModel
     public IsPublic isPublic { set; get; }
 
     public ICollection<ClassDetail>? ClassDetails { set; get; }
+    public ICollection<Homework>? Homeworks { set; get; }
     public ICollection<NotificationViewModel>? Notifications { set; get; }
 }
 

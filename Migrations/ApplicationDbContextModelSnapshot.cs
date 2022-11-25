@@ -340,11 +340,40 @@ namespace DaisyStudy.Migrations
                     b.Property<string>("HomeworkName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("SubmissionDateTime")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("HomeworkID");
 
                     b.HasIndex("ClassID");
 
                     b.ToTable("Homeworks", (string)null);
+                });
+
+            modelBuilder.Entity("DaisyStudy.Data.HomeworkImage", b =>
+                {
+                    b.Property<int>("ImageID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImageID"));
+
+                    b.Property<int>("HomeworkID")
+                        .HasColumnType("int");
+
+                    b.Property<long>("ImageFileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("ImageID");
+
+                    b.HasIndex("HomeworkID");
+
+                    b.ToTable("HomeworkImages", (string)null);
                 });
 
             modelBuilder.Entity("DaisyStudy.Data.Message", b =>
@@ -390,7 +419,6 @@ namespace DaisyStudy.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateTimeCreated")
@@ -556,20 +584,20 @@ namespace DaisyStudy.Migrations
 
             modelBuilder.Entity("DaisyStudy.Data.Submission", b =>
                 {
-                    b.Property<int>("HomeworkID")
+                    b.Property<int>("SubmissionID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("StudentID")
-                        .HasColumnType("nvarchar(450)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubmissionID"));
 
-                    b.Property<DateTime?>("DateTimeUpdated")
+                    b.Property<DateTime>("DateTimeUpdated")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("Delay")
-                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HomeworkID")
+                        .HasColumnType("int");
 
                     b.Property<float>("Mark")
                         .ValueGeneratedOnAdd()
@@ -579,14 +607,45 @@ namespace DaisyStudy.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("StudentID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("SubmissionDateTime")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("HomeworkID", "StudentID");
+                    b.HasKey("SubmissionID");
+
+                    b.HasIndex("HomeworkID");
 
                     b.HasIndex("StudentID");
 
                     b.ToTable("Submissions", (string)null);
+                });
+
+            modelBuilder.Entity("DaisyStudy.Data.SubmissionImage", b =>
+                {
+                    b.Property<int>("ImageID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImageID"));
+
+                    b.Property<long>("ImageFileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("SubmissionID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ImageID");
+
+                    b.HasIndex("SubmissionID");
+
+                    b.ToTable("SubmissionImages", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -813,6 +872,17 @@ namespace DaisyStudy.Migrations
                     b.Navigation("Class");
                 });
 
+            modelBuilder.Entity("DaisyStudy.Data.HomeworkImage", b =>
+                {
+                    b.HasOne("DaisyStudy.Data.Homework", "Homework")
+                        .WithMany("HomeworkImages")
+                        .HasForeignKey("HomeworkID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Homework");
+                });
+
             modelBuilder.Entity("DaisyStudy.Data.Message", b =>
                 {
                     b.HasOne("DaisyStudy.Data.ApplicationUser", "FromUser")
@@ -922,13 +992,22 @@ namespace DaisyStudy.Migrations
 
                     b.HasOne("DaisyStudy.Data.ApplicationUser", "Student")
                         .WithMany("Submissions")
-                        .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StudentID");
 
                     b.Navigation("Homework");
 
                     b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("DaisyStudy.Data.SubmissionImage", b =>
+                {
+                    b.HasOne("DaisyStudy.Data.Submission", "Submission")
+                        .WithMany("SubmissionImages")
+                        .HasForeignKey("SubmissionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Submission");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1022,6 +1101,8 @@ namespace DaisyStudy.Migrations
 
             modelBuilder.Entity("DaisyStudy.Data.Homework", b =>
                 {
+                    b.Navigation("HomeworkImages");
+
                     b.Navigation("Submissions");
                 });
 
@@ -1045,6 +1126,11 @@ namespace DaisyStudy.Migrations
             modelBuilder.Entity("DaisyStudy.Data.StudentExam", b =>
                 {
                     b.Navigation("StudentExamDetails");
+                });
+
+            modelBuilder.Entity("DaisyStudy.Data.Submission", b =>
+                {
+                    b.Navigation("SubmissionImages");
                 });
 #pragma warning restore 612, 618
         }

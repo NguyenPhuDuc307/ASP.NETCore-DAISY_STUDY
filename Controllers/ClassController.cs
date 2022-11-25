@@ -136,15 +136,9 @@ namespace DaisyStudy.Controllers
             if (!ModelState.IsValid)
                 return View(request);
 
-            var result = await _classService.Update(request);
-            if (result != 0)
-            {
-                TempData["result"] = "Cập nhật lớp học thành công";
-                return RedirectToAction("Index");
-            }
-
-            ModelState.AddModelError("", "Cập nhật lớp học thất bại");
-            return View(request);
+            await _classService.Update(request);
+            TempData["result"] = "Cập nhật lớp học thành công";
+            return RedirectToAction("Details", "Class", new {id = request.ID});
         }
 
         [HttpPost]

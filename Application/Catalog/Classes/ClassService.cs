@@ -237,7 +237,8 @@ namespace DaisyStudy.Application.Catalog.Classes
                     Avatar = x.u.Avatar,
                     FullName = x.u.FirstName + " " + x.u.LastName,
                     Content = x.c.Content,
-                    DateTimeCreated = x.c.DateTimeCreated
+                    DateTimeCreated = x.c.DateTimeCreated,
+                    UserName = x.u.UserName
                 }).ToListAsync();
 
             return data;
@@ -257,7 +258,7 @@ namespace DaisyStudy.Application.Catalog.Classes
                 Content = x.n.Content,
                 DateTimeCreated = x.n.DateTimeCreated,
                 NotificationImages = _context.NotificationImages.Where(p => p.NotificationID == x.n.NotificationID).ToList()
-            }).ToListAsync();
+            }).OrderByDescending(x=> x.DateTimeCreated).ToListAsync();
 
             foreach (var item in data)
             {
@@ -269,7 +270,7 @@ namespace DaisyStudy.Application.Catalog.Classes
 
         public async Task<ClassViewModel> GetById(int id)
         {
-            var @class = await _context.Classes.Include(x => x.ClassDetails)
+            var @class = await _context.Classes.Include(x => x.ClassDetails).Include(x=> x.Homeworks)
                 .FirstOrDefaultAsync(x => x.ID == id);
             var classDetail = _context.ClassDetails.FirstOrDefault(x => x.ClassID == @class.ID && x.IsTeacher == Teacher.Teacher);
             if (classDetail == null) throw new DaisyStudyException($"Cannot find a class detail {id}");

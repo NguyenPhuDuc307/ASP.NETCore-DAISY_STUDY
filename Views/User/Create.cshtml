@@ -50,7 +50,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="UserName" class="control-label"></label>
-                        <input asp-for="UserName" class="form-control" />
+                        <input asp-for="UserName" class="form-control" autocomplete="off"/>
                         <span asp-validation-for="UserName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -62,25 +62,6 @@
                         <label asp-for="ConfirmPassword" class="control-label"></label>
                         <input asp-for="ConfirmPassword" class="form-control" />
                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <p>Chọn ảnh đại diện</p>
-                        <label>
-                            <input type="radio" value="0" checked />
-                            <img class="avatar-icon" src="/img/undraw_profile.svg" alt="" />
-                        </label>
-                        <label>
-                            <input type="radio" value="1" />
-                            <img class="avatar-icon" src="/img/undraw_profile_1.svg" alt="" />
-                        </label>
-                        <label>
-                            <input type="radio" value="2" />
-                            <img class="avatar-icon" src="/img/undraw_profile_2.svg" alt="" />
-                        </label>
-                        <label>
-                            <input type="radio" value="3" />
-                            <img class="avatar-icon" src="/img/undraw_profile_3.svg" alts="" />
-                        </label>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Lưu lại" class="btn btn-primary" />

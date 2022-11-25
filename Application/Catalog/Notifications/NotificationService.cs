@@ -1,21 +1,20 @@
-﻿using DaisyStudy.Data.EF;
-using DaisyStudy.Data.Entities;
-using DaisyStudy.Utilities.Exceptions;
-using DaisyStudy.ViewModels.Common;
+﻿using DaisyStudy.Utilities.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using DaisyStudy.ViewModels.Catalog.Notifications;
-using Microsoft.AspNetCore.Http;
 using System.Net.Http.Headers;
 using DaisyStudy.Application.Common;
+using DaisyStudy.Data;
+using DaisyStudy.Models.Catalog.Notifications;
+using DaisyStudy.Models.Common;
 
 namespace DaisyStudy.Application.Catalog.Notifications;
 
 public class NotificationService : INotificationService
 {
-    private readonly DaisyStudyDbContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly IStorageService _storageService;
     private const string USER_CONTENT_FOLDER_NAME = "user-content";
-    public NotificationService(DaisyStudyDbContext context, IStorageService storageService)
+    public NotificationService(ApplicationDbContext context,
+                               IStorageService storageService)
     {
         _storageService = storageService;
         _context = context;
@@ -28,22 +27,33 @@ public class NotificationService : INotificationService
         notification.Title = request.Title;
         notification.Content = request.Content;
 
-        //Save image
-        if (request.ThumbnailImage != null)
+        if (request.ThumbnailImages != null)
         {
-            var thumbnailImage = await _context.NotificationImages.FirstOrDefaultAsync(x => x.NotificationID == request.NotificationID);
-            if (thumbnailImage != null)
+            var nImages = await _context.NotificationImages.Where(x => x.NotificationID == request.NotificationID).ToListAsync();
+
+            foreach (var item in nImages)
             {
-                thumbnailImage.ImageFileSize = request.ThumbnailImage.Length;
-                thumbnailImage.ImagePath = await this.SaveFile(request.ThumbnailImage);
-                _context.NotificationImages.Update(thumbnailImage);
+                await _storageService.DeleteFileAsync(item.ImagePath.Replace("/user-content/", ""));
+                _context.Remove(item);
+                await _context.SaveChangesAsync();
+            }
+            foreach (var item in request.ThumbnailImages)
+            {
+                var image = new NotificationImage()
+                {
+                    NotificationID = notification.NotificationID,
+                    ImageFileSize = item.Length,
+                    ImagePath = await this.SaveFile(item)
+                };
+                _context.NotificationImages.Add(image);
+                await _context.SaveChangesAsync();
             }
         }
-
+        
         return await _context.SaveChangesAsync();
     }
 
-    public async Task<ApiResult<NotificationViewModel>> GetById(int NotificationID)
+    public async Task<NotificationViewModel> GetById(int NotificationID)
     {
         var notification = await _context.Notifications.FindAsync(NotificationID);
         if (notification == null) throw new DaisyStudyException($"Cannot find a notification {NotificationID}");
@@ -58,9 +68,10 @@ public class NotificationService : INotificationService
             ClassName = _class.ClassName,
             Title = notification.Title,
             Content = notification.Content,
-            DateTimeCreated = notification.DateTimeCreated
+            DateTimeCreated = notification.DateTimeCreated,
+            ID = _class.ID
         };
-        return new ApiSuccessResult<NotificationViewModel>(notificationViewModel);
+        return notificationViewModel;
     }
 
     private async Task<string> SaveFile(IFormFile file)
@@ -80,6 +91,7 @@ public class NotificationService : INotificationService
             Content = request.Content,
             DateTimeCreated = DateTime.Now
         };
+
         _context.Notifications.Add(notification);
         await _context.SaveChangesAsync();
         // Save file
@@ -103,12 +115,11 @@ public class NotificationService : INotificationService
     {
         var notification = await _context.Notifications.FindAsync(NotificationID);
         if (notification == null) throw new DaisyStudyException($"Cannot find a notification {NotificationID}");
-
         _context.Notifications.Remove(notification);
         return await _context.SaveChangesAsync();
     }
-    
-    public async Task<ApiResult<PagedResult<NotificationViewModel>>> GetAllPaging(GetManageNotificationPagingRequest request)
+
+    public async Task<PagedResult<NotificationViewModel>> GetAllPaging(GetManageNotificationPagingRequest request)
     {
         //1. Select join
         var query = from n in _context.Notifications
@@ -148,7 +159,7 @@ public class NotificationService : INotificationService
             PageIndex = request.PageIndex,
             Items = data
         };
-        return new ApiSuccessResult<PagedResult<NotificationViewModel>>(pagedResult);
+        return pagedResult;
     }
 }
 

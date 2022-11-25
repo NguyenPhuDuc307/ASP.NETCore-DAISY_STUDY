@@ -10861,20 +10861,20 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url("~/img/background.svg");
-  background-position: center;
+  background: url("/img/background.svg");
+  background-position: top;
   background-size: cover;
 }
 
 .bg-register-image {
-  background: url("~/img/background.svg");
-  background-position: center;
+  background: url("/img/background.svg");
+  background-position: top;
   background-size: cover;
 }
 
 .bg-password-image {
-  background: url("~/img/background.svg");
-  background-position: center;
+  background: url("/img/background.svg");
+  background-position: top;
   background-size: cover;
 }
 

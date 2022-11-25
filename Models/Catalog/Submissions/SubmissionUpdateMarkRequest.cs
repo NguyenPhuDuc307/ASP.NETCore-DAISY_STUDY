@@ -4,9 +4,7 @@ namespace DaisyStudy.Models.Catalog.Submissions;
 
 public class SubmissionUpdateMarkRequest
 {
-    public int HomeworkID { set; get; }
-
-    public Guid StudentID { set; get; }
+    public int SubmissionID { set; get; }
 
     [Display(Name = "Điểm")]
     public float Mark { set; get; }
