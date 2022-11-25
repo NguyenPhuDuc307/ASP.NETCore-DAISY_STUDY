@@ -13,9 +13,14 @@ public class HomeworkCreateRequest
 
     [Display(Name = "Mô tả")]
     public string? Description { set; get; }
+    [Display(Name = "Ngày làm bài")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+    public DateTime SubmissionDateTime { set; get; }
 
     [Display(Name = "Hạn nộp bài")]
     [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
     public DateTime Deadline { set; get; }
+    [Display(Name = "Hình ảnh")]
+    public List<IFormFile>? ThumbnailImages { get; set; }
 }
 

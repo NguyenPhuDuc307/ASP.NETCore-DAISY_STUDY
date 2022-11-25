@@ -4,7 +4,7 @@ namespace DaisyStudy.Models.System.Users;
 
 public class UserDeleteRequest
 {
-    public Guid Id { get; set; }
+    public string Id { get; set; }
     [Display(Name = "Tên")]
     public string? FirstName { get; set; }
 
@@ -15,7 +15,7 @@ public class UserDeleteRequest
     [DataType(DataType.Date)]
     public DateTime Dob { get; set; }
 
-    [Display(Name = "Hòm thư")]
+    [Display(Name = "Địa chỉ email")]
     public string? Email { get; set; }
 
     [Display(Name = "Số điện thoại")]

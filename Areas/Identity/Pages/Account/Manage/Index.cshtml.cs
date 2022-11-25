@@ -106,7 +106,7 @@ namespace DaisyStudy.Areas.Identity.Pages.Account.Manage
                 LastName = _user.LastName,
                 Dob = _user.Dob,
                 ImagePath = _user.Avatar,
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
             };
         }
 
@@ -118,6 +118,7 @@ namespace DaisyStudy.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
             ViewData["Avatar"] = user.Avatar;
+            ViewData["AccountBalance"] = user.AccountBalance;
             await LoadAsync(user);
             return Page();
         }

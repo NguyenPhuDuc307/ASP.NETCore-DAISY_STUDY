@@ -16,8 +16,8 @@ public class Class
     public int ViewCount { set; get; }
     public Status Status { set; get; }
     public IsPublic isPublic { set; get; }
-    public List<ClassDetail>? ClassDetails { set; get; }
-    public List<Homework>? Homeworks { set; get; }
-    public List<Notification>? Notifications { set; get; }
-    public List<ExamSchedule>? ExamSchedules { set; get; }
+    public ICollection<ClassDetail>? ClassDetails { set; get; }
+    public ICollection<Homework>? Homeworks { set; get; }
+    public ICollection<Notification>? Notifications { set; get; }
+    public ICollection<ExamSchedule>? ExamSchedules { set; get; }
 }

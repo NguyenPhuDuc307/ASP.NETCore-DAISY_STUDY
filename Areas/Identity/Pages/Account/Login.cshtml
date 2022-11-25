@@ -46,7 +46,7 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Chào mừng đến với DaisyStudy</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Chào mừng đến với Daisy Study</h1>
                                     </div>
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <form class="user" id="account" method="post">
@@ -73,26 +73,30 @@
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
-                                        <hr>
-                                        <button type="submit" name="provider"
+                                    </form>
+                                    <hr>
+                                    <form id="external-account" asp-page="./ExternalLogin"
+                                        asp-route-returnUrl="@Model.ReturnUrl" method="post" method="post" class="user">
+                                        <button type="submit" name="provider" value="@Model.ExternalLogins[0].Name"
                                             title="Log in using your @Model.ExternalLogins[0].DisplayName account"
                                             class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Đăng nhập với
                                             @Model.ExternalLogins[0].Name
                                         </button>
-                                        <button type="submit" name="provider"
+                                        <button type="submit" name="provider" value="@Model.ExternalLogins[1].Name"
                                             title="Log in using your @Model.ExternalLogins[1].DisplayName account"
                                             class="btn btn-facebook btn-user btn-block">
                                             <i class="fab fa-facebook fa-fw"></i> Đăng nhập với
                                             @Model.ExternalLogins[1].Name
                                         </button>
-                                        <button type="submit" name="provider"
+                                        <button type="submit" name="provider" value="@Model.ExternalLogins[2].Name"
                                             title="Log in using your @Model.ExternalLogins[2].DisplayName account"
                                             class="btn btn-success btn-user btn-block">
                                             <i class="fab fa-microsoft fa-fw"></i> Đăng nhập với
                                             @Model.ExternalLogins[2].Name
                                         </button>
                                     </form>
+
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" id="forgot-password" asp-page="./ForgotPassword">Quên mật

@@ -1,3 +1,6 @@
+using System.Text;
+using System.Text.RegularExpressions;
+using AutoMapper;
 using DaisyStudy.Data;
 using DaisyStudy.Models.Common;
 using DaisyStudy.Models.System.Users;
@@ -11,13 +14,70 @@ namespace DaisyStudy.Application.System.Users
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;
-        public UserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
+        private readonly IMapper _mapper;
+        public UserService(UserManager<ApplicationUser> userManager
+        , SignInManager<ApplicationUser> signInManager
+        , IConfiguration configuration
+        , IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _mapper = mapper;
         }
-        public async Task<bool> Delete(Guid id)
+
+        public async Task<string> Register(RegisterRequest request)
+        {
+            var user = await _userManager.FindByNameAsync(request.UserName);
+            if (user != null)
+            {
+                return "Tài khoản đã tồn tại";
+            }
+            if (await _userManager.FindByEmailAsync(request.Email) != null)
+            {
+                return "Email đã tồn tại";
+            }
+
+            user = new ApplicationUser()
+            {
+                Dob = request.Dob,
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                UserName = request.UserName,
+                PhoneNumber = request.PhoneNumber,
+                AccountBalance = 0
+            };
+            var result = await _userManager.CreateAsync(user, request.Password);
+            if (result.Succeeded)
+            {
+                return "Đăng ký thành công";
+            }
+            return "Đăng ký không thất bại";
+        }
+
+        public async Task<string> Update(string id, ApplicationUser request)
+        {
+            if (await _userManager.Users.AnyAsync(x => x.Email == request.Email && x.Id != id))
+            {
+                return "Email đã tồn tại";
+            }
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            user.FirstName = request.FirstName;
+            user.LastName = request.LastName;
+            user.PhoneNumber = request.PhoneNumber;
+            user.Dob = request.Dob;
+            user.Email = request.Email;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return "Cập nhật thành công";
+            }
+            return "Cập nhật thất bại";
+        }
+
+        public async Task<bool> Delete(string id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
@@ -31,7 +91,7 @@ namespace DaisyStudy.Application.System.Users
             return false;
         }
 
-        public async Task<UserViewModel> GetById(Guid id)
+        public async Task<UserViewModel> GetById(string id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
@@ -39,17 +99,9 @@ namespace DaisyStudy.Application.System.Users
                 return null;
             }
             var roles = await _userManager.GetRolesAsync(user);
-            var userViewModel = new UserViewModel()
-            {
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                FirstName = user.FirstName,
-                Dob = user.Dob,
-                Id = user.Id,
-                LastName = user.LastName,
-                UserName = user.UserName,
-                Roles = roles
-            };
+
+            var userViewModel = _mapper.Map<ApplicationUser, UserViewModel>(user);
+            userViewModel.Roles = roles;
             return userViewModel;
         }
 
@@ -61,19 +113,8 @@ namespace DaisyStudy.Application.System.Users
                 return null;
             }
             var roles = await _userManager.GetRolesAsync(user);
-            var userViewModel = new UserViewModel()
-            {
-                Email = user.Email,
-                Avatar = user.Avatar,
-                PhoneNumber = user.PhoneNumber,
-                FirstName = user.FirstName,
-                FullName = user.FirstName + " " + user.LastName,
-                Dob = user.Dob,
-                Id = user.Id,
-                LastName = user.LastName,
-                UserName = user.UserName,
-                Roles = roles
-            };
+            var userViewModel = _mapper.Map<ApplicationUser, UserViewModel>(user);
+            userViewModel.Roles = roles;
             return userViewModel;
         }
 
@@ -85,20 +126,21 @@ namespace DaisyStudy.Application.System.Users
                 return null;
             }
             var roles = await _userManager.GetRolesAsync(user);
-            var userViewModel = new UserViewModel()
-            {
-                Email = user.Email,
-                Avatar = user.Avatar,
-                PhoneNumber = user.PhoneNumber,
-                FirstName = user.FirstName,
-                FullName = user.FirstName + " " + user.LastName,
-                Dob = user.Dob,
-                Id = user.Id,
-                LastName = user.LastName,
-                UserName = user.UserName,
-                Roles = roles
-            };
+            var userViewModel = _mapper.Map<ApplicationUser, UserViewModel>(user);
+            userViewModel.Roles = roles;
             return userViewModel;
+        }
+
+        static Regex RemoveUnicode_rg = null;
+
+        public static string RemoveUnicode(string strInput)
+        {
+            if (ReferenceEquals(RemoveUnicode_rg, null))
+            {
+                RemoveUnicode_rg = new Regex("p{IsCombiningDiacriticalMarks}+");
+            }
+            var temp = strInput.Normalize(NormalizationForm.FormD);
+            return RemoveUnicode_rg.Replace(temp, string.Empty).Replace("đ", "d").Replace("Đ", "D").ToLower();
         }
 
         public async Task<PagedResult<UserViewModel>> GetUsersPaging(GetUserPagingRequest request)
@@ -106,28 +148,20 @@ namespace DaisyStudy.Application.System.Users
             var query = _userManager.Users;
             if (!string.IsNullOrEmpty(request.Keyword))
             {
-                query = query.Where(x => x.UserName.Contains(request.Keyword)
-                || x.PhoneNumber.Contains(request.Keyword)
-                || x.Email.Contains(request.Keyword)
-                || x.FirstName.Contains(request.Keyword)
-                || x.LastName.Contains(request.Keyword));
+                query = query.Where(x => RemoveUnicode(x.UserName).Contains(RemoveUnicode(request.Keyword))
+                || RemoveUnicode(x.PhoneNumber).Contains(RemoveUnicode(request.Keyword))
+                || RemoveUnicode(x.Email).Contains(RemoveUnicode(request.Keyword))
+                || RemoveUnicode(x.FirstName).Contains(RemoveUnicode(request.Keyword))
+                || RemoveUnicode(x.LastName).Contains(RemoveUnicode(request.Keyword)));
             }
 
             //3. Paging
             int totalRow = await query.CountAsync();
 
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
-                .Take(request.PageSize)
-                .Select(x => new UserViewModel()
-                {
-                    Email = x.Email,
-                    PhoneNumber = x.PhoneNumber,
-                    UserName = x.UserName,
-                    FirstName = x.FirstName,
-                    Id = x.Id,
-                    Dob = x.Dob,
-                    LastName = x.LastName
-                }).ToListAsync();
+                .Take(request.PageSize).OrderBy(x => x.FirstName).ToListAsync();
+
+            var userViewModels = _mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserViewModel>>(data);
 
             //4. Select and projection
             var pagedResult = new PagedResult<UserViewModel>()
@@ -135,7 +169,7 @@ namespace DaisyStudy.Application.System.Users
                 TotalRecords = totalRow,
                 PageIndex = request.PageIndex,
                 PageSize = request.PageSize,
-                Items = data
+                Items = userViewModels
             };
             return pagedResult;
         }

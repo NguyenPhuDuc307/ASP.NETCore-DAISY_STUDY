@@ -2,22 +2,17 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Options;
 using DaisyStudy.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
 
 namespace DaisyStudy.Areas.Identity.Pages.Account
 {
@@ -78,15 +73,19 @@ namespace DaisyStudy.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required]
             [StringLength(255, ErrorMessage = "The first name field should have a maximum of 255 characters")]
-            [Display(Name = "Firstname")]
+            [Display(Name = "Họ")]
             public string FirstName { get; set; }
 
             [Required]
             [StringLength(255, ErrorMessage = "The last name field should have a maximum of 255 characters")]
-            [Display(Name = "Lastname")]
+            [Display(Name = "Tên")]
             public string LastName { get; set; }
+
+            [Required]
+            [StringLength(12, ErrorMessage = "The phone number field should have a maximum of 12 characters")]
+            [Display(Name = "Số điện thoại")]
+            public string PhoneNumber { get; set; }
 
             [Required]
             [DataType(DataType.Date)]
@@ -100,7 +99,7 @@ namespace DaisyStudy.Areas.Identity.Pages.Account
             [EmailAddress]
             public string Email { get; set; }
         }
-        
+
         public IActionResult OnGet() => RedirectToPage("./Login");
 
         public IActionResult OnPost(string provider, string returnUrl = null)
@@ -131,6 +130,7 @@ namespace DaisyStudy.Areas.Identity.Pages.Account
             if (result.Succeeded)
             {
                 _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+                HttpContext.Session.SetString("Session", "true");
                 return LocalRedirect(returnUrl);
             }
             if (result.IsLockedOut)
@@ -146,7 +146,8 @@ namespace DaisyStudy.Areas.Identity.Pages.Account
                 {
                     Input = new InputModel
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                        LastName = info.Principal.FindFirstValue(ClaimTypes.GivenName)
                     };
                 }
                 return Page();
@@ -168,7 +169,8 @@ namespace DaisyStudy.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                user.FirstName = Input.FirstName;
+                if (Input.FirstName != null)
+                    user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
                 user.Dob = Input.Dob;
 
@@ -198,10 +200,12 @@ namespace DaisyStudy.Areas.Identity.Pages.Account
                         // If account confirmation is required, we need to show the link if we don't have a real email sender
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)
                         {
+                            HttpContext.Session.SetString("Session", "true");
                             return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
                         }
 
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
+                        HttpContext.Session.SetString("Session", "true");
                         return LocalRedirect(returnUrl);
                     }
                 }

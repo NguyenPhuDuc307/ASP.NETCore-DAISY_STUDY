@@ -2,23 +2,17 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using DaisyStudy.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
+using DaisyStudy.Utilities.Helpers;
 
 namespace DaisyStudy.Areas.Identity.Pages.Account
 {
@@ -71,14 +65,13 @@ namespace DaisyStudy.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required]
             [StringLength(255, ErrorMessage = "The first name field should have a maximum of 255 characters")]
-            [Display(Name = "Firstname")]
+            [Display(Name = "Họ")]
             public string FirstName { get; set; }
 
             [Required]
             [StringLength(255, ErrorMessage = "The last name field should have a maximum of 255 characters")]
-            [Display(Name = "Lastname")]
+            [Display(Name = "Tên")]
             public string LastName { get; set; }
 
             [Required]
@@ -134,8 +127,8 @@ namespace DaisyStudy.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-
-                user.FirstName = Input.FirstName;
+                if (Input.FirstName != null)
+                    user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
                 user.Dob = Input.Dob;
                 user.PhoneNumber = Input.PhoneNumber;
@@ -157,8 +150,8 @@ namespace DaisyStudy.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    SendMail.SendEmail(Input.Email, "Confirm your email",
+                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.", "");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

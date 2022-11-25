@@ -10,5 +10,4 @@ public class UploadViewModel
     public int RoomId { get; set; }
     [Required]
     public IFormFile? File { get; set; }
-    public string? UserName { get; set; }
 }

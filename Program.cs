@@ -5,6 +5,17 @@ using DaisyStudy.Core;
 using DaisyStudy.Core.Repositories;
 using DaisyStudy.Repositories;
 using DaisyStudy.Application.Common;
+using DaisyStudy.Application.System.Users;
+using DaisyStudy.Application.Catalog.Classes;
+using DaisyStudy.Models.VNPAY;
+using DaisyStudy.Controllers.Hubs;
+using DaisyStudy.Application.Common.SignalR;
+using DaisyStudy.Application.Catalog.Rooms;
+using DaisyStudy.Application.Catalog.Notifications;
+using DaisyStudy.Application.Catalog.Comments;
+using Microsoft.AspNetCore.Authentication;
+using DaisyStudy.Application.Catalog.Homeworks;
+using DaisyStudy.Application.Catalog.Submissions;
 
 var builder = WebApplication.CreateBuilder(args);
 var mvcBuilder = builder.Services.AddRazorPages();
@@ -16,6 +27,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 if (builder.Environment.IsDevelopment())
 {
@@ -28,6 +42,7 @@ builder.Services.AddAuthentication()
             IConfigurationSection googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
             googleOptions.ClientId = googleAuthNSection["ClientId"];
             googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
+            googleOptions.ClaimActions.MapJsonKey("image", "picture");
         })
     .AddFacebook(facebookOptions =>
     {
@@ -41,8 +56,10 @@ builder.Services.AddAuthentication()
         microsoftOptions.ClientId = microsoftAuthNSection["ClientId"];
         microsoftOptions.ClientSecret = microsoftAuthNSection["ClientSecret"];
     });
-    
-    builder.Services.AddTransient<IStorageService, FileStorageService>();
+
+builder.Services.AddTransient<IStorageService, FileStorageService>();
+
+builder.Services.AddSignalR();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -53,7 +70,11 @@ AddAuthorizationPolicies();
 
 #endregion
 
-AddScoped();
+AddTransient();
+
+builder.Services.AddSingleton(builder.Configuration.GetSection("VNPayConfig").Get<VNPayConfig>());
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
@@ -72,9 +93,13 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseSession();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapHub<ChatHub>("/chatHub");
 
 app.MapRazorPages();
 
@@ -95,9 +120,17 @@ void AddAuthorizationPolicies()
     });
 }
 
-void AddScoped()
+void AddTransient()
 {
-    builder.Services.AddScoped<IUserRepository, UserRepository>();
-    builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-    builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+    builder.Services.AddTransient<IUserRepository, UserRepository>();
+    builder.Services.AddTransient<IRoleRepository, RoleRepository>();
+    builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+    builder.Services.AddTransient<IUserService, UserService>();
+    builder.Services.AddTransient<IClassService, ClassService>();
+    builder.Services.AddTransient<IFileValidator, FileValidator>();
+    builder.Services.AddTransient<IRoomService, RoomService>();
+    builder.Services.AddTransient<INotificationService, NotificationService>();
+    builder.Services.AddTransient<ICommentService, CommentService>();
+    builder.Services.AddTransient<IHomeworkService, HomeworkService>();
+    builder.Services.AddTransient<ISubmissionService, SubmissionService>();
 }

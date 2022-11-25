@@ -7,6 +7,7 @@ public class CommentViewModel
     public int CommentID { set; get; }
     public int NotificationID { set; get; }
     public string? UserID { set; get; }
+    public string? UserName { set; get; }
 
     [Display(Name = "Ảnh đại diện")]
     public string? Avatar { set; get; }

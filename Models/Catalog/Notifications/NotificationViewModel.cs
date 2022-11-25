@@ -10,6 +10,7 @@ public class NotificationViewModel
 
     [Display(Name = "Mã lớp học")]
     public string? ClassID { set; get; }
+    public int? ID { set; get; }
 
     [Display(Name = "Tên lớp học")]
     public string? ClassName { set; get; }
@@ -24,8 +25,8 @@ public class NotificationViewModel
     [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
     public DateTime DateTimeCreated { set; get; }
 
-    public List<NotificationImage>? NotificationImages { get; set; }
+    public ICollection<NotificationImage>? NotificationImages { get; set; }
 
-    public List<CommentViewModel>? Comments { get; set; }
+    public ICollection<CommentViewModel>? Comments { get; set; }
 }
 
