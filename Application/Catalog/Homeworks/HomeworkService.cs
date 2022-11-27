@@ -66,6 +66,9 @@ public class HomeworkService : IHomeworkService
         var _class = await _context.Classes.FindAsync(homework.ClassID);
         if (_class == null) throw new DaisyStudyException($"Cannot find a class {homework.ClassID}");
 
+        var classDetail = await _context.ClassDetails.FirstOrDefaultAsync(x=> x.ClassID == _class.ID && x.IsTeacher == Data.Enums.Teacher.Teacher);
+        if (classDetail == null) throw new DaisyStudyException($"Cannot find a class {homework.ClassID}");
+
         var homeworkViewModel = new HomeworkViewModel()
         {
             HomeworkID = homework.HomeworkID,
@@ -76,6 +79,7 @@ public class HomeworkService : IHomeworkService
             DateTimeCreated = homework.DateTimeCreated,
             SubmissionDateTime = homework.SubmissionDateTime,
             Deadline = homework.Deadline,
+            TeacherID = classDetail.UserID,
             HomeworkImages = await _context.HomeworkImages.Where(x=> x.HomeworkID == homework.HomeworkID).ToListAsync(),
             Submissions = await _context.Submissions.Where(x=> x.HomeworkID == homework.HomeworkID).ToListAsync()
         };
@@ -178,6 +182,32 @@ public class HomeworkService : IHomeworkService
             Items = data
         };
         return pagedResult;
+    }
+
+    public async Task<List<HomeworkViewModel>> GetAll()
+    {
+        //1. Select join
+        var query = from hw in _context.Homeworks
+                    join c in _context.Classes on hw.ClassID equals c.ID into hwc
+                    from c in hwc.DefaultIfEmpty()
+                    select new { hw, c };
+
+        //3. Paging
+        int totalRow = await query.CountAsync();
+
+        var data = await query
+            .Select(x => new HomeworkViewModel()
+            {
+                HomeworkID = x.hw.HomeworkID,
+                ID = x.c.ID,
+                ClassName = x.c.ClassName,
+                HomeworkName = x.hw.HomeworkName,
+                Description = x.hw.Description,
+                DateTimeCreated = x.hw.DateTimeCreated,
+                Deadline = x.hw.Deadline,
+                HomeworkImages = _context.HomeworkImages.Where(p => p.HomeworkID == x.hw.HomeworkID).ToList()
+            }).ToListAsync();
+        return data;
     }
 }
 

@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using DaisyStudy.Data;
+﻿using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using DaisyStudy.Models.Catalog.Classes;
 using DaisyStudy.Application.Catalog.Classes;
 using AutoMapper;
 using DaisyStudy.Application.Catalog.Rooms;
 using DaisyStudy.Application.System.Users;
-using DaisyStudy.Models.System.Users;
 
 namespace DaisyStudy.Controllers
 {
@@ -46,7 +45,26 @@ namespace DaisyStudy.Controllers
             return View(classes);
         }
 
-        [HttpGet]
+        [Route("danh-sach-lop-hoc")]
+        public async Task<IActionResult> MyClass(string keyword, int pageIndex = 1, int pageSize = 10)
+        {
+            var request = new ClassPagingRequest()
+            {
+                Keyword = keyword,
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            };
+            var classes = await _classService.GetAllMyClassPaging(request, HttpContext.Session.GetString("UserId").ToString());
+
+            ViewBag.Keyword = keyword;
+            if (TempData["result"] != null)
+            {
+                ViewBag.SuccessMsg = TempData["result"];
+            }
+            return View(classes);
+        }
+
+        [HttpGet("tong-quan-lop-hoc")]
         public async Task<IActionResult> OverView(int id)
         {
             var result = await _classService.GetById(id);
@@ -59,7 +77,7 @@ namespace DaisyStudy.Controllers
             return View(result);
         }
 
-        [HttpGet]
+        [HttpGet("chi-tiet-lop-hoc")]
         public async Task<IActionResult> Details(int id)
         {
             var result = await _classService.GetById(id);
@@ -72,13 +90,13 @@ namespace DaisyStudy.Controllers
             return View(result);
         }
 
-        [HttpGet]
+        [HttpGet("tao-lop-hoc")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("tao-lop-hoc")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> Create([FromForm] ClassCreateRequest request)
         {
@@ -93,7 +111,7 @@ namespace DaisyStudy.Controllers
             if (result != 0)
             {
                 TempData["result"] = "Thêm mới lớp học thành công";
-                return RedirectToAction("Index");
+                return RedirectToAction("OverView", "Class", new{id = result});
             }
 
             ModelState.AddModelError("", "Thêm lớp học thất bại");
@@ -119,7 +137,16 @@ namespace DaisyStudy.Controllers
             return RedirectToAction("OverView", new { id = id });
         }
 
-        [HttpGet]
+        [HttpPost("tham-gia-lop-hoc"), ActionName("JoinClassById")]
+        public async Task<IActionResult> JoinClassById(string ClassID)
+        {
+            var @class = await _classService.GetById(ClassID.Trim());
+            if(@class == null) return BadRequest(); 
+            var result = await _classService.JoinClass(@class.ID, User.Identity.Name);
+            return RedirectToAction("OverView", new { id = @class.ID });
+        }
+
+        [HttpGet("chinh-sua-lop-hoc")]
         public async Task<IActionResult> Edit(int id)
         {
             var result = await _classService.GetById(id);
@@ -128,7 +155,7 @@ namespace DaisyStudy.Controllers
             return View(classViewModel);
         }
 
-        [HttpPost]
+        [HttpPost("chinh-sua-lop-hoc")]
         [ValidateAntiForgeryToken]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> Edit([FromForm] ClassUpdateRequest request)
@@ -138,7 +165,14 @@ namespace DaisyStudy.Controllers
 
             await _classService.Update(request);
             TempData["result"] = "Cập nhật lớp học thành công";
-            return RedirectToAction("Details", "Class", new {id = request.ID});
+            return RedirectToAction("Details", "Class", new { id = request.ID });
+        }
+
+        public async Task<IActionResult> ChangeClassID(int id)
+        {
+            await _classService.ChangeClassID(id);
+            TempData["result"] = "Đổi mã lớp thành công";
+            return RedirectToAction("Details", "Class", new { id = id });
         }
 
         [HttpPost]

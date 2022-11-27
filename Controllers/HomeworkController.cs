@@ -56,14 +56,14 @@ public class HomeworkController : BaseController
         if (result != null)
         {
             TempData["result"] = "Thêm mới lớp học thành công";
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Class", new{id = request.ClassID});
         }
 
         ModelState.AddModelError("", "Thêm lớp học thất bại");
         return View(request);
     }
 
-    [HttpGet]
+    [HttpGet("bai-tap")]
     public async Task<IActionResult> Details(int id)
     {
         var result = await _homeworkService.GetById(id);
@@ -75,7 +75,7 @@ public class HomeworkController : BaseController
         return View(result);
     }
 
-    [HttpGet]
+    [HttpGet("chinh-sua-bai-tap")]
     public async Task<IActionResult> Edit(int id)
     {
         var result = await _homeworkService.GetById(id);
@@ -84,7 +84,7 @@ public class HomeworkController : BaseController
         return View(homeworkViewModel);
     }
 
-    [HttpPost]
+    [HttpPost("chinh-sua-bai-tap")]
     [ValidateAntiForgeryToken]
     [Consumes("multipart/form-data")]
     public async Task<IActionResult> Edit([FromForm] HomeworkUpdateRequest request)

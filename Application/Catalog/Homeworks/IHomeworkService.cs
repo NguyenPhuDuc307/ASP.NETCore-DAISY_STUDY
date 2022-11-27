@@ -10,4 +10,5 @@ public interface IHomeworkService
     Task<int> Delete(int ID);
     Task<HomeworkViewModel> GetById(int ID);
     Task<PagedResult<HomeworkViewModel>> GetAllPaging(GetManageHomeworkPagingRequest request);
+    Task<List<HomeworkViewModel>> GetAll();
 }

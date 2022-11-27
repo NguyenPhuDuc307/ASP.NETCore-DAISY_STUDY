@@ -16,6 +16,9 @@ public class HomeworkViewModel
     [Display(Name = "Tên bài tập")]
     public string? HomeworkName { set; get; }
 
+    [Display(Name = "Mã giáo viên")]
+    public string? TeacherID { set; get; }
+
     [Display(Name = "Mô tả")]
     public string? Description { set; get; }
 

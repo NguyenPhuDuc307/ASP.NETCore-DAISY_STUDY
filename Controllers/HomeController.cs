@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace DaisyStudy.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
         private readonly IClassService _classService;
         private readonly ApplicationDbContext _context;
@@ -31,9 +31,11 @@ namespace DaisyStudy.Controllers
                                          int pageIndex = 1,
                                          int pageSize = 10)
         {
-            if (User.Identity != null)
+            if (User.Identity.Name != null)
             {
-                var user = User.Identity.Name;
+                var _user = await _userService.GetByName(User.Identity.Name);
+                if (_user != null)
+                    HttpContext.Session.SetString("UserId", _user.Id);
             }
 
             var request = new ClassPagingRequest()
@@ -43,12 +45,13 @@ namespace DaisyStudy.Controllers
                 PageSize = pageSize
             };
             var data = await _classService.GetAllClassPagingHome(request);
-            
+
             ViewBag.Keyword = keyword;
             if (TempData["result"] != null)
             {
                 ViewBag.SuccessMsg = TempData["result"];
             }
+
             return View(data);
         }
 

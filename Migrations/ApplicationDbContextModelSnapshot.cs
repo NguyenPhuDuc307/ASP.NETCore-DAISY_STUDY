@@ -297,6 +297,9 @@ namespace DaisyStudy.Migrations
                     b.Property<DateTime>("DateTimeCreated")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("ExamDateTime")
                         .HasColumnType("datetime2");
 

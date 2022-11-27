@@ -21,18 +21,18 @@
             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
             Thông tin cá nhân
         </a>
-        <a class="dropdown-item" href="#">
-            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-            Settings
+        <a class="dropdown-item" asp-controller="User" asp-action="Pay">
+            <i class="fa-solid fa-sack-dollar fa-sm fa-fw mr-2 text-gray-400"></i>
+            Nạp tiền
         </a>
-        <a class="dropdown-item" href="#">
-            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-            Activity Log
+        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/SetPassword">
+            <i class="fa-solid fa-shield-halved fa-sm fa-fw mr-2 text-gray-400"></i>
+            Bảo mật
         </a>
         <div class="dropdown-divider"></div>
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
             asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button style="width: 90%;" id="logout" type="submit" class="btn btn-danger btn-sm m-auto">Logout</button>
+            <button style="width: 90%;" id="logout" type="submit" class="btn btn-primary btn-sm m-auto">Đăng xuất</button>
         </form>
     </div>
 </li>

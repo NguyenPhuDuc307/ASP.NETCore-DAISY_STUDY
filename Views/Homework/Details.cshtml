@@ -1,4 +1,6 @@
-﻿@model DaisyStudy.Models.Catalog.Homeworks.HomeworkViewModel;
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@model DaisyStudy.Models.Catalog.Homeworks.HomeworkViewModel;
 @{
     ViewData["Title"] = @Html.DisplayFor(model => model.ClassName);
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -252,8 +254,8 @@
 }
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-    <li class="breadcrumb-item"><a href="/Class">Lớp học</a></li>
-    <li class="breadcrumb-item active">@Html.DisplayFor(model => model.ClassName)</li>
+    <li class="breadcrumb-item"><a asp-controller="Class" asp-action="Details" asp-route-id="@Model.ID">@Model.ClassName</a></li>
+    <li class="breadcrumb-item">Bài tập</li>
 </ol>
 
 <div class="col-sm-12 col-md-12 my-3">
@@ -275,7 +277,7 @@
     </div>
 </div>
 @{
-    var returnUrl = Context.Request.Path + "?HomeworkID=" + @Model.HomeworkID;
+    var returnUrl = Context.Request.Path + "?id=" + @Model.HomeworkID;
 }
 
 
@@ -319,7 +321,7 @@
             @Html.Raw(Model.Description)
             <hr style="height:1px;border:none;color:#333;background-color:#333;" />
             <div class="card-group mt-2">
-@foreach (var item in Model.HomeworkImages)
+            @foreach (var item in Model.HomeworkImages)
             {
                 <div class="card" style="margin: 0.25rem; border: none;">
                     @if (Convert.ToString(item.ImagePath).Contains(".png") || Convert.ToString(item.ImagePath).Contains(".jpeg") || Convert.ToString(item.ImagePath).Contains(".svg"))
@@ -328,10 +330,15 @@
                             <img class="img-thumbnail" src="@item.ImagePath" alt="@item.ImagePath" />
                         </a>
                     }
-                    else
+                    else if (Convert.ToString(item.ImagePath).Contains(".pdf"))
                     {
                         <a target="_blank" href="@item.ImagePath">
                             <iframe class="img-thumbnail" src="@item.ImagePath" alt="@item.ImagePath"></iframe>
+                        </a>
+                    }
+                    else{
+                        <a target="_blank" href="@item.ImagePath">
+                            <img style="max-width: 11rem; border: none;" class="img-thumbnail" src="/img/file.svg" alt="@item.ImagePath">
                         </a>
                     }
                 </div>
@@ -340,7 +347,9 @@
             
         </div>
     </div>
-    <div class="card shadow mb-4">
+
+    @if(Model.TeacherID != HttpContextAccessor.HttpContext.Session.GetString("UserId").ToString()){
+        <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Làm bài</h6>
@@ -374,17 +383,43 @@
                         <label name="ThumbnailImages" class="control-label">Thêm tệp</label>
                         <input name="ThumbnailImages" type="file" multiple class="form-control" />
                     </div>
-                    <div class="form-group">
-                        @if(Convert.ToDateTime(Model.Deadline) > DateTime.Now){
-                            <input type="submit" value="Nộp bài" class="btn btn-primary" />
+                    @{
+                        var checkSubmission = false;
+                    }
+                    @foreach (var item in Model.Submissions)
+                    {
+                        
+                        if(item.StudentID == HttpContextAccessor.HttpContext.Session.GetString("UserId").ToString()){
+                            checkSubmission = true;
                         }
-                        else{
-                            <input type="submit" disabled value="Quá hạn nộp bài" class="btn btn-danger" />
-                        }
-                    </div>
+                    }
+
+                    @if(checkSubmission == true){
+                        <div class="form-group">
+                            @foreach (var item in Model.Submissions)
+                            {
+                                if(item.StudentID == HttpContextAccessor.HttpContext.Session.GetString("UserId").ToString()){
+                                    <a type="submit" href="@Url.Action("Edit","Submission", new{id = item.SubmissionID})" class="btn btn-success">Đã nộp bài, nhấn để chỉnh sửa</a>
+                                }
+                            }
+                        </div>
+                    }
+                    else{
+                        <div class="form-group">
+                            @if(Convert.ToDateTime(Model.Deadline) > DateTime.Now){
+                                <input type="submit" value="Nộp bài" class="btn btn-primary" />
+                            }
+                            else{
+                                <input type="submit" value="Nộp bài trễ" class="btn btn-danger" />
+                            }
+                        </div>
+                    }
+                    
                 </form>
             </div>
         </div>
+    }
+    
     </div>
     <!-- Area Chart -->
     <div class="col-xl-4 col-lg-5">
@@ -399,8 +434,8 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                         aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Dropdown Header:</div>
-                        <a class="dropdown-item" href="#">Action</a>
+                        <div class="dropdown-header">Tuỳ chọn:</div>
+                        <a class="dropdown-item" asp-controller="Submission" asp-action="ListSubmission">Danh sách nộp bài</a>
                         <a class="dropdown-item" href="#">Another action</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a>
@@ -414,23 +449,35 @@
                     @if (string.IsNullOrEmpty(Convert.ToString(item.Student.Avatar)))
                     {
                         <div class="mb-3">
+                            @if(Model.TeacherID == HttpContextAccessor.HttpContext.Session.GetString("UserId").ToString()){
+                                    <a asp-controller="Submission" asp-action="Details" asp-route-id="@item.SubmissionID">xem</a>
+                                }
                             <img style="width: 2rem; height: 2rem; object-fit: cover;" class="img-profile rounded-circle"
                         src="/img/image_null.png">
                             <span class="mr-2 d-lg-inline text-gray-600 small">@item.Student.FirstName
                                 @item.Student.LastName</span>
                                 <span class="mr-2 d-lg-inline text-gray-600 small">lúc @item.SubmissionDateTime.ToString("HH:mm - dd/MM/yyyy")</span>
                                 <span class="mr-2 d-lg-inline text-info small">Cập nhật lúc @item.DateTimeUpdated.ToString("HH:mm - dd/MM/yyyy")</span>
+                                @if(Convert.ToDateTime(Model.Deadline) < Convert.ToDateTime(item.DateTimeUpdated)){
+                                    <span class="mr-2 d-lg-inline text-danger small">Cập nhật trễ</span>
+                                }
                         </div>
                     }
                     else if (!string.IsNullOrEmpty(Convert.ToString(item.Student.Avatar)))
                     {
                         <div class="mb-3">
+                            @if(Model.TeacherID == HttpContextAccessor.HttpContext.Session.GetString("UserId").ToString()){
+                                    <a asp-controller="Submission" asp-action="Details" asp-route-id="@item.SubmissionID">xem</a>
+                                }
                             <img style="width: 2rem; height: 2rem; object-fit: cover;" class="img-profile rounded-circle"
                         src="@item.Student.Avatar" />
                             <span class="mr-2 text-gray-600 small">@item.Student.FirstName
                                 @item.Student.LastName</span>
-                                <span class="mr-2 d-lg-inline text-gray-600 small">lúc @item.SubmissionDateTime.ToString("HH:mm - dd/MM/yyyy")</span>
+                            <span class="mr-2 d-lg-inline text-gray-600 small">lúc @item.SubmissionDateTime.ToString("HH:mm - dd/MM/yyyy")</span>
                             <span class="mr-2 text-info small">Cập nhật lúc @item.DateTimeUpdated.ToString("HH:mm - dd/MM/yyyy")</span>
+                            @if(Convert.ToDateTime(Model.Deadline) < Convert.ToDateTime(item.DateTimeUpdated)){
+                                    <span class="mr-2 d-lg-inline text-danger small">Cập nhật trễ</span>
+                                }
                         </div>
                     }
                 }

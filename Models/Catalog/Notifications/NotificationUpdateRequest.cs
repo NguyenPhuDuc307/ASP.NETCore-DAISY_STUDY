@@ -6,6 +6,9 @@ namespace DaisyStudy.Models.Catalog.Notifications;
 public class NotificationUpdateRequest
 {
     public int NotificationID { set; get; }
+    public int ID { set; get; }
+    [Display(Name = "Tên lớp học")]
+    public string? ClassName { set; get; }
 
     [Display(Name = "Tiêu đề")]
     public string? Title { get; set; }

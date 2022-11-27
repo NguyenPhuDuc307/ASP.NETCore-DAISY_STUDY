@@ -69,7 +69,7 @@ public class NotificationController : BaseController
         return Redirect(request.ReturnUrl);
     }
 
-    [HttpGet]
+    [HttpGet("chinh-sua-thong-bao")]
     public async Task<IActionResult> Edit(int id)
     {
         var result = await _notificationService.GetById(id);
@@ -78,7 +78,7 @@ public class NotificationController : BaseController
         return View(notificationViewModel);
     }
 
-    [HttpPost]
+    [HttpPost("chinh-sua-thong-bao")]
     [ValidateAntiForgeryToken]
     [Consumes("multipart/form-data")]
     public async Task<IActionResult> Edit([FromForm] NotificationUpdateRequest request)

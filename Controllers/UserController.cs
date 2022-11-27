@@ -57,16 +57,21 @@ public class UserController : BaseController
             {"09","GD Hoàn trả bị từ chối" }
         };
 
+    [HttpGet("nap-tien")]
     public IActionResult Pay()
     {
         RequestPayment request = new RequestPayment();
-        request.ThoiHanThanhToan = DateTime.Now.AddDays(1).ToString("yyyyMMddHHmmss");
+        request.ThoiHanThanhToan = DateTime.Now.AddMinutes(10).ToString("yyyyMMddHHmmss");
         return View(request);
     }
 
-    [HttpPost]
+    [HttpPost("nap-tien")]
     public IActionResult Pay([FromForm] RequestPayment request)
     {
+        if (!ModelState.IsValid){
+            return View(request);
+        }
+                
         ViewBag.thongBaoLoi = "";
         if (string.IsNullOrEmpty(VNPayConfig.vnp_TmnCode) || string.IsNullOrEmpty(VNPayConfig.vnp_HashSecret))
         {
@@ -77,7 +82,6 @@ public class UserController : BaseController
         order.OrderId = DateTime.Now.Ticks; // Giả lập mã giao dịch hệ thống merchant gửi sang VNPAY
         order.Amount = Int64.Parse(request.SoTien.Replace(",", "")); // Giả lập số tiền thanh toán hệ thống merchant gửi sang VNPAY 100,000 VND
         order.Status = "0"; //0: Trạng thái thanh toán "chờ thanh toán" hoặc "Pending"
-        order.OrderDesc = request.NoiDungThanhToan;
         order.CreatedDate = DateTime.Now;
         string locale = request.NgonNgu;
         VnPayLibrary vnpay = new VnPayLibrary();
@@ -106,10 +110,12 @@ public class UserController : BaseController
         return Redirect(paymentUrl);
     }
 
+    [Route("nap-tien-thanh-cong")]
     public async Task<IActionResult> VNPayReturn([FromQuery] VNPayReturn request)
     {
-        if(request.vnp_TransactionStatus == "00"){
-            await _userService.DepositMoney(User.Identity.Name, request.vnp_Amount/100);
+        if (request.vnp_TransactionStatus == "00")
+        {
+            await _userService.DepositMoney(User.Identity.Name, request.vnp_Amount / 100);
         }
         request.message = "Không xác định được trạng thái";
         if (vnp_TransactionStatus.ContainsKey(request.vnp_TransactionStatus))

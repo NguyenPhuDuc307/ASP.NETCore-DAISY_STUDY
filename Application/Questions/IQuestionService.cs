@@ -1,0 +1,12 @@
+using DaisyStudy.Models.Catalog.Question;
+using DaisyStudy.Models.Common;
+
+namespace DaisyStudy.Application.Questions;
+public interface IQuestionService
+{
+    Task<int> Create(QuestionsCreateRequest request);
+    Task<int> Update(QuestionUpdateRequest request);
+    Task<int> Delete(int QuestionID);
+    Task<QuestionViewModel> GetById(int QuestionID);
+    Task<PagedResult<QuestionViewModel>> GetAllPaging(GetManageQuestionPagingRequest request);
+}

@@ -54,10 +54,9 @@ namespace DaisyStudy.Areas.Identity.Pages.Account.Manage
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
+
         public class InputModel
         {
-            [Required]
-            [StringLength(255, ErrorMessage = "The first name field should have a maximum of 255 characters")]
             [Display(Name = "Họ")]
             public string FirstName { get; set; }
 
@@ -109,7 +108,7 @@ namespace DaisyStudy.Areas.Identity.Pages.Account.Manage
                 PhoneNumber = phoneNumber,
             };
         }
-
+        
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);

@@ -106,7 +106,7 @@ public class SubmissionService : ISubmissionService
 
     public async Task<bool> Delete(int SubmissionID)
     {
-        var submission = _context.Submissions.FirstOrDefault(x => x.SubmissionID == SubmissionID);
+        var submission = await _context.Submissions.FindAsync(SubmissionID);
         if (submission == null) throw new DaisyStudyException($"Cannot find a submission {SubmissionID}");
 
         _context.Submissions.Remove(submission);
@@ -120,19 +120,23 @@ public class SubmissionService : ISubmissionService
 
     public async Task<SubmissionViewModel> GetById(int SubmissionID)
     {
-        var submission = _context.Submissions.FirstOrDefault(x => x.SubmissionID == SubmissionID);
-        if (submission == null) throw new DaisyStudyException($"Cannot find a submission {SubmissionID}");
+        var submission = await _context.Submissions.FindAsync(SubmissionID);
+        if (submission == null) return null;
 
         var student = await _userManager.FindByIdAsync(submission.StudentID);
 
         var homework = await _context.Homeworks.FindAsync(submission.HomeworkID);
-        if (homework == null) throw new DaisyStudyException($"Cannot find a homework {submission.HomeworkID}");
+        if (homework == null) return null;
 
         var _class = await _context.Classes.FindAsync(homework.ClassID);
-        if (_class == null) throw new DaisyStudyException($"Cannot find a class {homework.ClassID}");
+        if (_class == null) return null;
+
+        var classDetail = await _context.ClassDetails.FirstOrDefaultAsync(x=> x.ClassID == _class.ID && x.IsTeacher == Teacher.Teacher);
 
         var homeworkViewModel = new SubmissionViewModel()
         {
+            TeacherId = classDetail.UserID,
+            SubmissionID = submission.SubmissionID,
             HomeworkID = homework.HomeworkID,
             StudentID = student.Id,
             FirstName = student.FirstName,
@@ -141,15 +145,17 @@ public class SubmissionService : ISubmissionService
             Email = student.Email,
             HomeworkName = homework.HomeworkName,
             ClassID = _class.ClassID,
+            ID = _class.ID,
             ClassName = _class.ClassName,
-            Description = homework.Description,
+            DescriptionHomework = homework.Description,
             DateTimeCreated = homework.DateTimeCreated,
             Deadline = homework.Deadline,
             Mark = submission.Mark,
             Note = submission.Note,
-            DescriptionSubmission = submission.Description,
+            Description = submission.Description,
             SubmissionDateTime = submission.SubmissionDateTime,
-            DateTimeUpdated = submission.DateTimeUpdated
+            DateTimeUpdated = submission.DateTimeUpdated,
+            SubmissionImages = await _context.SubmissionImages.Where(x=> x.SubmissionID == submission.SubmissionID).ToListAsync()
         };
         return homeworkViewModel;
     }
@@ -163,13 +169,16 @@ public class SubmissionService : ISubmissionService
                     join hw in _context.Homeworks on sm.HomeworkID equals hw.HomeworkID into smhw
                     from hw in smhw.DefaultIfEmpty()
                     join c in _context.Classes on hw.ClassID equals c.ID
-                    where sm.HomeworkID == request.HomeworkID
                     select new { sm, st, hw, c };
+
+        if(request.HomeworkID != 0 && request.HomeworkID != null){
+            query = query.Where(x=> x.sm.HomeworkID == request.HomeworkID);
+        }
 
         //3. Paging
         int totalRow = await query.CountAsync();
 
-        var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+        var data = await query.OrderByDescending(x=> x.sm.DateTimeUpdated).Skip((request.PageIndex - 1) * request.PageSize)
             .Take(request.PageSize)
             .Select(x => new SubmissionViewModel()
             {
@@ -182,12 +191,12 @@ public class SubmissionService : ISubmissionService
                 HomeworkName = x.hw.HomeworkName,
                 ClassID = x.c.ClassID,
                 ClassName = x.c.ClassName,
-                Description = x.hw.Description,
+                DescriptionHomework = x.hw.Description,
                 DateTimeCreated = x.hw.DateTimeCreated,
                 Deadline = x.hw.Deadline,
                 Mark = x.sm.Mark,
                 Note = x.sm.Note,
-                DescriptionSubmission = x.sm.Description,
+                Description = x.sm.Description,
                 SubmissionDateTime = x.sm.SubmissionDateTime,
                 DateTimeUpdated = x.sm.DateTimeUpdated
             }).ToListAsync();

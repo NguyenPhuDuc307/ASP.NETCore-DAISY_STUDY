@@ -24,6 +24,7 @@ public class ClassCreateRequest
     [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:N1}")]
     public decimal Tuition { set; get; }
 
+    [Required]
     [Display(Name = "Hình ảnh")]
     public IFormFile? ThumbnailImage { get; set; }
 }

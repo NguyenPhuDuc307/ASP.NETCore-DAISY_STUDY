@@ -95,7 +95,7 @@ namespace DaisyStudy.Areas.Identity.Pages.Account
 
             ReturnUrl = returnUrl;
         }
-
+        
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
@@ -134,6 +134,7 @@ namespace DaisyStudy.Areas.Identity.Pages.Account
 
                     _logger.LogInformation("User logged in.");
                     HttpContext.Session.SetString("Session", "true");
+                    HttpContext.Session.SetString("UserId", user.Id);
                     return LocalRedirect(returnUrl);
                 }
                 if (result.Succeeded)

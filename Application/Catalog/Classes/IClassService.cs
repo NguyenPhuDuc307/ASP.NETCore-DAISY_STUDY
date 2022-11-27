@@ -11,11 +11,13 @@ namespace DaisyStudy.Application.Catalog.Classes
         Task<int> Update(ClassUpdateRequest request);
         Task<int> Delete(int ID);
         Task<ClassViewModel> GetById(int ID);
+        Task<ClassViewModel> GetById(string ClassID);
         Task<bool> UpdateTuition(int ID, decimal tuition);
         Task<bool> UpdateStatus(int ID, Status status);
         Task<bool> UpdateIsPublic(int ID, IsPublic isPublic);
         Task AddViewCount(int ID);
         Task<PagedResult<ClassViewModel>> GetAllClassPaging(ClassPagingRequest request);
+        Task<PagedResult<ClassViewModel>> GetAllMyClassPaging(ClassPagingRequest request, string UserId);
         Task<PagedResult<ClassViewModel>> GetAllClassPagingHome(ClassPagingRequest request);
         Task<PagedResult<ClassDetailViewModel>> GetAllStudentByClassIDPaging(GetAllStudentInClassPagingRequest request);
         Task<int> UpdateImage(int classID, ClassImageUpdateRequest request);

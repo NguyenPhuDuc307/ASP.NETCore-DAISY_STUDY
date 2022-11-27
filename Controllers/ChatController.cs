@@ -13,6 +13,7 @@ namespace ASP.NETCoreIdentityCustom.Controllers
     [Authorize]
     public class ChatController : Controller
     {
+        [Route("tro-chuyen")]
         public IActionResult Index()
         {
             return View();

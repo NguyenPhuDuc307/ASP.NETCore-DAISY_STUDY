@@ -23,7 +23,6 @@
 }
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-    <li class="breadcrumb-item"><a href="/Class">Lớp học</a></li>
     <li class="breadcrumb-item active">@Html.DisplayFor(model => model.ClassName)</li>
 </ol>
 
@@ -31,9 +30,17 @@
     <div class="row">
         @if (ViewBag.SuccessMsg != null)
         {
-            <div id="msgAlert" class="alert alert-danger" role="alert">
-                @ViewBag.SuccessMsg
-            </div>
+            if(Convert.ToString(ViewBag.SuccessMsg).Contains("thành công")){
+                <div id="msgAlert" class="alert alert-success" role="alert">
+                    @ViewBag.SuccessMsg
+                </div>
+            }
+            else{
+                <div id="msgAlert" class="alert alert-danger" role="alert">
+                    @ViewBag.SuccessMsg
+                </div>
+            }
+            
         }
     </div>
 </div>
