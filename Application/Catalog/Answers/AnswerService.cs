@@ -3,11 +3,10 @@ using DaisyStudy.Data;
 using DaisyStudy.Models.Catalog.Answers;
 using DaisyStudy.Models.Common;
 using DaisyStudy.Utilities.Exceptions;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 
-namespace DaisyStudy.Application.Answers;
+namespace DaisyStudy.Application.Catalog.Answers;
 
 public class AnswerService : IAnswerService
 {

@@ -17,8 +17,10 @@ using DaisyStudy.Application.Catalog.Comments;
 using Microsoft.AspNetCore.Authentication;
 using DaisyStudy.Application.Catalog.Homeworks;
 using DaisyStudy.Application.Catalog.Submissions;
-using Microsoft.AspNetCore.Mvc;
 using DaisyStudy.Application.Catalog.ExamSchedules;
+using DaisyStudy.Application.Catalog.Questions;
+using DaisyStudy.Application.Catalog.Answers;
+using DaisyStudy.Application.Catalog.StudentExams;
 
 var builder = WebApplication.CreateBuilder(args);
 var mvcBuilder = builder.Services.AddRazorPages();
@@ -172,4 +174,7 @@ void AddTransient()
     builder.Services.AddTransient<IHomeworkService, HomeworkService>();
     builder.Services.AddTransient<ISubmissionService, SubmissionService>();
     builder.Services.AddTransient<IExamScheduleService, ExamScheduleService>();
+    builder.Services.AddTransient<IQuestionService, QuestionService>();
+    builder.Services.AddTransient<IAnswerService, AnswerService>();
+    builder.Services.AddTransient<IStudentExamService, StudentExamService>();
 }

@@ -1,7 +1,7 @@
 using DaisyStudy.Models.Catalog.Question;
 using DaisyStudy.Models.Common;
 
-namespace DaisyStudy.Application.Questions;
+namespace DaisyStudy.Application.Catalog.Questions;
 public interface IQuestionService
 {
     Task<int> Create(QuestionsCreateRequest request);

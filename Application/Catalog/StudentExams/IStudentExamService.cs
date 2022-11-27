@@ -1,7 +1,7 @@
 using DaisyStudy.Models.Catalog.StudentExams;
 using DaisyStudy.Models.Common;
 
-namespace DaisyStudy.Application.StudentExams;
+namespace DaisyStudy.Application.Catalog.StudentExams;
 
 public interface IStudentExamService
 {

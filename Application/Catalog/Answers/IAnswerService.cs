@@ -1,7 +1,7 @@
 using DaisyStudy.Models.Catalog.Answers;
 using DaisyStudy.Models.Common;
 
-namespace DaisyStudy.Application.Answers;
+namespace DaisyStudy.Application.Catalog.Answers;
 
 public interface IAnswerService
 {
