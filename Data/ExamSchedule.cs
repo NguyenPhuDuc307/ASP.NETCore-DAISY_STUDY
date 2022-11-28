@@ -10,7 +10,6 @@ public class ExamSchedule
     public DateTime ExamDateTime { set; get; }
     public string? Description { set; get; }
     public int ExamTime { set; get; }
-    public string? Image { set; get; }
     public List<StudentExam>? StudentExams { set; get; }
     public List<Question>? Questions { set; get; }
 }

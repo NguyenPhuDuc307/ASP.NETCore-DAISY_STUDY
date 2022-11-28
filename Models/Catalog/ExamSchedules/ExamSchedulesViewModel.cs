@@ -12,7 +12,7 @@ public class ExamSchedulesViewModel
     public int ExamScheduleID { set; get; }
 
     [Display(Name = "Mã lớp học")]       
-    public string? ClassID { set; get; }
+    public int? ClassID { set; get; }
 
     [Display(Name = "Tên lớp học")]
     public string? ClassName { get; set; }

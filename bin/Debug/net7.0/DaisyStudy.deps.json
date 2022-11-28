@@ -49,6 +49,7 @@
           "Microsoft.EntityFrameworkCore.Tools": "7.0.0",
           "Microsoft.Extensions.Caching.Memory": "7.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.0",
+          "Mustache.NETStandard": "1.1.0",
           "Microsoft.AspNetCore.Antiforgery": "7.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "7.0.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "7.0.0.0",
@@ -2017,6 +2018,17 @@
             "assemblyVersion": "2.2.0.0",
             "fileVersion": "2.2.1.1"
           }
+        }
+      },
+      "Mustache.NETStandard/1.1.0": {
+        "runtime": {
+          "lib/netstandard2.0/Mustache.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Mustache.dll": {}
         }
       },
       "NETStandard.Library/1.6.1": {
@@ -5560,6 +5572,13 @@
       "sha512": "sha512-KZYeKBET/2Z0gY1WlTAK7+RHTl7GSbtvTLDXEZZojUdAPqpQNDL6tHv7VUpqfX5VEOh+uRGKaZXkuD253nEOBQ==",
       "path": "mono.texttemplating/2.2.1",
       "hashPath": "mono.texttemplating.2.2.1.nupkg.sha512"
+    },
+    "Mustache.NETStandard/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-F7OMX5N3faxSre5LCmcyxqt7dhMznBVN9vKz4ykdEFhPSgSbmuvw6y3rsJ86CBmvxqmab35wtTsz8jfTso4IOA==",
+      "path": "mustache.netstandard/1.1.0",
+      "hashPath": "mustache.netstandard.1.1.0.nupkg.sha512"
     },
     "NETStandard.Library/1.6.1": {
       "type": "package",

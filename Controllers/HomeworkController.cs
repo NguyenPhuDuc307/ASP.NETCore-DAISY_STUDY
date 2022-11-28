@@ -55,11 +55,11 @@ public class HomeworkController : BaseController
         var result = await _homeworkService.Create(request);
         if (result != null)
         {
-            TempData["result"] = "Thêm mới lớp học thành công";
+            TempData["result"] = "Thêm mới bài tập thành công";
             return RedirectToAction("Details", "Class", new{id = request.ClassID});
         }
 
-        ModelState.AddModelError("", "Thêm lớp học thất bại");
+        ModelState.AddModelError("", "Thêm bài tập thất bại");
         return View(request);
     }
 

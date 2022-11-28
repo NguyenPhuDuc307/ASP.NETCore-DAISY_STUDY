@@ -22,41 +22,6 @@ namespace DaisyStudy.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DaisyStudy.Data.Answer", b =>
-                {
-                    b.Property<int>("AnswerID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnswerID"));
-
-                    b.Property<string>("AnswerString")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("ImageFileSize")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<bool>("IsCorrect")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<int>("QuestionID")
-                        .HasColumnType("int");
-
-                    b.HasKey("AnswerID");
-
-                    b.HasIndex("QuestionID");
-
-                    b.ToTable("Answers", (string)null);
-                });
-
             modelBuilder.Entity("DaisyStudy.Data.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -310,9 +275,6 @@ namespace DaisyStudy.Migrations
                     b.Property<int>("ExamTime")
                         .HasColumnType("int");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("ExamScheduleID");
 
                     b.HasIndex("ClassID");
@@ -481,13 +443,20 @@ namespace DaisyStudy.Migrations
                     b.Property<int>("ExamScheduleID")
                         .HasColumnType("int");
 
-                    b.Property<long>("ImageFileSize")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Option1")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<string>("Option2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Option3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Option4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OptionCorrect")
+                        .HasColumnType("int");
 
                     b.Property<float>("Point")
                         .ValueGeneratedOnAdd()
@@ -560,29 +529,6 @@ namespace DaisyStudy.Migrations
                     b.HasIndex("StudentID");
 
                     b.ToTable("StudentExams", (string)null);
-                });
-
-            modelBuilder.Entity("DaisyStudy.Data.StudentExamDetail", b =>
-                {
-                    b.Property<int>("StudentExamDetailID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentExamDetailID"));
-
-                    b.Property<int>("AnswerID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentExamID")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentExamDetailID");
-
-                    b.HasIndex("AnswerID");
-
-                    b.HasIndex("StudentExamID");
-
-                    b.ToTable("StudentExamDetails", (string)null);
                 });
 
             modelBuilder.Entity("DaisyStudy.Data.Submission", b =>
@@ -804,17 +750,6 @@ namespace DaisyStudy.Migrations
                     b.ToTable("AppUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("DaisyStudy.Data.Answer", b =>
-                {
-                    b.HasOne("DaisyStudy.Data.Question", "Question")
-                        .WithMany("Answers")
-                        .HasForeignKey("QuestionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Question");
-                });
-
             modelBuilder.Entity("DaisyStudy.Data.ClassDetail", b =>
                 {
                     b.HasOne("DaisyStudy.Data.Class", "Class")
@@ -966,25 +901,6 @@ namespace DaisyStudy.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("DaisyStudy.Data.StudentExamDetail", b =>
-                {
-                    b.HasOne("DaisyStudy.Data.Answer", "Answer")
-                        .WithMany("StudentExamDetails")
-                        .HasForeignKey("AnswerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DaisyStudy.Data.StudentExam", "StudentExam")
-                        .WithMany("StudentExamDetails")
-                        .HasForeignKey("StudentExamID")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-
-                    b.Navigation("Answer");
-
-                    b.Navigation("StudentExam");
-                });
-
             modelBuilder.Entity("DaisyStudy.Data.Submission", b =>
                 {
                     b.HasOne("DaisyStudy.Data.Homework", "Homework")
@@ -1064,11 +980,6 @@ namespace DaisyStudy.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DaisyStudy.Data.Answer", b =>
-                {
-                    b.Navigation("StudentExamDetails");
-                });
-
             modelBuilder.Entity("DaisyStudy.Data.ApplicationUser", b =>
                 {
                     b.Navigation("ClassDetails");
@@ -1116,19 +1027,9 @@ namespace DaisyStudy.Migrations
                     b.Navigation("NotificationImages");
                 });
 
-            modelBuilder.Entity("DaisyStudy.Data.Question", b =>
-                {
-                    b.Navigation("Answers");
-                });
-
             modelBuilder.Entity("DaisyStudy.Data.Room", b =>
                 {
                     b.Navigation("Messages");
-                });
-
-            modelBuilder.Entity("DaisyStudy.Data.StudentExam", b =>
-                {
-                    b.Navigation("StudentExamDetails");
                 });
 
             modelBuilder.Entity("DaisyStudy.Data.Submission", b =>

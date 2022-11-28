@@ -65,11 +65,12 @@ public class ExamScheduleService : IExamScheduleService
             .Select(x => new ExamSchedulesViewModel()
             {
                 ExamScheduleID = x.es.ExamScheduleID,
-                ClassID = x.c.ClassID,
+                ClassID = x.c.ID,
                 ExamScheduleName = x.es.ExamScheduleName,
                 DateTimeCreated = x.es.DateTimeCreated,
                 ExamDateTime = x.es.ExamDateTime,
-                ExamTime = x.es.ExamTime
+                ExamTime = x.es.ExamTime,
+                Description = x.es.Description
             }).ToListAsync();
 
         //4. Select and projection
@@ -94,12 +95,13 @@ public class ExamScheduleService : IExamScheduleService
         var examScheduleViewModel = new ExamSchedulesViewModel()
         {
             ExamScheduleID = examSchedule.ExamScheduleID,
-            ClassID = _class.ClassID,
+            ClassID = _class.ID,
             ClassName = _class.ClassName,
             ExamScheduleName = examSchedule.ExamScheduleName,
             DateTimeCreated = examSchedule.DateTimeCreated,
             ExamDateTime = examSchedule.ExamDateTime,
-            ExamTime = examSchedule.ExamTime
+            ExamTime = examSchedule.ExamTime,
+            Description = examSchedule.Description
         };
         return examScheduleViewModel;  
     }
@@ -111,6 +113,7 @@ public class ExamScheduleService : IExamScheduleService
         examSchedule.ExamScheduleName = request.ExamScheduleName;
         examSchedule.ExamDateTime = request.ExamDateTime;
         examSchedule.ExamTime = request.ExamTime;
+        examSchedule.Description = request.Description;
         return await _context.SaveChangesAsync();
     }
 }

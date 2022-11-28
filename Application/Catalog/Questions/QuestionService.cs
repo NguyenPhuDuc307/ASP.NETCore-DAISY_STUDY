@@ -5,46 +5,28 @@ using Microsoft.EntityFrameworkCore;
 using DaisyStudy.Application.Common;
 using System.Net.Http.Headers;
 using DaisyStudy.Data;
+using AutoMapper;
 
 namespace DaisyStudy.Application.Catalog.Questions;
 
 public class QuestionService : IQuestionService
 {
     private readonly ApplicationDbContext _context;
-    private readonly IStorageService _storageService;
+    private readonly IMapper _mapper;
     private const string USER_CONTENT_FOLDER_NAME = "user-content";
 
-    public QuestionService(ApplicationDbContext context, IStorageService storageService)
+    public QuestionService(ApplicationDbContext context, IMapper mapper)
     {
-        _storageService = storageService;
         _context = context;
+        _mapper = mapper;
     }
 
     public async Task<int> Create(QuestionsCreateRequest request)
     {
-        var question = new Question()
-        {
-            ExamScheduleID = request.ExamScheduleID,
-            QuestionString = request.QuestionString,
-            Point = request.Point,
-            ImageFileSize = request.FileSize
-        };
-        // Save file
-        if (request.ThumbnailImage != null)
-        {
-            question.ImagePath = await this.SaveFile(request.ThumbnailImage);
-        }
+        var question = _mapper.Map<QuestionsCreateRequest,Question>(request);
         _context.Questions.Add(question);
         await _context.SaveChangesAsync();
         return question.QuestionID;
-    }
-
-    private async Task<string?> SaveFile(IFormFile thumbnailImage)
-    {
-        var originalFileName = ContentDispositionHeaderValue.Parse(thumbnailImage.ContentDisposition).FileName.Trim('"');
-        var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
-        await _storageService.SaveFileAsync(thumbnailImage.OpenReadStream(), fileName);
-        return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
     }
 
     public async Task<int> Delete(int QuestionID)
@@ -78,6 +60,11 @@ public class QuestionService : IQuestionService
                 ExamScheduleID = x.e.ExamScheduleID,
                 QuestionString = x.q.QuestionString,
                 Point = x.q.Point,
+                Option1 = x.q.Option1,
+                Option2 = x.q.Option2,
+                Option3 = x.q.Option3,
+                Option4 = x.q.Option4,
+                OptionCorrect = x.q.OptionCorrect,
             }).ToListAsync();
 
         //4. Select and projection
@@ -96,15 +83,7 @@ public class QuestionService : IQuestionService
         var question = await _context.Questions.FindAsync(QuestionID);
         if (question == null) throw new DaisyStudyException($"Cannot find a question {QuestionID}");
 
-        var questionViewModel = new QuestionViewModel()
-        {
-            QuestionID = question.QuestionID,
-            ExamScheduleID = question.ExamScheduleID,
-            QuestionString = question.QuestionString,
-            Point = question.Point,
-            ImagePath = question.ImagePath,
-            FileSize = question.ImageFileSize
-        };
+        var questionViewModel = _mapper.Map<Question, QuestionViewModel>(question);
         return questionViewModel;
     }
 
@@ -114,15 +93,11 @@ public class QuestionService : IQuestionService
         if (question == null) throw new DaisyStudyException($"Cannot find a question {request.QuestionID}");
         question.QuestionString = request.QuestionString;
         question.Point = request.Point;
-
-        //Save image
-        if (request.ThumbnailImage != null)
-        {
-            if (question.ImagePath != null)
-            {
-                question.ImagePath = await this.SaveFile(request.ThumbnailImage);
-            }
-        }
+        question.Option1 = request.Option1;
+        question.Option2 = request.Option2;
+        question.Option3 = request.Option3;
+        question.Option4 = request.Option4;
+        question.OptionCorrect = request.OptionCorrect;
         return await _context.SaveChangesAsync();
     }
 }

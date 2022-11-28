@@ -21,7 +21,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
         // Add your customizations after calling base.OnModelCreating(builder);
 
         builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
-        builder.ApplyConfiguration(new AnswerConfiguration());
         builder.ApplyConfiguration(new ClassConfiguration());
         builder.ApplyConfiguration(new ClassDetailConfiguration());
         builder.ApplyConfiguration(new CommentConfiguration());
@@ -35,7 +34,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
         builder.ApplyConfiguration(new QuestionConfiguration());
         builder.ApplyConfiguration(new RoomConfiguration());
         builder.ApplyConfiguration(new StudentExamConfiguration());
-        builder.ApplyConfiguration(new StudentExamDetailConfiguration());
         builder.ApplyConfiguration(new SubmissionConfiguration());
         builder.ApplyConfiguration(new SubmissionImageConfiguration());
         builder.Entity<IdentityRole<string>>().ToTable("AppRoles");
@@ -46,7 +44,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
         builder.Entity<IdentityUserToken<string>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
     }
 
-    public DbSet<Answer> Answers { set; get; } = default!;
     public DbSet<Class> Classes { set; get; } = default!;
     public DbSet<ClassDetail> ClassDetails { set; get; } = default!;
     public DbSet<Comment> Comments { set; get; } = default!;
@@ -57,7 +54,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
     public DbSet<Notification> Notifications { set; get; } = default!;
     public DbSet<Question> Questions { set; get; } = default!;
     public DbSet<StudentExam> StudentExams { set; get; } = default!;
-    public DbSet<StudentExamDetail> StudentExamDetails { set; get; } = default!;
     public DbSet<Submission> Submissions { set; get; } = default!;
     public DbSet<SubmissionImage> SubmissionImages { set; get; } = default!;
     public DbSet<NotificationImage> NotificationImages { set; get; } = default!;
@@ -76,24 +72,6 @@ public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<Appli
         builder.Property(x => x.LastName).IsRequired().HasMaxLength(255);
         builder.Property(x => x.Dob).IsRequired();
         builder.Property(x => x.AccountBalance).IsRequired().HasColumnType("decimal(18,2)");
-    }
-}
-
-public class AnswerConfiguration : IEntityTypeConfiguration<Answer>
-{
-    public void Configure(EntityTypeBuilder<Answer> builder)
-    {
-        builder.ToTable("Answers");
-
-        builder.HasKey(x => x.AnswerID);
-
-        builder.Property(x => x.AnswerID).UseIdentityColumn();
-        builder.Property(x => x.QuestionID).IsRequired();
-        builder.Property(x => x.AnswerString).IsRequired();
-        builder.Property(x => x.ImagePath).HasMaxLength(200).IsRequired();
-        builder.Property(x => x.IsCorrect).IsRequired().HasDefaultValue(false);
-
-        builder.HasOne(x => x.Question).WithMany(x => x.Answers).HasForeignKey(x => x.QuestionID);
     }
 }
 
@@ -275,7 +253,7 @@ public class QuestionConfiguration : IEntityTypeConfiguration<Question>
         builder.Property(x => x.QuestionID).UseIdentityColumn();
         builder.Property(x => x.QuestionString).IsRequired();
         builder.Property(x => x.Point).IsRequired().HasDefaultValue(0);
-        builder.Property(x => x.ImagePath).HasMaxLength(200).IsRequired();
+        builder.Property(x => x.OptionCorrect).IsRequired();
         builder.HasOne(x => x.ExamSchedule).WithMany(x => x.Questions).HasForeignKey(x => x.ExamScheduleID);
     }
 }
@@ -310,23 +288,6 @@ public class StudentExamConfiguration : IEntityTypeConfiguration<StudentExam>
 
         builder.HasOne(x => x.ExamSchedule).WithMany(x => x.StudentExams).HasForeignKey(x => x.ExamScheduleID);
         builder.HasOne(x => x.Student).WithMany(x => x.StudentExams).HasForeignKey(x => x.StudentID);
-    }
-}
-
-public class StudentExamDetailConfiguration : IEntityTypeConfiguration<StudentExamDetail>
-{
-    public void Configure(EntityTypeBuilder<StudentExamDetail> builder)
-    {
-        builder.ToTable("StudentExamDetails");
-
-        builder.HasKey(x => x.StudentExamDetailID);
-
-        builder.Property(x => x.StudentExamDetailID).UseIdentityColumn();
-        builder.Property(x => x.StudentExamID).IsRequired();
-        builder.Property(x => x.AnswerID).IsRequired();
-
-        builder.HasOne(x => x.StudentExam).WithMany(x => x.StudentExamDetails).HasForeignKey(x => x.StudentExamID).OnDelete(DeleteBehavior.ClientCascade);
-        builder.HasOne(x => x.Answer).WithMany(x => x.StudentExamDetails).HasForeignKey(x => x.AnswerID);
     }
 }
 

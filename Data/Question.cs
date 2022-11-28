@@ -7,8 +7,10 @@ public class Question
     public ExamSchedule? ExamSchedule { set; get; }
     public string? QuestionString { set; get; }
     public float Point { set; get; }
-    public string? ImagePath { set; get; }
-    public long ImageFileSize { set; get; }
-    public List<Answer>? Answers { set; get; }
+    public string? Option1 { get; set; }
+    public string? Option2 { get; set; }
+    public string? Option3 { get; set; }
+    public string? Option4 { get; set; }
+    public int OptionCorrect { get; set; }
 }
 

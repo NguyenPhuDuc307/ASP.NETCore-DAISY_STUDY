@@ -19,7 +19,6 @@ using DaisyStudy.Application.Catalog.Homeworks;
 using DaisyStudy.Application.Catalog.Submissions;
 using DaisyStudy.Application.Catalog.ExamSchedules;
 using DaisyStudy.Application.Catalog.Questions;
-using DaisyStudy.Application.Catalog.Answers;
 using DaisyStudy.Application.Catalog.StudentExams;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -175,6 +174,5 @@ void AddTransient()
     builder.Services.AddTransient<ISubmissionService, SubmissionService>();
     builder.Services.AddTransient<IExamScheduleService, ExamScheduleService>();
     builder.Services.AddTransient<IQuestionService, QuestionService>();
-    builder.Services.AddTransient<IAnswerService, AnswerService>();
     builder.Services.AddTransient<IStudentExamService, StudentExamService>();
 }

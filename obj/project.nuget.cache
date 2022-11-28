@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ai9f4xIZkXRtQn5oZcEEOhznzCbfbYiHIeDcKLSnozh2L0Ao1bb+7VY990rjG1kGpCWWYq+YhqIU+sWwWdR6VA==",
+  "dgSpecHash": "4frAos2UybAQJUWtasv9CRkcyLH5wEUDOhArgb9rimU5HYMoNWcb0NMLN/ccCCRsJiF1XtKOkeEfvPoSGarKTA==",
   "success": true,
   "projectFilePath": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/DaisyStudy.csproj",
   "expectedPackageFiles": [
@@ -99,6 +99,7 @@
     "/Users/nguyenphuduc/.nuget/packages/microsoft.win32.registry/5.0.0/microsoft.win32.registry.5.0.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
+    "/Users/nguyenphuduc/.nuget/packages/mustache.netstandard/1.1.0/mustache.netstandard.1.1.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/netstandard.library/1.6.1/netstandard.library.1.6.1.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/nuget.common/6.3.1/nuget.common.6.3.1.nupkg.sha512",

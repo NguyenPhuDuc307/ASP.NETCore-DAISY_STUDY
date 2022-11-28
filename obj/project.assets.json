@@ -2175,6 +2175,15 @@
           "lib/netstandard2.0/Mono.TextTemplating.dll": {}
         }
       },
+      "Mustache.NETStandard/1.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Mustache.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Mustache.dll": {}
+        }
+      },
       "NETStandard.Library/1.6.1": {
         "type": "package",
         "dependencies": {
@@ -7044,6 +7053,21 @@
         "mono.texttemplating.nuspec"
       ]
     },
+    "Mustache.NETStandard/1.1.0": {
+      "sha512": "F7OMX5N3faxSre5LCmcyxqt7dhMznBVN9vKz4ykdEFhPSgSbmuvw6y3rsJ86CBmvxqmab35wtTsz8jfTso4IOA==",
+      "type": "package",
+      "path": "mustache.netstandard/1.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "Mustache.icon.png",
+        "README.md",
+        "lib/netstandard2.0/Mustache.dll",
+        "mustache.netstandard.1.1.0.nupkg.sha512",
+        "mustache.netstandard.nuspec"
+      ]
+    },
     "NETStandard.Library/1.6.1": {
       "sha512": "WcSp3+vP+yHNgS8EV5J7pZ9IRpeDuARBPN28by8zqff1wJQXm26PVU8L3/fYLBJVU7BtDyqNVWq2KlCVvSSR4A==",
       "type": "package",
@@ -11451,7 +11475,8 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.0",
       "Microsoft.Extensions.Caching.Memory >= 7.0.0",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 7.0.0"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 7.0.0",
+      "Mustache.NETStandard >= 1.1.0"
     ]
   },
   "packageFolders": {
@@ -11548,6 +11573,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[7.0.0, )"
+          },
+          "Mustache.NETStandard": {
+            "target": "Package",
+            "version": "[1.1.0, )"
           }
         },
         "imports": [

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Data;
 using Microsoft.EntityFrameworkCore;
 using DaisyStudy.Utilities.Exceptions;
 using System.Net.Http.Headers;
@@ -12,6 +13,7 @@ using DaisyStudy.Models.Common;
 using DaisyStudy.Models.Catalog.Comments;
 using DaisyStudy.Models.Catalog.Notifications;
 using AutoMapper;
+using DaisyStudy.Models.Catalog.ExamSchedules;
 
 namespace DaisyStudy.Application.Catalog.Classes
 {
@@ -325,6 +327,26 @@ namespace DaisyStudy.Application.Catalog.Classes
             return data;
         }
 
+        public async Task<ICollection<ExamSchedulesViewModel>> GetAllExamScheduleByClassID(int ClassID)
+        {
+            //1. Select join
+            var query = from n in _context.ExamSchedules
+                        where n.ClassID == ClassID
+                        select new { n };
+
+            var data = await query.Select(x => new ExamSchedulesViewModel()
+            {
+                ExamScheduleID = x.n.ExamScheduleID,
+                ClassID = x.n.ClassID,
+                ExamScheduleName = x.n.ExamScheduleName,
+                DateTimeCreated = x.n.DateTimeCreated,
+                ExamDateTime = x.n.ExamDateTime,
+                ExamTime = x.n.ExamTime
+            }).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
+
+            return data;
+        }
+
         public async Task<ClassViewModel> GetById(int id)
         {
             var @class = await _context.Classes.Include(x => x.ClassDetails).Include(x => x.Homeworks)
@@ -349,6 +371,7 @@ namespace DaisyStudy.Application.Catalog.Classes
             classViewModel.TeacherImage = user.Avatar;
             classViewModel.TeacherUserName = user.UserName;
             classViewModel.Notifications = await GetAllNotificationByClassID(@class.ID);
+            classViewModel.ExamSchedules = await GetAllExamScheduleByClassID(@class.ID);
             return classViewModel;
         }
 
@@ -377,6 +400,7 @@ namespace DaisyStudy.Application.Catalog.Classes
             classViewModel.TeacherImage = user.Avatar;
             classViewModel.TeacherUserName = user.UserName;
             classViewModel.Notifications = await GetAllNotificationByClassID(@class.ID);
+            classViewModel.ExamSchedules = await GetAllExamScheduleByClassID(@class.ID);
             return classViewModel;
         }
 

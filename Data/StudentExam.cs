@@ -9,6 +9,5 @@ public class StudentExam
     public float Mark { set; get; }
     public string? Note { set; get; }
     public DateTime StudentExamDateTime { set; get; }
-    public List<StudentExamDetail>? StudentExamDetails { set; get; }
 }
 
