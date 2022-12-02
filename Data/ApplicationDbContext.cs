@@ -135,9 +135,9 @@ public class ContactConfiguration : IEntityTypeConfiguration<Contact>
         builder.HasKey(x => x.ContactID);
 
         builder.Property(x => x.ContactID).UseIdentityColumn();
-        builder.Property(x => x.CustomerName).HasMaxLength(200).IsRequired();
-        builder.Property(x => x.Email).HasMaxLength(200).IsRequired();
-        builder.Property(x => x.PhoneNumber).HasMaxLength(200).IsRequired();
+        builder.Property(x => x.CustomerName).HasMaxLength(200);
+        builder.Property(x => x.Email).HasMaxLength(200);
+        builder.Property(x => x.PhoneNumber).HasMaxLength(200);
         builder.Property(x => x.Message).IsRequired();
     }
 }

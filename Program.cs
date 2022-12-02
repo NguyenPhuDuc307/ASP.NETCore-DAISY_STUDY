@@ -20,6 +20,7 @@ using DaisyStudy.Application.Catalog.Submissions;
 using DaisyStudy.Application.Catalog.ExamSchedules;
 using DaisyStudy.Application.Catalog.Questions;
 using DaisyStudy.Application.Catalog.StudentExams;
+using DaisyStudy.Application.Catalog.Contacts;
 
 var builder = WebApplication.CreateBuilder(args);
 var mvcBuilder = builder.Services.AddRazorPages();
@@ -175,4 +176,5 @@ void AddTransient()
     builder.Services.AddTransient<IExamScheduleService, ExamScheduleService>();
     builder.Services.AddTransient<IQuestionService, QuestionService>();
     builder.Services.AddTransient<IStudentExamService, StudentExamService>();
+    builder.Services.AddTransient<IContactService, ContactService>();
 }

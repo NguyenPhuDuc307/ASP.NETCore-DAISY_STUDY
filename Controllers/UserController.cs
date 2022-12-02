@@ -8,6 +8,7 @@ using DaisyStudy.Models.System.Users;
 using DaisyStudy.Application.System.Users;
 using DaisyStudy.Models.VNPAY;
 using DaisyStudy.Application.Common.VNPAY;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DaisyStudy.Controllers;
 
@@ -25,7 +26,8 @@ public class UserController : BaseController
         _signInManager = signInManager;
         _unitOfWork = unitOfWork;
     }
-
+    [Authorize(Policy = "RequireAdmin")]
+    [Route("admin/quan-ly-nguoi-dung")]
     public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
     {
         var request = new GetUserPagingRequest()
@@ -44,7 +46,7 @@ public class UserController : BaseController
 
         return View(data);
     }
-
+    
     public static Dictionary<string, string> vnp_TransactionStatus = new Dictionary<string, string>()
         {
             {"00","Giao dịch thành công" },
@@ -68,10 +70,11 @@ public class UserController : BaseController
     [HttpPost("nap-tien")]
     public IActionResult Pay([FromForm] RequestPayment request)
     {
-        if (!ModelState.IsValid){
+        if (!ModelState.IsValid)
+        {
             return View(request);
         }
-                
+
         ViewBag.thongBaoLoi = "";
         if (string.IsNullOrEmpty(VNPayConfig.vnp_TmnCode) || string.IsNullOrEmpty(VNPayConfig.vnp_HashSecret))
         {
@@ -123,13 +126,15 @@ public class UserController : BaseController
         return View(request);
     }
 
-    [HttpGet]
+    [HttpGet("admin/them-nguoi-dung")]
+    [Authorize(Policy = "RequireAdmin")]
     public IActionResult Create()
     {
         return View();
     }
 
-    [HttpPost]
+    [HttpPost("admin/them-nguoi-dung")]
+    [Authorize(Policy = "RequireAdmin")]
     public async Task<IActionResult> Create(RegisterRequest request)
     {
         if (!ModelState.IsValid)
@@ -146,14 +151,16 @@ public class UserController : BaseController
         return View(request);
     }
 
-    [HttpGet]
+    [HttpPost("admin/chi-tiet-nguoi-dung")]
+    [Authorize(Policy = "RequireAdmin")]
     public async Task<IActionResult> Details(string id)
     {
         var result = await _userService.GetById(id);
         return View(result);
     }
 
-    [HttpGet]
+    [HttpGet("admin/chinh-sua-nguoi-dung")]
+    [Authorize(Policy = "RequireAdmin")]
     public async Task<IActionResult> Edit(string id)
     {
         var user = await _unitOfWork.User.GetUser(id);
@@ -176,7 +183,8 @@ public class UserController : BaseController
         return View(vm);
     }
 
-    [HttpPost]
+    [HttpPost("admin/chinh-sua-nguoi-dung")]
+    [Authorize(Policy = "RequireAdmin")]
     public async Task<IActionResult> OnPostAsync(EditUserViewModel data)
     {
         var user = await _unitOfWork.User.GetUser(data.User.Id);
@@ -224,12 +232,11 @@ public class UserController : BaseController
         user.PhoneNumber = data.User.PhoneNumber;
         user.Dob = data.User.Dob;
         user.Email = data.User.Email;
-
         var result = await _userService.Update(user.Id, user);
 
         if (result == "Cập nhật thành công")
         {
-            TempData["result"] = "Cập nhật thành công";
+            TempData["result"] = "Cập nhật thành công, vui lòng đăng nhập lại";
             return RedirectToAction("Index");
         }
 
@@ -237,7 +244,8 @@ public class UserController : BaseController
         return RedirectToAction("Edit", new { id = user.Id });
     }
 
-    [HttpGet]
+    [HttpGet("admin/xoa-nguoi-dung")]
+    [Authorize(Policy = "RequireAdmin")]
     public async Task<IActionResult> Delete(string id)
     {
         var user = await _userService.GetById(id);
@@ -257,7 +265,8 @@ public class UserController : BaseController
         return RedirectToAction("Error", "Home");
     }
 
-    [HttpPost]
+    [HttpPost("admin/xoa-nguoi-dung")]
+    [Authorize(Policy = "RequireAdmin")]
     public async Task<IActionResult> Delete(UserDeleteRequest request)
     {
         if (!ModelState.IsValid)

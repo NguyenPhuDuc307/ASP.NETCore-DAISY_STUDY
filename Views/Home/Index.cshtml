@@ -14,7 +14,14 @@
 }
 
 <div class="row">
-
+    @if (ViewBag.SuccessMsg != null)
+    {
+        <div class="col-xl-12 col-lg-12">
+            <div id="msgAlert" class="alert alert-success" role="alert">
+                @ViewBag.SuccessMsg
+            </div>
+        </div>
+    }
     @if (Model.Items != null)
     {
         @foreach (var item in Model.Items)
