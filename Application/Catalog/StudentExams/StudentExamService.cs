@@ -21,25 +21,26 @@ public class StudentExamService :IStudentExamService
     public async Task<int> Create(StudentExamsCreateRequest request)
     {
         var student = await _userManager.FindByNameAsync(request.UserName);
-        var studentexam = new StudentExam()
+        var studentExam = new StudentExam()
         {
             ExamScheduleID = request.ExamScheduleID,
             StudentID = student.Id,
             Mark = request.Mark,
             Note = request.Note,
             StudentExamDateTime = request.DateTimeStudentExam,
+            SubmissionDateTime = DateTime.Now
         };
-        _context.StudentExams.Add(studentexam);
+        _context.StudentExams.Add(studentExam);
         await _context.SaveChangesAsync();
-        return studentexam.StudentExamID;
+        return studentExam.StudentExamID;
     }
 
     public async Task<int> Delete(int StudentExamID)
     {
-        var studentexam = await _context.StudentExams.FindAsync(StudentExamID);
-        if (studentexam == null) throw new DaisyStudyException($"Cannot find a studentexam {StudentExamID}");
+        var studentExam = await _context.StudentExams.FindAsync(StudentExamID);
+        if (studentExam == null) throw new DaisyStudyException($"Cannot find a student exam {StudentExamID}");
 
-        _context.StudentExams.Remove(studentexam);
+        _context.StudentExams.Remove(studentExam);
         return await _context.SaveChangesAsync();
     }
 
@@ -82,29 +83,29 @@ public class StudentExamService :IStudentExamService
 
     public async Task<int> Update(StudentExamsUpdateRequest request)
     {
-        var studentexam = await _context.StudentExams.FindAsync(request.StudentExamID);
-        if (studentexam == null) throw new DaisyStudyException($"Cannot find a studentexam {request.StudentExamID}");
-        studentexam.Mark = request.Mark;
-        studentexam.ExamScheduleID = request.ExamScheduleID;
+        var studentExam = await _context.StudentExams.FindAsync(request.StudentExamID);
+        if (studentExam == null) throw new DaisyStudyException($"Cannot find a student exam {request.StudentExamID}");
+        studentExam.Mark = request.Mark;
+        studentExam.ExamScheduleID = request.ExamScheduleID;
         return await _context.SaveChangesAsync();
     }
 
-    public async Task<StudentExamsViewModel> GetById(int StudentExamID)
+    public async Task<StudentExamsViewModel> GetById(int ExamScheduleID, string UserId)
     {
-        var studentexam = await _context.StudentExams.FindAsync(StudentExamID);
-        if (studentexam == null) throw new DaisyStudyException($"Cannot find a studentexam {StudentExamID}");
+        var studentExam = await _context.StudentExams.FirstOrDefaultAsync(x=> x.ExamScheduleID == ExamScheduleID && x.StudentID == UserId);
+        if (studentExam == null) return null;
 
-        var student = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == studentexam.StudentID);
+        var student = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == studentExam.StudentID);
 
-        var studentexamViewModel = new StudentExamsViewModel()
+        var studentExamViewModel = new StudentExamsViewModel()
         {
-            StudentExamID = studentexam.StudentExamID,
-            ExamScheduleID = studentexam.ExamScheduleID,
+            StudentExamID = studentExam.StudentExamID,
+            ExamScheduleID = studentExam.ExamScheduleID,
             StudentID = student.Id,
-            Mark = studentexam.Mark,
-            Note = studentexam.Note,
-            DateTimeStudentExam = studentexam.StudentExamDateTime
+            Mark = studentExam.Mark,
+            Note = studentExam.Note,
+            DateTimeStudentExam = studentExam.StudentExamDateTime
         };
-        return studentexamViewModel;
+        return studentExamViewModel;
     }
 }

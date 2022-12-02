@@ -66,7 +66,7 @@ public class HomeworkService : IHomeworkService
         var _class = await _context.Classes.FindAsync(homework.ClassID);
         if (_class == null) throw new DaisyStudyException($"Cannot find a class {homework.ClassID}");
 
-        var classDetail = await _context.ClassDetails.FirstOrDefaultAsync(x=> x.ClassID == _class.ID && x.IsTeacher == Data.Enums.Teacher.Teacher);
+        var classDetail = await _context.ClassDetails.FirstOrDefaultAsync(x => x.ClassID == _class.ID && x.IsTeacher == Data.Enums.Teacher.Teacher);
         if (classDetail == null) throw new DaisyStudyException($"Cannot find a class {homework.ClassID}");
 
         var homeworkViewModel = new HomeworkViewModel()
@@ -80,15 +80,15 @@ public class HomeworkService : IHomeworkService
             SubmissionDateTime = homework.SubmissionDateTime,
             Deadline = homework.Deadline,
             TeacherID = classDetail.UserID,
-            HomeworkImages = await _context.HomeworkImages.Where(x=> x.HomeworkID == homework.HomeworkID).ToListAsync(),
-            Submissions = await _context.Submissions.Where(x=> x.HomeworkID == homework.HomeworkID).ToListAsync()
+            HomeworkImages = await _context.HomeworkImages.Where(x => x.HomeworkID == homework.HomeworkID).ToListAsync(),
+            Submissions = await _context.Submissions.Where(x => x.HomeworkID == homework.HomeworkID).ToListAsync()
         };
 
         foreach (var item in homeworkViewModel.Submissions)
-            {
-                var _user = await _userManager.FindByIdAsync(item.StudentID);
-                item.Student = _user;
-            }
+        {
+            var _user = await _userManager.FindByIdAsync(item.StudentID);
+            item.Student = _user;
+        }
         return homeworkViewModel;
     }
 
@@ -182,6 +182,134 @@ public class HomeworkService : IHomeworkService
             Items = data
         };
         return pagedResult;
+    }
+
+    public async Task<PagedResult<HomeworkViewModel>> GetAllMyHomeworkPaging(GetManageHomeworkPagingRequest request)
+    {
+        //1. Select join
+        var query = from hw in _context.Homeworks.Include(x => x.Submissions)
+                    join c in _context.Classes.Include(x => x.ClassDetails) on hw.ClassID equals c.ID into hwc
+                    from c in hwc.DefaultIfEmpty()
+                    select new { hw, c };
+        //2. filter
+        if (!string.IsNullOrEmpty(request.Keyword))
+            query = query.Where(x => x.hw.HomeworkName.Contains(request.Keyword)
+                || x.c.ClassID.Contains(request.Keyword));
+
+        if (request.ClassID != null && request.ClassID != 0)
+        {
+            query = query.Where(p => p.hw.ClassID == request.ClassID);
+        }
+
+        if (request.UserId != null)
+        {
+            query = query.Where(x => x.c.ClassDetails.Any(x => x.UserID == request.UserId));
+        }
+
+        //3. Paging
+        int totalRow = await query.CountAsync();
+
+        var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+            .Take(request.PageSize)
+            .Select(x => new HomeworkViewModel()
+            {
+                HomeworkID = x.hw.HomeworkID,
+                ID = x.c.ID,
+                ClassName = x.c.ClassName,
+                HomeworkName = x.hw.HomeworkName,
+                Description = x.hw.Description,
+                DateTimeCreated = x.hw.DateTimeCreated,
+                SubmissionDateTime = x.hw.SubmissionDateTime,
+                Deadline = x.hw.Deadline,
+                HomeworkImages = _context.HomeworkImages.Where(p => p.HomeworkID == x.hw.HomeworkID).ToList(),
+                MySubmission = _context.Submissions.FirstOrDefault(p => p.HomeworkID == x.hw.HomeworkID && p.StudentID == request.UserId)
+            }).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
+
+        //4. Select and projection
+        var pagedResult = new PagedResult<HomeworkViewModel>()
+        {
+            TotalRecords = totalRow,
+            PageSize = request.PageSize,
+            PageIndex = request.PageIndex,
+            Items = data
+        };
+        return pagedResult;
+    }
+
+    public async Task<PagedResult<HomeworkViewModel>> GetAllMyAdminHomeworkPaging(GetManageHomeworkPagingRequest request)
+    {
+        //1. Select join
+        var query = from hw in _context.Homeworks.Include(x => x.Submissions)
+                    join c in _context.Classes.Include(x => x.ClassDetails) on hw.ClassID equals c.ID into hwc
+                    from c in hwc.DefaultIfEmpty()
+                    select new { hw, c };
+        //2. filter
+        if (!string.IsNullOrEmpty(request.Keyword))
+            query = query.Where(x => x.hw.HomeworkName.Contains(request.Keyword)
+                || x.c.ClassID.Contains(request.Keyword));
+
+        if (request.ClassID != null && request.ClassID != 0)
+        {
+            query = query.Where(p => p.hw.ClassID == request.ClassID);
+        }
+
+        if (request.UserId != null)
+        {
+            query = query.Where(x => x.c.ClassDetails.Any(x => x.UserID == request.UserId && x.IsTeacher == Data.Enums.Teacher.Teacher));
+        }
+
+        //3. Paging
+        int totalRow = await query.CountAsync();
+
+        var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+            .Take(request.PageSize)
+            .Select(x => new HomeworkViewModel()
+            {
+                HomeworkID = x.hw.HomeworkID,
+                ID = x.c.ID,
+                ClassName = x.c.ClassName,
+                HomeworkName = x.hw.HomeworkName,
+                Description = x.hw.Description,
+                DateTimeCreated = x.hw.DateTimeCreated,
+                SubmissionDateTime = x.hw.SubmissionDateTime,
+                Deadline = x.hw.Deadline,
+                HomeworkImages = _context.HomeworkImages.Where(p => p.HomeworkID == x.hw.HomeworkID).ToList(),
+                MySubmission = _context.Submissions.FirstOrDefault(p => p.HomeworkID == x.hw.HomeworkID && p.StudentID == request.UserId)
+            }).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
+
+        //4. Select and projection
+        var pagedResult = new PagedResult<HomeworkViewModel>()
+        {
+            TotalRecords = totalRow,
+            PageSize = request.PageSize,
+            PageIndex = request.PageIndex,
+            Items = data
+        };
+        return pagedResult;
+    }
+
+    public async Task<List<HomeworkViewModel>> GetAllMyAdminHomework(string? UserId)
+    {
+        //1. Select join
+        var query = from hw in _context.Homeworks.Include(x => x.Submissions)
+                    join c in _context.Classes.Include(x => x.ClassDetails) on hw.ClassID equals c.ID into hwc
+                    from c in hwc.DefaultIfEmpty()
+                    select new { hw, c };
+
+        if (UserId != null)
+        {
+            query = query.Where(x => x.c.ClassDetails.Any(x => x.UserID == UserId && x.IsTeacher == Data.Enums.Teacher.Teacher));
+        }
+
+        var data = await query
+            .Select(x => new HomeworkViewModel()
+            {
+                HomeworkID = x.hw.HomeworkID,
+                ClassName = x.c.ClassName,
+                HomeworkName = x.hw.HomeworkName,
+            }).OrderByDescending(x => x.HomeworkName).ToListAsync();
+
+        return data;
     }
 
     public async Task<List<HomeworkViewModel>> GetAll()

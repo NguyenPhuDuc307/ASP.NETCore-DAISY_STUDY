@@ -216,6 +216,87 @@ namespace DaisyStudy.Application.Catalog.Classes
             return pageResult;
         }
 
+        public async Task<PagedResult<ClassViewModel>> GetAllMyAdminClassPaging(ClassPagingRequest request, string UserId)
+        {
+            //1. Select
+            var classes = _context.Classes
+            .Include(x => x.ClassDetails)
+            .Skip((request.PageIndex - 1) * request.PageSize)
+            .Take(request.PageSize);
+
+            
+
+            //2. Filter
+            if (!string.IsNullOrEmpty(request.Keyword))
+            {
+                classes = classes.Where(x => x.ClassName.Contains(request.Keyword)
+                    || x.ClassID.Contains(request.Keyword)
+                    || x.Topic.Contains(request.Keyword));
+            }
+
+            var data = await classes.ToListAsync();
+
+            foreach (var item in data.ToList())
+            {
+                bool check = false;
+                foreach(var i in item.ClassDetails){
+                    if(i.UserID == UserId && i.IsTeacher == Teacher.Teacher){
+                        check = true;
+                        break;
+                    }
+                }
+                if(check == false){
+                    data.Remove(item);
+                }
+            }
+
+            var classViewModel = _mapper.Map<IEnumerable<Class>, IEnumerable<ClassViewModel>>(data);
+
+            foreach (var item in classViewModel)
+            {
+                string idTeacher = _context.ClassDetails.FirstOrDefault(x => x.IsTeacher == Data.Enums.Teacher.Teacher && x.ClassID == item.ID).UserID;
+                var userViewModel = await _userManager.FindByIdAsync(idTeacher);
+                item.Teacher = userViewModel.FirstName + " " + userViewModel.LastName;
+            }
+
+            //3. Paging
+            int totalRow = await classes.CountAsync();
+
+            //4. Select and projection
+            var pageResult = new PagedResult<ClassViewModel>()
+            {
+                TotalRecords = totalRow,
+                PageIndex = request.PageIndex,
+                PageSize = request.PageSize,
+                Items = classViewModel
+            };
+            return pageResult;
+        }
+
+        public async Task<List<Class>> GetAllMyAdminClass(string? UserId)
+        {
+            //1. Select
+            var classes = _context.Classes
+            .Include(x => x.ClassDetails);
+
+            var data = await classes.ToListAsync();
+
+            foreach (var item in data.ToList())
+            {
+                bool check = false;
+                foreach(var i in item.ClassDetails){
+                    if(i.UserID == UserId && i.IsTeacher == Teacher.Teacher){
+                        check = true;
+                        break;
+                    }
+                }
+                if(check == false){
+                    data.Remove(item);
+                }
+            }
+            return data;
+        }
+
         public async Task<PagedResult<ClassViewModel>> GetAllClassPagingHome(ClassPagingRequest request)
         {
             //1. Select

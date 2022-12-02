@@ -154,6 +154,7 @@ public class ExamScheduleConfiguration : IEntityTypeConfiguration<ExamSchedule>
         builder.Property(x => x.ClassID).IsRequired();
         builder.Property(x => x.ExamScheduleName).IsRequired();
         builder.Property(x => x.DateTimeCreated).IsRequired();
+        builder.Property(x => x.Deadline).IsRequired();
         builder.Property(x => x.ExamDateTime).IsRequired();
         builder.Property(x => x.ExamTime).IsRequired();
 

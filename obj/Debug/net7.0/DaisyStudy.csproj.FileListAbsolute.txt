@@ -2311,3 +2311,10 @@
 //Mac/Home/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/obj/Debug/net7.0/DaisyStudy.genruntimeconfig.cache
 //Mac/Home/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/obj/Debug/net7.0/ref/DaisyStudy.dll
 /Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/bin/Debug/net7.0/Mustache.dll
+/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/bin/Debug/net7.0/ClosedXML.dll
+/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/bin/Debug/net7.0/DocumentFormat.OpenXml.dll
+/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/bin/Debug/net7.0/ExcelNumberFormat.dll
+/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/bin/Debug/net7.0/Irony.dll
+/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/bin/Debug/net7.0/SixLabors.Fonts.dll
+/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/bin/Debug/net7.0/System.IO.Packaging.dll
+/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/bin/Debug/net7.0/XLParser.dll

@@ -1,4 +1,5 @@
 ﻿using DaisyStudy.Data.Enums;
+using DaisyStudy.Data;
 using DaisyStudy.Models.Catalog.Classes;
 using DaisyStudy.Models.Common;
 
@@ -18,6 +19,8 @@ namespace DaisyStudy.Application.Catalog.Classes
         Task AddViewCount(int ID);
         Task<PagedResult<ClassViewModel>> GetAllClassPaging(ClassPagingRequest request);
         Task<PagedResult<ClassViewModel>> GetAllMyClassPaging(ClassPagingRequest request, string UserId);
+        Task<PagedResult<ClassViewModel>> GetAllMyAdminClassPaging(ClassPagingRequest request, string UserId);
+        Task<List<Class>> GetAllMyAdminClass(string? UserId);
         Task<PagedResult<ClassViewModel>> GetAllClassPagingHome(ClassPagingRequest request);
         Task<PagedResult<ClassDetailViewModel>> GetAllStudentByClassIDPaging(GetAllStudentInClassPagingRequest request);
         Task<int> UpdateImage(int classID, ClassImageUpdateRequest request);

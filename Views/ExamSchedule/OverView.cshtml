@@ -298,9 +298,12 @@
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                         aria-labelledby="dropdownMenuLink">
                         <div class="dropdown-header">Tuỳ chọn:</div>
-                        <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Edit" asp-route-id="@Model.ExamScheduleID">Chỉnh sửa</a>
-                        <a class="dropdown-item text-danger" asp-controller="ExamSchedule" asp-action="Delete" asp-route-id="@Model.ExamScheduleID" asp-route-returnUrl="@returnUrl">Xoá kỳ thi</a>
-                        <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Details" asp-route-id="@Model.ExamScheduleID">Đề thi</a>
+                        <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Edit"
+                            asp-route-id="@Model.ExamScheduleID">Chỉnh sửa</a>
+                        <a class="dropdown-item text-danger" asp-controller="ExamSchedule" asp-action="Delete"
+                            asp-route-id="@Model.ExamScheduleID" asp-route-returnUrl="@returnUrl">Xoá kỳ thi</a>
+                        <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Details"
+                            asp-route-id="@Model.ExamScheduleID">Đề thi</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
@@ -317,10 +320,53 @@
                     <h6 class="text-info">Ngày thi</h6>
                     @Model.ExamDateTime.ToString("HH:mm - dddd dd/MM/yyyy")
                     <br /><br>
+                    <h6 class="text-info">Hạn làm bài</h6>
+                    @Model.Deadline.ToString("HH:mm - dddd dd/MM/yyyy")
+                    <br /><br>
                     <h6 class="text-info">Thời gian làm bài</h6>
                     @Model.ExamTime phút
                     <br>
                     <br>
+                    @if(ViewBag.myMark != null){
+                        <h6 class="text-success">Điểm của bạn: @ViewBag.myMark</h6>
+                    }
+                    else{
+                        if (Convert.ToDateTime(Model.ExamDateTime) < DateTime.Now)
+                        {
+                            if (Convert.ToDateTime(Model.Deadline) > DateTime.Now)
+                            {
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Bắt đầu thi</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-danger" disabled>Ngoài thời gian làm bài</button>
+                            }
+                        }
+                        else{
+                                <button type="button" class="btn btn-info" disabled>Chưa đến thời gian thi</button>
+                        }
+                    }
+                    
+                    
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="animated--grow-in modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận vào thi</h1>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Đóng</button>
+                                    <a asp-controller="Question" asp-action="Exam" asp-route-id="@Model.ExamScheduleID"
+                                        class="btn btn-primary">Bắt đầu thi</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
                 <div class="col-xl-8">
                     <h6 class="text-info">Nội dung thi</h6>

@@ -196,6 +196,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xhc3MvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/Views/Class/MyAdminClass.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xhc3MvTXlBZG1pbkNsYXNzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/Views/Class/MyClass.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xhc3MvTXlDbGFzcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -216,6 +220,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhhbVNjaGVkdWxlL0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/Views/ExamSchedule/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhhbVNjaGVkdWxlL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/Views/ExamSchedule/OverView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhhbVNjaGVkdWxlL092ZXJWaWV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -226,6 +234,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/Views/Homework/BaiTap.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZXdvcmsvQmFpVGFwLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/Views/Homework/Create.cshtml]
@@ -250,6 +262,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/Views/Question/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUXVlc3Rpb24vQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/Views/Question/Exam.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUXVlc3Rpb24vRXhhbS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/Views/Question/Index.cshtml]
@@ -302,6 +318,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/Views/Submission/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3VibWlzc2lvbi9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/Views/Submission/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3VibWlzc2lvbi9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/Views/Submission/ListSubmission.cshtml]

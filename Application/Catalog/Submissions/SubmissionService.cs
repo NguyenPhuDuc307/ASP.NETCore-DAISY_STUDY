@@ -182,6 +182,120 @@ public class SubmissionService : ISubmissionService
             .Take(request.PageSize)
             .Select(x => new SubmissionViewModel()
             {
+                SubmissionID = x.sm.SubmissionID,
+                HomeworkID = x.hw.HomeworkID,
+                StudentID = x.st.Id,
+                FirstName = x.st.FirstName,
+                LastName = x.st.LastName,
+                PhoneNumber = x.st.PhoneNumber,
+                Email = x.st.Email,
+                HomeworkName = x.hw.HomeworkName,
+                ClassID = x.c.ClassID,
+                ClassName = x.c.ClassName,
+                DescriptionHomework = x.hw.Description,
+                DateTimeCreated = x.hw.DateTimeCreated,
+                Deadline = x.hw.Deadline,
+                Mark = x.sm.Mark,
+                Note = x.sm.Note,
+                Description = x.sm.Description,
+                SubmissionDateTime = x.sm.SubmissionDateTime,
+                DateTimeUpdated = x.sm.DateTimeUpdated
+            }).ToListAsync();
+
+        //4. Select and projection
+        var pagedResult = new PagedResult<SubmissionViewModel>()
+        {
+            TotalRecords = totalRow,
+            PageSize = request.PageSize,
+            PageIndex = request.PageIndex,
+            Items = data
+        };
+        return pagedResult;
+    }
+
+    public async Task<PagedResult<SubmissionViewModel>> GetMyAllPaging(GetManageSubmissionPagingRequest request)
+    {
+        //1. Select join
+        var query = from sm in _context.Submissions
+                    join st in _userManager.Users on sm.StudentID equals st.Id into smst
+                    from st in smst.DefaultIfEmpty()
+                    join hw in _context.Homeworks on sm.HomeworkID equals hw.HomeworkID into smhw
+                    from hw in smhw.DefaultIfEmpty()
+                    join c in _context.Classes.Include(x=> x.ClassDetails) on hw.ClassID equals c.ID
+                    select new { sm, st, hw, c };
+
+        if(request.HomeworkID != 0 && request.HomeworkID != null){
+            query = query.Where(x=> x.sm.HomeworkID == request.HomeworkID);
+        }
+
+        if(request.UserId != null){
+            query = query.Where(x=> x.c.ClassDetails.Any(x=> x.UserID == request.UserId && x.IsTeacher == Data.Enums.Teacher.Teacher));
+        }
+
+        //3. Paging
+        int totalRow = await query.CountAsync();
+
+        var data = await query.OrderByDescending(x=> x.sm.DateTimeUpdated).Skip((request.PageIndex - 1) * request.PageSize)
+            .Take(request.PageSize)
+            .Select(x => new SubmissionViewModel()
+            {
+                SubmissionID = x.sm.SubmissionID,
+                HomeworkID = x.hw.HomeworkID,
+                StudentID = x.st.Id,
+                FirstName = x.st.FirstName,
+                LastName = x.st.LastName,
+                PhoneNumber = x.st.PhoneNumber,
+                Email = x.st.Email,
+                HomeworkName = x.hw.HomeworkName,
+                ClassID = x.c.ClassID,
+                ClassName = x.c.ClassName,
+                DescriptionHomework = x.hw.Description,
+                DateTimeCreated = x.hw.DateTimeCreated,
+                Deadline = x.hw.Deadline,
+                Mark = x.sm.Mark,
+                Note = x.sm.Note,
+                Description = x.sm.Description,
+                SubmissionDateTime = x.sm.SubmissionDateTime,
+                DateTimeUpdated = x.sm.DateTimeUpdated
+            }).ToListAsync();
+
+        //4. Select and projection
+        var pagedResult = new PagedResult<SubmissionViewModel>()
+        {
+            TotalRecords = totalRow,
+            PageSize = request.PageSize,
+            PageIndex = request.PageIndex,
+            Items = data
+        };
+        return pagedResult;
+    }
+
+    public async Task<PagedResult<SubmissionViewModel>> GetMyAll(GetManageSubmissionPagingRequest request)
+    {
+        //1. Select join
+        var query = from sm in _context.Submissions
+                    join st in _userManager.Users on sm.StudentID equals st.Id into smst
+                    from st in smst.DefaultIfEmpty()
+                    join hw in _context.Homeworks on sm.HomeworkID equals hw.HomeworkID into smhw
+                    from hw in smhw.DefaultIfEmpty()
+                    join c in _context.Classes.Include(x=> x.ClassDetails) on hw.ClassID equals c.ID
+                    select new { sm, st, hw, c };
+
+        if(request.HomeworkID != 0 && request.HomeworkID != null){
+            query = query.Where(x=> x.sm.HomeworkID == request.HomeworkID);
+        }
+
+        if(request.UserId != null){
+            query = query.Where(x=> x.c.ClassDetails.Any(x=> x.UserID == request.UserId && x.IsTeacher == Data.Enums.Teacher.Teacher));
+        }
+
+        //3. Paging
+        int totalRow = await query.CountAsync();
+
+        var data = await query.OrderByDescending(x=> x.sm.DateTimeUpdated)
+            .Select(x => new SubmissionViewModel()
+            {
+                SubmissionID = x.sm.SubmissionID,
                 HomeworkID = x.hw.HomeworkID,
                 StudentID = x.st.Id,
                 FirstName = x.st.FirstName,

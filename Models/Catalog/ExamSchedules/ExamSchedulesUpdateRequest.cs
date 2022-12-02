@@ -12,6 +12,9 @@ public class ExamSchedulesUpdateRequest
     [Display(Name = "Ngày thi")]
     public DateTime ExamDateTime { set; get; }
 
+    [Display(Name = "Hạn làm bài")]
+    public DateTime Deadline { set; get; }
+
     [Display(Name = "Thời gian thi")]
     public int ExamTime { set; get; }
     [Display(Name = "Mô tả")]

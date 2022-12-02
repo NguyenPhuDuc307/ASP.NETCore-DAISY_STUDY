@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using DaisyStudy.Data;
-using DaisyStudy.Data.Enums;
 
 namespace DaisyStudy.Models.Catalog.Submissions;
 
@@ -37,11 +36,11 @@ public class SubmissionViewModel
     public string? DescriptionHomework { set; get; }
 
     [Display(Name = "Ngày tạo")]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0: HH:mm dddd dd/MM/yyyy}")]
     public DateTime DateTimeCreated { set; get; }
 
     [Display(Name = "Hạn nộp bài")]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0: HH:mm dddd dd/MM/yyyy}")]
     public DateTime Deadline { set; get; }
 
     [Display(Name = "Điểm số")]
@@ -54,9 +53,11 @@ public class SubmissionViewModel
     public string? Description { set; get; }
 
     [Display(Name = "Thời gian nộp bài")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0: HH:mm dddd dd/MM/yyyy}")]
     public DateTime SubmissionDateTime { set; get; }
 
     [Display(Name = "Thời gian cập nhật")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0: HH:mm dddd dd/MM/yyyy}")]
     public DateTime DateTimeUpdated { set; get; }
     public ICollection<SubmissionImage>? SubmissionImages { get; set; }
 }

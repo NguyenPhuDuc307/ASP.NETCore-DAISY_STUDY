@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4frAos2UybAQJUWtasv9CRkcyLH5wEUDOhArgb9rimU5HYMoNWcb0NMLN/ccCCRsJiF1XtKOkeEfvPoSGarKTA==",
+  "dgSpecHash": "NB2K9DxADTbPRJRbmB2oVtsAhWp33KBvArpjsN4m03TWmbTG7exFt7tWGBs0PTrJm40jlhfBmD6O0HrpoIjRCA==",
   "success": true,
   "projectFilePath": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/DaisyStudy.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,11 @@
     "/Users/nguyenphuduc/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.0/automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/azure.core/1.24.0/azure.core.1.24.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/azure.identity/1.6.0/azure.identity.1.6.0.nupkg.sha512",
+    "/Users/nguyenphuduc/.nuget/packages/closedxml/0.97.0/closedxml.0.97.0.nupkg.sha512",
+    "/Users/nguyenphuduc/.nuget/packages/documentformat.openxml/2.16.0/documentformat.openxml.2.16.0.nupkg.sha512",
+    "/Users/nguyenphuduc/.nuget/packages/excelnumberformat/1.1.0/excelnumberformat.1.1.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
+    "/Users/nguyenphuduc/.nuget/packages/irony.netcore/1.0.11/irony.netcore.1.0.11.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/messagepack/2.1.152/messagepack.2.1.152.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/messagepack.annotations/2.1.152/messagepack.annotations.2.1.152.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/messagepackanalyzer/2.1.152/messagepackanalyzer.2.1.152.nupkg.sha512",
@@ -101,7 +105,7 @@
     "/Users/nguyenphuduc/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/mustache.netstandard/1.1.0/mustache.netstandard.1.1.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/netstandard.library/1.6.1/netstandard.library.1.6.1.nupkg.sha512",
-    "/Users/nguyenphuduc/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
+    "/Users/nguyenphuduc/.nuget/packages/newtonsoft.json/13.0.2/newtonsoft.json.13.0.2.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/nuget.common/6.3.1/nuget.common.6.3.1.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/nuget.configuration/6.3.1/nuget.configuration.6.3.1.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/nuget.dependencyresolver.core/6.3.1/nuget.dependencyresolver.core.6.3.1.nupkg.sha512",
@@ -127,6 +131,7 @@
     "/Users/nguyenphuduc/.nuget/packages/runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+    "/Users/nguyenphuduc/.nuget/packages/sixlabors.fonts/1.0.0-beta18/sixlabors.fonts.1.0.0-beta18.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/system.appcontext/4.3.0/system.appcontext.4.3.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/system.codedom/4.4.0/system.codedom.4.4.0.nupkg.sha512",
@@ -156,6 +161,7 @@
     "/Users/nguyenphuduc/.nuget/packages/system.io.compression.zipfile/4.3.0/system.io.compression.zipfile.4.3.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/system.io.filesystem/4.3.0/system.io.filesystem.4.3.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/system.io.filesystem.primitives/4.3.0/system.io.filesystem.primitives.4.3.0.nupkg.sha512",
+    "/Users/nguyenphuduc/.nuget/packages/system.io.packaging/4.7.0/system.io.packaging.4.7.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/system.io.pipelines/5.0.1/system.io.pipelines.5.0.1.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/system.linq/4.3.0/system.linq.4.3.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/system.linq.expressions/4.3.0/system.linq.expressions.4.3.0.nupkg.sha512",
@@ -211,7 +217,8 @@
     "/Users/nguyenphuduc/.nuget/packages/system.threading.timer/4.3.0/system.threading.timer.4.3.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512",
     "/Users/nguyenphuduc/.nuget/packages/system.xml.readerwriter/4.3.0/system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "/Users/nguyenphuduc/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512"
+    "/Users/nguyenphuduc/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512",
+    "/Users/nguyenphuduc/.nuget/packages/xlparser/1.5.2/xlparser.1.5.2.nupkg.sha512"
   ],
   "logs": []
 }

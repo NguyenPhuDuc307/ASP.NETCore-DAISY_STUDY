@@ -2,18 +2,42 @@ using DaisyStudy.Application.Catalog.ExamSchedules;
 using DaisyStudy.Models.Catalog.ExamSchedules;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using DaisyStudy.Application.Catalog.StudentExams;
 
 namespace ASP.NETCoreIdentityCustom.Controllers
 {
     public class ExamScheduleController : Controller
     {
         private readonly IExamScheduleService _examScheduleService;
+        private readonly IStudentExamService _studentExamService;
         private readonly IMapper _mapper;
 
-        public ExamScheduleController(IExamScheduleService examScheduleService, IMapper mapper)
+        public ExamScheduleController(IExamScheduleService examScheduleService,
+                                      IStudentExamService studentExamService,
+                                      IMapper mapper)
         {
             _examScheduleService = examScheduleService;
+            _studentExamService = studentExamService;
             _mapper = mapper;
+        }
+
+        [Route("lich-thi")]
+        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
+        {
+            var request = new GetManageExamSchedulesPagingRequest()
+            {
+                UserId = HttpContext.Session.GetString("UserId"),
+                Keyword = keyword,
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            };
+            var data = await _examScheduleService.GetAllMyExamSchedulesPaging(request);
+            ViewBag.Keyword = keyword;
+            if (TempData["result"] != null)
+            {
+                ViewBag.SuccessMsg = TempData["result"];
+            }
+            return View(data);
         }
 
         [HttpGet("them-ky-thi")]
@@ -49,6 +73,13 @@ namespace ASP.NETCoreIdentityCustom.Controllers
         {
             var result = await _examScheduleService.GetById(id);
             if (result == null) NotFound();
+            string UserId = HttpContext.Session.GetString("UserId");
+            var studentExamsViewModel = await _studentExamService.GetById(id, UserId);
+            if (studentExamsViewModel != null)
+            {
+                ViewBag.myMark = studentExamsViewModel.Mark;
+            }
+            else ViewBag.myMark = null;
             if (TempData["result"] != null)
             {
                 ViewBag.SuccessMsg = TempData["result"];
@@ -99,7 +130,7 @@ namespace ASP.NETCoreIdentityCustom.Controllers
             if (result != 0)
             {
                 TempData["result"] = "Xoá kỳ thi thành công";
-                return RedirectToAction("Details", "Class", new { id = schedulesViewModel.ClassID});
+                return RedirectToAction("Details", "Class", new { id = schedulesViewModel.ClassID });
             }
 
             ModelState.AddModelError("", "Xoá kỳ thi thất bại");

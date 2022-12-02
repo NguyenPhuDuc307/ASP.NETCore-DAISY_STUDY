@@ -137,8 +137,20 @@
       "PackagePath": "staticwebassets/js/ckeditor.js"
     },
     {
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/controllers/examController.js",
+      "PackagePath": "staticwebassets/js/controllers/examController.js"
+    },
+    {
       "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/controllers/questionController.js",
       "PackagePath": "staticwebassets/js/controllers/questionController.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/plugins/bootbox.min.js",
+      "PackagePath": "staticwebassets/js/plugins/bootbox.min.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/plugins/jquery.twbsPagination.min.js",
+      "PackagePath": "staticwebassets/js/plugins/jquery.twbsPagination.min.js"
     },
     {
       "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/plugins/mustache.min.js",
@@ -397,6 +409,10 @@
       "PackagePath": "staticwebassets/user-content/86dc9356-dcfa-4cfd-9164-ff658dc902bd.png"
     },
     {
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/921e995d-1ae0-4548-817c-1df5125976e8.png",
+      "PackagePath": "staticwebassets/user-content/921e995d-1ae0-4548-817c-1df5125976e8.png"
+    },
+    {
       "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/9bf29fc8-d760-41a1-9a5f-608edf3285d8.png",
       "PackagePath": "staticwebassets/user-content/9bf29fc8-d760-41a1-9a5f-608edf3285d8.png"
     },
@@ -447,22 +463,6 @@
     {
       "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/vendor/bootstrap/js/bootstrap.bundle.min.js.map",
       "PackagePath": "staticwebassets/vendor/bootstrap/js/bootstrap.bundle.min.js.map"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/vendor/bootstrap/js/bootstrap.esm.js",
-      "PackagePath": "staticwebassets/vendor/bootstrap/js/bootstrap.esm.js"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/vendor/bootstrap/js/bootstrap.esm.js.map",
-      "PackagePath": "staticwebassets/vendor/bootstrap/js/bootstrap.esm.js.map"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/vendor/bootstrap/js/bootstrap.esm.min.js",
-      "PackagePath": "staticwebassets/vendor/bootstrap/js/bootstrap.esm.min.js"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/vendor/bootstrap/js/bootstrap.esm.min.js.map",
-      "PackagePath": "staticwebassets/vendor/bootstrap/js/bootstrap.esm.min.js.map"
     },
     {
       "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/vendor/bootstrap/js/bootstrap.js",

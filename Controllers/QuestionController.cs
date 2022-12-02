@@ -1,56 +1,197 @@
 ﻿using AutoMapper;
+using DaisyStudy.Application.Catalog.ExamSchedules;
 using DaisyStudy.Application.Catalog.Questions;
+using DaisyStudy.Application.Catalog.StudentExams;
+using DaisyStudy.Data;
 using DaisyStudy.Models.Catalog.Question;
+using DaisyStudy.Models.Catalog.StudentExams;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace DaisyStudy.Controllers;
 
 public class QuestionController : BaseController
 {
     private readonly IQuestionService _questionService;
+    private readonly IExamScheduleService _examScheduleService;
+    private readonly IStudentExamService _studentExamService;
     private readonly IConfiguration _configuration;
     private readonly IMapper _mapper;
 
-    public QuestionController(IQuestionService QuestionService,
+    public QuestionController(IQuestionService questionService,
+                              IExamScheduleService examScheduleService,
+                              IStudentExamService studentExamService,
                               IConfiguration configuration,
                               IMapper mapper)
     {
+        _questionService = questionService;
+        _examScheduleService = examScheduleService;
+        _studentExamService = studentExamService;
         _configuration = configuration;
-        _questionService = QuestionService;
         _mapper = mapper;
     }
 
     [HttpGet]
-    public async Task<JsonResult> LoadData()
+    public async Task<JsonResult> LoadData(int page, int pageSize = 10, int exId = 0)
     {
         var request = new GetManageQuestionPagingRequest()
         {
+            ExamScheduleID = exId,
             Keyword = null,
-            PageIndex = 1,
-            PageSize = 10
+            PageIndex = page,
+            PageSize = pageSize
         };
         var data = await _questionService.GetAllPaging(request);
-        return Json(new{
-            data = data.Items.ToList(),
+        int totalRow = data.TotalRecords;
+        return Json(new
+        {
+            data = data.Items,
+            total = totalRow,
             status = true
         });
     }
 
-    public async Task<IActionResult> Index(string examSchedule, int pageIndex = 1, int pageSize = 10)
+    [HttpGet]
+    public async Task<JsonResult> LoadExam(int id)
     {
-        var request = new GetManageQuestionPagingRequest()
+        var examPaper = await _questionService.GetExamPaper(id);
+        return Json(new
         {
-            Keyword = examSchedule,
-            PageIndex = pageIndex,
-            PageSize = pageSize
-        };
-        var data = await _questionService.GetAllPaging(request);
-        ViewBag.Keyword = examSchedule;
+            data = examPaper.Items,
+            status = true
+        });
+    }
+
+    [HttpPost]
+    public async Task<JsonResult> UpdatePoint(string model)
+    {
+        Question question = JsonConvert.DeserializeObject<Question>(model);
+
+        //save db
+        var entity = await _questionService.GetById(question.QuestionID);
+        entity.QuestionString = question.QuestionString;
+        entity.Point = question.Point;
+        entity.Option1 = question.Option1;
+        entity.Option2 = question.Option2;
+        entity.Option3 = question.Option3;
+        entity.Option4 = question.Option4;
+        entity.OptionCorrect = question.OptionCorrect;
+
+        await _questionService.Update(_mapper.Map<QuestionViewModel, QuestionUpdateRequest>(entity));
+        return Json(new
+        {
+            status = true
+        });
+    }
+
+    [HttpPost]
+    public async Task<JsonResult> DeleteQuestion(int id)
+    {
+        var Question = await _questionService.GetById(id);
+        var result = await _questionService.Delete(id);
+        return Json(new
+        {
+            status = true
+        });
+
+    }
+
+    [HttpPost]
+    public async Task<JsonResult> UpdateAll(string model)
+    {
+        List<Question> questions = JsonConvert.DeserializeObject<List<Question>>(model);
+
+        foreach (var item in questions)
+        {
+            var entity = await _questionService.GetById(item.QuestionID);
+            entity.QuestionString = item.QuestionString;
+            entity.Point = item.Point;
+            entity.Option1 = item.Option1;
+            entity.Option2 = item.Option2;
+            entity.Option3 = item.Option3;
+            entity.Option4 = item.Option4;
+            entity.OptionCorrect = item.OptionCorrect;
+
+            await _questionService.Update(_mapper.Map<QuestionViewModel, QuestionUpdateRequest>(entity));
+        }
+
+        //save db
+
+        return Json(new
+        {
+            status = true
+        });
+    }
+
+    public async Task<JsonResult> SaveData(string strQuestionsCreateRequest)
+    {
+        QuestionsCreateRequest question = JsonConvert.DeserializeObject<QuestionsCreateRequest>(strQuestionsCreateRequest);
+        bool status = false;
+        string message = string.Empty;
+
+        var result = await _questionService.Create(question);
+        if (result != null)
+        {
+            status = true;
+        }
+        else
+        {
+            status = false;
+            message = "Thêm câu hỏi thất bại";
+        }
+
+        return Json(new
+        {
+            status = status,
+            message = message
+        });
+    }
+
+    [Route("quan-ly-cau-hoi")]
+    public async Task<IActionResult> Index()
+    {
+        // danh sách kỳ thi thuộc lớp học của mình
+        var list = await _examScheduleService.GetAllMyExamSchedules(User.Identity.Name);
+        ViewData["ExamScheduleID"] = new SelectList(list, "ExamScheduleID", "ExamScheduleName");
         if (TempData["result"] != null)
         {
             ViewBag.SuccessMsg = TempData["result"];
         }
-        return View(data);
+        return View();
+    }
+
+    [HttpGet("bai-thi")]
+    public async Task<IActionResult> Exam(int id)
+    {
+        if(id == 0) return NotFound();
+        var exS = await _examScheduleService.GetById(id);
+        HttpContext.Session.SetString("DateTimeStudentExam", DateTime.Now.ToString());
+        HttpContext.Session.SetString("DateTimeStudentExamD", DateTime.Now.ToString("HH:mm - dddd dd/MM/yyyy"));
+        HttpContext.Session.SetString("ExamScheduleID", id.ToString());
+        return View(exS);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SaveResult(int mark)
+    {
+        var exId = Convert.ToInt32(HttpContext.Session.GetString("ExamScheduleID"));
+        var dtEx = Convert.ToDateTime(HttpContext.Session.GetString("DateTimeStudentExam"));
+
+        StudentExamsCreateRequest secr = new StudentExamsCreateRequest(){
+            ExamScheduleID = exId,
+            UserName = User.Identity.Name,
+            Mark = mark,
+            DateTimeStudentExam = dtEx
+        };
+
+        await _studentExamService.Create(secr);
+
+        return Json(new
+        {
+            data = exId,
+            status = true
+        });
     }
 
     [HttpGet]

@@ -1,34 +1,67 @@
 ﻿using AutoMapper;
+using DaisyStudy.Application.Catalog.Classes;
 using DaisyStudy.Application.Catalog.Homeworks;
 using DaisyStudy.Models.Catalog.Homeworks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DaisyStudy.Controllers;
 
 public class HomeworkController : BaseController
 {
     private readonly IHomeworkService _homeworkService;
+    private readonly IClassService _classService;
     private readonly IConfiguration _configuration;
     private readonly IMapper _mapper;
 
     public HomeworkController(IHomeworkService homeworkService,
+                              IClassService classService,
                               IConfiguration configuration,
                               IMapper mapper)
     {
-        _configuration = configuration;
         _homeworkService = homeworkService;
+        _classService = classService;
+        _configuration = configuration;
         _mapper = mapper;
     }
 
-    public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
+    [Route("giao-vien/bai-tap")]
+    public async Task<IActionResult> Index(int ClassID, string keyword, int pageIndex = 1, int pageSize = 10)
     {
         var request = new GetManageHomeworkPagingRequest()
         {
+            UserId = HttpContext.Session.GetString("UserId"),
+            ClassID = ClassID,
             Keyword = keyword,
             PageIndex = pageIndex,
             PageSize = pageSize
         };
-        var data = await _homeworkService.GetAllPaging(request);
+        var data = await _homeworkService.GetAllMyAdminHomeworkPaging(request);
+        ViewBag.Keyword = keyword;
+        ViewBag.ClassID = ClassID;
+
+        var list = await _classService.GetAllMyAdminClass(HttpContext.Session.GetString("UserId"));
+        ViewBag.listCl = list;
+        
+        if (TempData["result"] != null)
+        {
+            ViewBag.SuccessMsg = TempData["result"];
+        }
+
+        return View(data);
+    }
+
+    [Route("bai-tap")]
+    public async Task<IActionResult> BaiTap(string keyword, int pageIndex = 1, int pageSize = 10)
+    {
+        var request = new GetManageHomeworkPagingRequest()
+        {
+            UserId = HttpContext.Session.GetString("UserId"),
+            Keyword = keyword,
+            PageIndex = pageIndex,
+            PageSize = pageSize
+        };
+        var data = await _homeworkService.GetAllMyHomeworkPaging(request);
         ViewBag.Keyword = keyword;
         if (TempData["result"] != null)
         {
@@ -56,14 +89,14 @@ public class HomeworkController : BaseController
         if (result != null)
         {
             TempData["result"] = "Thêm mới bài tập thành công";
-            return RedirectToAction("Details", "Class", new{id = request.ClassID});
+            return RedirectToAction("Details", "Class", new { id = request.ClassID });
         }
 
         ModelState.AddModelError("", "Thêm bài tập thất bại");
         return View(request);
     }
 
-    [HttpGet("bai-tap")]
+    [HttpGet("chi-tiet-bai-tap")]
     public async Task<IActionResult> Details(int id)
     {
         var result = await _homeworkService.GetById(id);
@@ -107,7 +140,7 @@ public class HomeworkController : BaseController
         if (result != 0)
         {
             TempData["result"] = "Xoá bài tập thành công";
-            return RedirectToAction("Details", "Class", new { id = homework.ID});
+            return RedirectToAction("Details", "Class", new { id = homework.ID });
         }
 
         ModelState.AddModelError("", "Xoá bài tập thất bại");

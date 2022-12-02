@@ -8,6 +8,7 @@ public class ExamSchedule
     public string? ExamScheduleName { set; get; }
     public DateTime DateTimeCreated { set; get; }
     public DateTime ExamDateTime { set; get; }
+    public DateTime Deadline { set; get; }
     public string? Description { set; get; }
     public int ExamTime { set; get; }
     public List<StudentExam>? StudentExams { set; get; }

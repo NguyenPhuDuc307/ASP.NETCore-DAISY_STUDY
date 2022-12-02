@@ -291,11 +291,12 @@
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                aria-labelledby="dropdownMenuLink">
+            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                 <div class="dropdown-header">Tuỳ chọn:</div>
-                <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Edit" asp-route-id="@Model.ExamScheduleID">Chỉnh sửa</a>
-                <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Details" asp-route-id="@Model.ExamScheduleID">Đề thi</a>
+                <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Edit"
+                    asp-route-id="@Model.ExamScheduleID">Chỉnh sửa</a>
+                <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Details"
+                    asp-route-id="@Model.ExamScheduleID">Đề thi</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Something else here</a>
             </div>
@@ -311,6 +312,9 @@
             <br /><br />
             <h6 class="text-info">Ngày thi</h6>
             @Model.ExamDateTime.ToString("HH:mm - dddd dd/MM/yyyy")
+            <br /><br>
+            <h6 class="text-info">Hạn làm bài</h6>
+            @Model.Deadline.ToString("HH:mm - dddd dd/MM/yyyy")
             <br /><br>
             <h6 class="text-info">Thời gian làm bài</h6>
             @Model.ExamTime phút
@@ -333,18 +337,19 @@
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                aria-labelledby="dropdownMenuLink">
+            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                 <div class="dropdown-header">Tuỳ chọn:</div>
-                <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Edit" asp-route-id="@Model.ExamScheduleID">Chỉnh sửa</a>
-                <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Details" asp-route-id="@Model.ExamScheduleID">Đề thi</a>
+                <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Edit"
+                    asp-route-id="@Model.ExamScheduleID">Chỉnh sửa</a>
+                <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Details"
+                    asp-route-id="@Model.ExamScheduleID">Đề thi</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Something else here</a>
             </div>
         </div>
     </div>
     <div class="card-body">
-        
-            
+
+
     </div>
 </div>

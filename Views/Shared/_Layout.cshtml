@@ -100,12 +100,11 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
                     aria-expanded="true" aria-controls="collapseFour">
-                    <i class="fa-solid fa-graduation-cap"></i>
+                    <i class="fa-solid fa-house"></i>
                     <span>Lớp học</span>
                 </a>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Quản lý lớp học:</h6>
                         <a class="collapse-item" asp-area="" asp-controller="Class" asp-action="MyClass">Danh sách lớp
                             học</a>
                         <a class="collapse-item" asp-area="" asp-controller="Class" asp-action="Create">Tạo lớp học
@@ -137,83 +136,81 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
                     aria-expanded="true" aria-controls="collapseFive">
-                    <i class="fa-solid fa-graduation-cap"></i>
+                    <i class="fa-solid fa-bookmark"></i>
                     <span>Bài tập</span>
                 </a>
                 <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Quản lý lớp học:</h6>
-                        <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Index">Danh sách bài
+                        <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="BaiTap">Danh sách bài
                             tập</a>
-                        <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Create">Thêm bài tập
-                            mới</a>
+                        @* <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Create">Thêm bài
+                            tập
+                            mới</a> *@
                     </div>
                 </div>
             </li>
 
-            <li class="nav-item">
+            @* <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSix"
-                    aria-expanded="true" aria-controls="collapseSix">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                    <span>Nộp bài</span>
+                aria-expanded="true" aria-controls="collapseSix">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Nộp bài</span>
                 </a>
                 <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Quản lý lớp học:</h6>
-                        <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Index">Danh sách bài nộp</a>
-                        <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Create">nộp bài
-                            mới</a>
-                    </div>
+                <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Index">Danh sách bài nộp</a>
+                <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Create">nộp bài
+                mới</a>
                 </div>
-            </li>
+                </div>
+                </li> *@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven"
                     aria-expanded="true" aria-controls="collapseSeven">
                     <i class="fa-solid fa-graduation-cap"></i>
-                    <span>Kiểm tra</span>
+                    <span>Lịch thi</span>
                 </a>
                 <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Quản lý lớp học:</h6>
-                        <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Index">Danh sách kiểm tra</a>
-                        <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Create">Kiểm tra
-                            mới</a>
+                        <a class="collapse-item" asp-area="" asp-controller="ExamSchedule" asp-action="Index">Danh sách
+                            lịch thi</a>
+                        @* <a class="collapse-item" asp-area="" asp-controller="ExamSchedule" asp-action="Create">Kiểm
+                            tra
+                            mới</a> *@
                     </div>
                 </div>
             </li>
 
-            <li class="nav-item">
+            @* <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEight"
-                    aria-expanded="true" aria-controls="collapseEight">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                    <span>Tra cứu điểm</span>
+                aria-expanded="true" aria-controls="collapseEight">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Tra cứu điểm</span>
                 </a>
                 <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Quản lý lớp học:</h6>
-                        <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Index">Danh sách điểm</a>
-                        <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Create">Tra cứu điểm
-                            mới</a>
-                    </div>
+                <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Index">Danh sách điểm</a>
+                <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Create">Tra cứu điểm
+                mới</a>
                 </div>
-            </li>
+                </div>
+                </li>
 
-            <li class="nav-item">
+                <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNine"
-                    aria-expanded="true" aria-controls="collapseNine">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                    <span>Câu hỏi</span>
+                aria-expanded="true" aria-controls="collapseNine">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Câu hỏi</span>
                 </a>
                 <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Quản lý lớp học:</h6>
-                        <a class="collapse-item" asp-area="" asp-controller="Question" asp-action="Index">Danh sách câu hỏi</a>
-                        <a class="collapse-item" asp-area="" asp-controller="Question" asp-action="Create">Tra cứu câu hỏi
-                            mới</a>
-                    </div>
+                <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-area="" asp-controller="Question" asp-action="Index">Danh sách câu hỏi</a>
+                <a class="collapse-item" asp-area="" asp-controller="Question" asp-action="Create">Tra cứu câu hỏi
+                mới</a>
                 </div>
-            </li>
+                </div>
+                </li> *@
 
 
             <!-- Divider -->
@@ -226,91 +223,91 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse9"
-                    aria-expanded="true" aria-controls="collapse9">
-                    <i class="fas fa-fw fa-folder"></i>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadClass"
+                    aria-expanded="true" aria-controls="collapseadClass">
+                    <i class="fa-solid fa-house"></i>
                     <span>Lớp học</span>
                 </a>
-                <div id="collapse9" class="collapse" aria-labelledby="heading9" data-parent="#accordionSidebar">
+                <div id="collapseadClass" class="collapse" aria-labelledby="headingadClass"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other 9:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <h6 class="collapse-header">Quản lý lớp học:</h6>
+                        <a class="collapse-item" asp-area="" asp-controller="Class" asp-action="MyAdminClass">Lớp học sở
+                            hữu</a>
                     </div>
                 </div>
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse9"
-                    aria-expanded="true" aria-controls="collapse9">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Giao bài</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadminHomework"
+                    aria-expanded="true" aria-controls="collapseadminHomework">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <span>Bài tập</span>
                 </a>
-                <div id="collapse9" class="collapse" aria-labelledby="heading9" data-parent="#accordionSidebar">
+                <div id="collapseadminHomework" class="collapse" aria-labelledby="headingadminHomework"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other 9:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <h6 class="collapse-header">Quản lý bài tập:</h6>
+                        <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Index">Danh sách bài
+                            tập</a>
                     </div>
                 </div>
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse9"
-                    aria-expanded="true" aria-controls="collapse9">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Kiểm tra</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadminSubmission"
+                    aria-expanded="true" aria-controls="collapseadminSubmission">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>Nộp bài</span>
                 </a>
-                <div id="collapse9" class="collapse" aria-labelledby="heading9" data-parent="#accordionSidebar">
+                <div id="collapseadminSubmission" class="collapse" aria-labelledby="headingadminSubmission" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other 9:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <h6 class="collapse-header">Quản lý nộp bài:</h6>
+                        <a class="collapse-item" asp-area="" asp-controller="Submission" asp-action="Index">Danh sách nộp bài</a>
                     </div>
                 </div>
 
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse9"
-                    aria-expanded="true" aria-controls="collapse9">
-                    <i class="fas fa-fw fa-folder"></i>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadminExamSchedule"
+                    aria-expanded="true" aria-controls="collapseadminExamSchedule">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Lịch thi</span>
+                </a>
+                <div id="collapseadminExamSchedule" class="collapse" aria-labelledby="headingadminExamSchedule" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản lý lịch thi:</h6>
+                        <a class="collapse-item" asp-area="" asp-controller="Submission" asp-action="Index">Danh sách lịch thi</a>
+                    </div>
+                </div>
+
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadminQuestion"
+                    aria-expanded="true" aria-controls="collapseadminQuestion">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>Đề thi</span>
+                </a>
+                <div id="collapseadminQuestion" class="collapse" aria-labelledby="headingadminQuestion" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản lý đề thi:</h6>
+                        <a class="collapse-item" asp-area="" asp-controller="Question" asp-action="Index">Danh sách đề thi</a>
+                    </div>
+                </div>
+
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadminCheck"
+                    aria-expanded="true" aria-controls="collapseadminCheck">
+                    <i class="fa-solid fa-file-pen"></i>
                     <span>Chấm điểm</span>
                 </a>
-                <div id="collapse9" class="collapse" aria-labelledby="heading9" data-parent="#accordionSidebar">
+                <div id="collapseadminCheck" class="collapse" aria-labelledby="headingadminCheck" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
                         <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other 9:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        
                     </div>
                 </div>
 
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse9"
                     aria-expanded="true" aria-controls="collapse9">
-                    <i class="fas fa-fw fa-folder"></i>
+                    <i class="fa-solid fa-bell"></i>
                     <span>Thông báo</span>
                 </a>
                 <div id="collapse9" class="collapse" aria-labelledby="heading9" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
                         <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other 9:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        
                     </div>
                 </div>
             </li>
@@ -390,108 +387,6 @@
                                 <span class="badge badge-danger badge-counter"></span>
                             </a>
                         </li>
-
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="/img/undraw_profile_1.svg" alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="/img/undraw_profile_2.svg" alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="/img/undraw_profile_3.svg" alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
-
                         <div class="topbar-divider d-none d-sm-block"></div>
 
 
@@ -525,28 +420,30 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    
+
 
     @* <script>
-    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
-    const popover = new bootstrap.Popover('.popover-dismiss', {
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+        const popover = new bootstrap.Popover('.popover-dismiss', {
         trigger: 'focus'
-    })
-    const exampleEl = document.getElementById('example')
-    </script> *@
+        })
+        const exampleEl = document.getElementById('example')
+        </script> *@
 
     <!-- Bootstrap core JavaScript-->
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="/js/sb-admin-2.min.js"></script>
-    
+
     <script>
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover();

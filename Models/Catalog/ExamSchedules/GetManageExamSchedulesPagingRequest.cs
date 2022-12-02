@@ -12,4 +12,6 @@ public class GetManageExamSchedulesPagingRequest : PagingRequestBase
     public string? Keyword { set; get; }
 
     public int ClassID { set; get; }
+
+    public string? UserId { get; set; }
 }

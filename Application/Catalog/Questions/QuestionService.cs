@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using DaisyStudy.Utilities.Exceptions;
 using DaisyStudy.Models.Common;
 using DaisyStudy.Models.Catalog.Question;
@@ -23,7 +24,7 @@ public class QuestionService : IQuestionService
 
     public async Task<int> Create(QuestionsCreateRequest request)
     {
-        var question = _mapper.Map<QuestionsCreateRequest,Question>(request);
+        var question = _mapper.Map<QuestionsCreateRequest, Question>(request);
         _context.Questions.Add(question);
         await _context.SaveChangesAsync();
         return question.QuestionID;
@@ -36,6 +37,16 @@ public class QuestionService : IQuestionService
 
         _context.Questions.Remove(question);
         return await _context.SaveChangesAsync();
+    }
+
+    public async Task<PagedResult<Question>> GetExamPaper(int ExamScheduleID)
+    {
+        var data = await _context.Questions.Where(x=> x.ExamScheduleID == ExamScheduleID).ToListAsync();
+        var pagedResult = new PagedResult<Question>()
+        {
+            Items = data
+        };
+        return pagedResult;
     }
 
     public async Task<PagedResult<QuestionViewModel>> GetAllPaging(GetManageQuestionPagingRequest request)
@@ -53,18 +64,19 @@ public class QuestionService : IQuestionService
 
         //3. Paging
         int totalRow = await query.CountAsync();
-        var data = await query
-           .Select(x => new QuestionViewModel()
+        var data = await query.OrderByDescending(x=> x.q.QuestionID).Skip((request.PageIndex - 1) * request.PageSize)
+            .Take(request.PageSize)
+            .Select(x => new QuestionViewModel()
             {
-                QuestionID = x.q.QuestionID,
-                ExamScheduleID = x.e.ExamScheduleID,
-                QuestionString = x.q.QuestionString,
-                Point = x.q.Point,
-                Option1 = x.q.Option1,
-                Option2 = x.q.Option2,
-                Option3 = x.q.Option3,
-                Option4 = x.q.Option4,
-                OptionCorrect = x.q.OptionCorrect,
+               QuestionID = x.q.QuestionID,
+               ExamScheduleID = x.e.ExamScheduleID,
+               QuestionString = x.q.QuestionString,
+               Point = x.q.Point,
+               Option1 = x.q.Option1,
+               Option2 = x.q.Option2,
+               Option3 = x.q.Option3,
+               Option4 = x.q.Option4,
+               OptionCorrect = x.q.OptionCorrect,
             }).ToListAsync();
 
         //4. Select and projection

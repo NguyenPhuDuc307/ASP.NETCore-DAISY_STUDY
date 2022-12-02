@@ -1,3 +1,4 @@
+using DaisyStudy.Data;
 using DaisyStudy.Models.Catalog.Question;
 using DaisyStudy.Models.Common;
 
@@ -8,5 +9,6 @@ public interface IQuestionService
     Task<int> Update(QuestionUpdateRequest request);
     Task<int> Delete(int QuestionID);
     Task<QuestionViewModel> GetById(int QuestionID);
+    Task<PagedResult<Question>> GetExamPaper(int ExamScheduleID);
     Task<PagedResult<QuestionViewModel>> GetAllPaging(GetManageQuestionPagingRequest request);
 }

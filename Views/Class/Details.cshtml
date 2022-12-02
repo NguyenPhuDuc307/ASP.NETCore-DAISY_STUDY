@@ -940,9 +940,7 @@
                                     aria-labelledby="dropdownMenuLink">
                                     <div class="dropdown-header">Tuỳ chọn:</div>
                                     <a class="dropdown-item" href="@Url.Action("OverView", "ExamSchedule", new{id = @item.ExamScheduleID})">Xem chi tiết</a>
-                                    <a class="dropdown-item" href="#">Quản lý bài tập</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
+                                    <a class="dropdown-item" href="#">Quản lý kỳ thi</a>
                                 </div>
                             </div>
                         </div>
@@ -950,7 +948,6 @@
                         <div class="card-body">
                             <h6 class="m0 text-info small">Ngày thi: @item.ExamDateTime.ToString("HH:mm - dddd dd/MM/yyyy")</h6>
                             <h6 class="m0 text-info small">Thời gian làm bài: @item.ExamTime phút</h6>
-                            
                         </div>
                     </div>
                 }
@@ -973,8 +970,6 @@
                             <div class="dropdown-header">Tuỳ chọn:</div>
                             <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Thêm bài tập mới</a>
                             <a class="dropdown-item" href="#">Quản lý bài tập</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </div>
                 }
@@ -1041,8 +1036,6 @@
                                         <div class="dropdown-header">Tuỳ chọn:</div>
                                         <a class="dropdown-item" href="@Url.Action("Details", "Homework", new{id = @item.HomeworkID})">Xem chi tiết</a>
                                         <a class="dropdown-item" href="#">Quản lý bài tập</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
                                     </div>
                                 </div>
                             </div>
@@ -1075,8 +1068,6 @@
                                         <div class="dropdown-header">Tuỳ chọn:</div>
                                         <a class="dropdown-item" href="@Url.Action("Details", "Homework", new{id = @item.HomeworkID})">Xem chi tiết</a>
                                         <a class="dropdown-item" href="#">Quản lý bài tập</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
                                     </div>
                                 </div>
                             </div>

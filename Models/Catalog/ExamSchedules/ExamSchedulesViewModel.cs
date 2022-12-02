@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DaisyStudy.Data;
 
 namespace DaisyStudy.Models.Catalog.ExamSchedules;
 
@@ -21,15 +17,20 @@ public class ExamSchedulesViewModel
     public string? ExamScheduleName { set; get; }
 
     [Display(Name = "Ngày tạo")]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm dddd dd/MM/yyyy}")]
     public DateTime DateTimeCreated { set; get; }
 
     [Display(Name = "Ngày thi")]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm dddd dd/MM/yyyy}")]
     public DateTime ExamDateTime { set; get; }
+
+    [Display(Name = "Hạn làm bài")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm dddd dd/MM/yyyy}")]
+    public DateTime Deadline { set; get; }
 
     [Display(Name = "Thời gian thi")]
     public int ExamTime { set; get; }
     public string? Description { set; get; }
+    public StudentExam? MyStudentExam { set; get; }
 
 }

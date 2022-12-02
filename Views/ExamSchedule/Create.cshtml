@@ -295,6 +295,11 @@
                         <span asp-validation-for="ExamDateTime" class="text-danger"></span>
                     </div>
                     <div class="form-group">
+                        <label asp-for="Deadline" class="control-label"></label>
+                        <input asp-for="Deadline" class="form-control" />
+                        <span asp-validation-for="Deadline" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="Description" class="control-label"></label>
                         <textarea asp-for="Description" id="editor" class="form-control"></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>

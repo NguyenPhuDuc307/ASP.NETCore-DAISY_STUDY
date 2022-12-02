@@ -16,6 +16,9 @@ public class ExamSchedulesCreateRequest
     [Display(Name = "Ngày thi")]
     [Required(ErrorMessage = "Ngày thi không được bỏ trống")]
     public DateTime ExamDateTime { set; get; }
+    [Display(Name = "Hạn làm bài")]
+    [Required(ErrorMessage = "Hạn làm bài không được bỏ trống")]
+    public DateTime Deadline { set; get; }
 
     [Display(Name = "Thời gian thi")]
     public int ExamTime { set; get; }

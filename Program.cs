@@ -119,7 +119,7 @@ app.UseStatusCodePages(appError =>
                 <div class='error mx-auto' data-text='{code}'>{code}</div>
                 <p class='lead text-gray-800 mb-5'>{(HttpStatusCode)code}</p>
                 <p class='text-gray-500 mb-0'>Có vẻ như bạn đã tìm thấy một vấn đề...</p>
-                <a href='/Home'>&larr; Quay về trang chủ</a>
+                <a href='/'>&larr; Quay về trang chủ</a>
             </div>
         </div>
     </body>

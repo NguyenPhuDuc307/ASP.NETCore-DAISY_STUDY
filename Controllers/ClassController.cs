@@ -64,6 +64,25 @@ namespace DaisyStudy.Controllers
             return View(classes);
         }
 
+        [Route("admin/danh-sach-lop-hoc")]
+        public async Task<IActionResult> MyAdminClass(string keyword, int pageIndex = 1, int pageSize = 10)
+        {
+            var request = new ClassPagingRequest()
+            {
+                Keyword = keyword,
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            };
+            var classes = await _classService.GetAllMyAdminClassPaging(request, HttpContext.Session.GetString("UserId").ToString());
+
+            ViewBag.Keyword = keyword;
+            if (TempData["result"] != null)
+            {
+                ViewBag.SuccessMsg = TempData["result"];
+            }
+            return View(classes);
+        }
+
         [HttpGet("tong-quan-lop-hoc")]
         public async Task<IActionResult> OverView(int id)
         {

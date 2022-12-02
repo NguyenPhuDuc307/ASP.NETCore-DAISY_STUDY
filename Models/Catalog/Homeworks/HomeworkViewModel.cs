@@ -25,13 +25,14 @@ public class HomeworkViewModel
     public DateTime SubmissionDateTime { set; get; }
 
     [Display(Name = "Ngày tạo")]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm dddd dd/MM/yyyy}")]
     public DateTime DateTimeCreated { set; get; }
 
     [Display(Name = "Hạn nộp bài")]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm dddd dd/MM/yyyy}")]
     public DateTime Deadline { set; get; }
     public ICollection<HomeworkImage>? HomeworkImages { get; set; }
     public ICollection<Submission>? Submissions { get; set; }
+    public Submission? MySubmission { get; set; }
 }
 
