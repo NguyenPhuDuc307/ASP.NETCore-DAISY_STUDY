@@ -26,7 +26,7 @@ public class SubmissionController : BaseController
         _mapper = mapper;
     }
 
-    [HttpGet("admin/danh-sach-nop-bai")]
+    [HttpGet("giao-vien/danh-sach-nop-bai")]
     public async Task<IActionResult> Index(int HomeworkID, string keyword, int pageIndex = 1, int pageSize = 10)
     {
         var request = new GetManageSubmissionPagingRequest()
@@ -102,7 +102,6 @@ public class SubmissionController : BaseController
                 );
             }
         }
-        return RedirectToAction("Index", "Submission");
     }
 
     [HttpGet("danh-sach-nop-bai")]

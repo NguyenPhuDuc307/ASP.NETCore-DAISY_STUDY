@@ -425,6 +425,10 @@
       "PackagePath": "staticwebassets/user-content/a1e14258-1bdb-4b4c-ad2c-69aa49c4d296.pdf"
     },
     {
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/b297163e-804d-4001-bebe-e0696ed825cb.jpg",
+      "PackagePath": "staticwebassets/user-content/b297163e-804d-4001-bebe-e0696ed825cb.jpg"
+    },
+    {
       "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/bcb26d13-94ef-453c-adba-bc7dbd4d82b2.png",
       "PackagePath": "staticwebassets/user-content/bcb26d13-94ef-453c-adba-bc7dbd4d82b2.png"
     },

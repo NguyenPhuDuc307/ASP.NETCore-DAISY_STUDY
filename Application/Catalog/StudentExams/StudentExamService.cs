@@ -7,7 +7,7 @@ using DaisyStudy.Data;
 
 namespace DaisyStudy.Application.Catalog.StudentExams;
 
-public class StudentExamService :IStudentExamService
+public class StudentExamService : IStudentExamService
 {
     private readonly ApplicationDbContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
@@ -60,11 +60,113 @@ public class StudentExamService :IStudentExamService
         //3. Paging
         int totalRow = await query.CountAsync();
 
-        var data = await query
+        var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+            .Take(request.PageSize)
             .Select(x => new StudentExamsViewModel()
             {
                 StudentExamID = x.se.StudentExamID,
                 ExamScheduleID = x.se.ExamScheduleID,
+                Mark = x.se.Mark,
+                Note = x.se.Note,
+                DateTimeStudentExam = x.se.StudentExamDateTime
+            }).ToListAsync();
+
+        //4. Select and projection
+        var pagedResult = new PagedResult<StudentExamsViewModel>()
+        {
+            TotalRecords = totalRow,
+            PageSize = request.PageSize,
+            PageIndex = request.PageIndex,
+            Items = data
+        };
+        return pagedResult;
+    }
+
+    public async Task<PagedResult<StudentExamsViewModel>> GetAllAdminPaging(GetManageStudentExamPagingRequest request)
+    {
+        //1. Select join
+        var query = from se in _context.StudentExams
+                    join es in _context.ExamSchedules on se.ExamScheduleID equals es.ExamScheduleID
+                    join c in _context.Classes.Include(x=> x.ClassDetails) on es.ClassID equals c.ID
+                    join u in _userManager.Users on se.StudentID equals u.Id into seu
+                    from u in seu.DefaultIfEmpty()
+                    select new { se, c, u, es };
+        //2. filter
+        if (request.ExamScheduleID != null && request.ExamScheduleID != 0)
+        {
+            query = query.Where(p => p.se.ExamScheduleID == request.ExamScheduleID);
+        }
+
+        if (request.UserId != null)
+        {
+            query = query.Where(x => x.c.ClassDetails.Any(x => x.UserID == request.UserId && x.IsTeacher == Data.Enums.Teacher.Teacher));
+        }
+
+        //3. Paging
+        int totalRow = await query.CountAsync();
+
+        var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+            .Take(request.PageSize)
+            .Select(x => new StudentExamsViewModel()
+            {
+                StudentID = x.u.Id,
+                FirstName = x.u.FirstName,
+                LastName = x.u.LastName,
+                ClassID = x.c.ID,
+                ClassName = x.c.ClassName,
+                StudentExamID = x.se.StudentExamID,
+                ExamScheduleID = x.es.ExamScheduleID,
+                ExamScheduleName = x.es.ExamScheduleName,
+                Mark = x.se.Mark,
+                Note = x.se.Note,
+                DateTimeStudentExam = x.se.StudentExamDateTime
+            }).ToListAsync();
+
+        //4. Select and projection
+        var pagedResult = new PagedResult<StudentExamsViewModel>()
+        {
+            TotalRecords = totalRow,
+            PageSize = request.PageSize,
+            PageIndex = request.PageIndex,
+            Items = data
+        };
+        return pagedResult;
+    }
+
+    public async Task<PagedResult<StudentExamsViewModel>> GetAllAdmin(GetManageStudentExamPagingRequest request)
+    {
+        //1. Select join
+        var query = from se in _context.StudentExams
+                    join es in _context.ExamSchedules on se.ExamScheduleID equals es.ExamScheduleID
+                    join c in _context.Classes.Include(x=> x.ClassDetails) on es.ClassID equals c.ID
+                    join u in _userManager.Users on se.StudentID equals u.Id into seu
+                    from u in seu.DefaultIfEmpty()
+                    select new { se, c, u, es };
+        //2. filter
+        if (request.ExamScheduleID != null && request.ExamScheduleID != 0)
+        {
+            query = query.Where(p => p.se.ExamScheduleID == request.ExamScheduleID);
+        }
+
+        if (request.UserId != null)
+        {
+            query = query.Where(x => x.c.ClassDetails.Any(x => x.UserID == request.UserId && x.IsTeacher == Data.Enums.Teacher.Teacher));
+        }
+
+        //3. Paging
+        int totalRow = await query.CountAsync();
+
+        var data = await query
+            .Select(x => new StudentExamsViewModel()
+            {
+                StudentID = x.u.Id,
+                FirstName = x.u.FirstName,
+                LastName = x.u.LastName,
+                ClassID = x.c.ID,
+                ClassName = x.c.ClassName,
+                StudentExamID = x.se.StudentExamID,
+                ExamScheduleID = x.es.ExamScheduleID,
+                ExamScheduleName = x.es.ExamScheduleName,
                 Mark = x.se.Mark,
                 Note = x.se.Note,
                 DateTimeStudentExam = x.se.StudentExamDateTime
@@ -92,7 +194,7 @@ public class StudentExamService :IStudentExamService
 
     public async Task<StudentExamsViewModel> GetById(int ExamScheduleID, string UserId)
     {
-        var studentExam = await _context.StudentExams.FirstOrDefaultAsync(x=> x.ExamScheduleID == ExamScheduleID && x.StudentID == UserId);
+        var studentExam = await _context.StudentExams.FirstOrDefaultAsync(x => x.ExamScheduleID == ExamScheduleID && x.StudentID == UserId);
         if (studentExam == null) return null;
 
         var student = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == studentExam.StudentID);

@@ -11,5 +11,6 @@ namespace DaisyStudy.Models.Catalog.StudentExams
     {
         public string? Keyword { get; set; }
         public int ExamScheduleID { get; set; }
+        public string? UserId { get; set; }
     }
 }

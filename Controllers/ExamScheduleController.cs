@@ -3,21 +3,28 @@ using DaisyStudy.Models.Catalog.ExamSchedules;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using DaisyStudy.Application.Catalog.StudentExams;
+using DaisyStudy.Application.Catalog.Classes;
+using DaisyStudy.Models.Catalog.StudentExams;
+using DaisyStudy.Controllers;
+using ClosedXML.Excel;
 
 namespace ASP.NETCoreIdentityCustom.Controllers
 {
-    public class ExamScheduleController : Controller
+    public class ExamScheduleController : BaseController
     {
         private readonly IExamScheduleService _examScheduleService;
         private readonly IStudentExamService _studentExamService;
+        private readonly IClassService _classService;
         private readonly IMapper _mapper;
 
         public ExamScheduleController(IExamScheduleService examScheduleService,
                                       IStudentExamService studentExamService,
+                                      IClassService classService,
                                       IMapper mapper)
         {
             _examScheduleService = examScheduleService;
             _studentExamService = studentExamService;
+            _classService = classService;
             _mapper = mapper;
         }
 
@@ -38,6 +45,101 @@ namespace ASP.NETCoreIdentityCustom.Controllers
                 ViewBag.SuccessMsg = TempData["result"];
             }
             return View(data);
+        }
+
+        [Route("giao-vien/lich-thi")]
+        public async Task<IActionResult> AdminLichThi(int ClassID, string keyword, int pageIndex = 1, int pageSize = 10)
+        {
+            var request = new GetManageExamSchedulesPagingRequest()
+            {
+                ClassID = ClassID,
+                UserId = HttpContext.Session.GetString("UserId"),
+                Keyword = keyword,
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            };
+            var data = await _examScheduleService.GetAllMyExamAdminSchedulesPaging(request);
+            ViewBag.Keyword = keyword;
+            ViewBag.ClassID = ClassID;
+
+            var list = await _classService.GetAllMyAdminClass(HttpContext.Session.GetString("UserId"));
+            ViewBag.listCl = list;
+
+            if (TempData["result"] != null)
+            {
+                ViewBag.SuccessMsg = TempData["result"];
+            }
+            return View(data);
+        }
+
+        [Route("giao-vien/ket-qua-thi")]
+        public async Task<IActionResult> AdminKetQuaThi(int ExamScheduleID, string keyword, int pageIndex = 1, int pageSize = 10)
+        {
+            var request = new GetManageStudentExamPagingRequest()
+            {
+                ExamScheduleID = ExamScheduleID,
+                UserId = HttpContext.Session.GetString("UserId"),
+                Keyword = null,
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            };
+            var data = await _studentExamService.GetAllAdminPaging(request);
+            ViewBag.Keyword = keyword;
+            ViewBag.ExamScheduleID = ExamScheduleID;
+
+            var list = await _examScheduleService.GetAllMyExamAdminSchedules(HttpContext.Session.GetString("UserId"));
+            ViewBag.listES = list;
+
+            if (TempData["result"] != null)
+            {
+                ViewBag.SuccessMsg = TempData["result"];
+            }
+            return View(data);
+        }
+
+        public async Task<IActionResult> Report(int ExamScheduleID, string keyword)
+        {
+            var request = new GetManageStudentExamPagingRequest()
+            {
+                ExamScheduleID = ExamScheduleID,
+                Keyword = keyword,
+                UserId = HttpContext.Session.GetString("UserId")
+            };
+            var data = await _studentExamService.GetAllAdmin(request);
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Submissions");
+                worksheet.Cell(1, 1).Value = "Tên lớp học: " + data.Items.ToList()[0].ClassName;
+                worksheet.Cell(2, 1).Value = "Tên kỳ thi: " + data.Items.ToList()[0].ExamScheduleName;
+                var currentRow = 3;
+                worksheet.Cell(currentRow, 1).Value = "STT";
+                worksheet.Cell(currentRow, 2).Value = "Họ";
+                worksheet.Cell(currentRow, 3).Value = "Tên";
+                worksheet.Cell(currentRow, 4).Value = "Thời gian thi";
+                worksheet.Cell(currentRow, 5).Value = "Điểm";
+
+                foreach (var submission in data.Items)
+                {
+                    currentRow++;
+                    worksheet.Cell(currentRow, 1).Value = currentRow - 3;
+                    worksheet.Cell(currentRow, 2).Value = submission.FirstName;
+                    worksheet.Cell(currentRow, 3).Value = submission.LastName;
+                    worksheet.Cell(currentRow, 4).Value = submission.DateTimeStudentExam;
+                    worksheet.Cell(currentRow, 5).Value = submission.Mark;
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+                    var FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + " Bảng điểm kỳ thi" + data.Items.ToList()[0].ExamScheduleName;
+                    return File(
+                    content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        FileName + ".xlsx"
+                    );
+                }
+            }
         }
 
         [HttpGet("them-ky-thi")]

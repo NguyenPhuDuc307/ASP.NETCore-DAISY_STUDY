@@ -1,6 +1,6 @@
 var dataExam;
 var homeConfig = {
-    examScheduleID: 2
+    examScheduleID: $('#ExamScheduleID').val()
 }
 var timerMinutes = $('#Timer').val();
 var timer2 = timerMinutes + ":00";

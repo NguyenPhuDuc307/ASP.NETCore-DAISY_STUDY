@@ -1,5 +1,4 @@
-﻿@using DaisyStudy.Models.Common;
-@using Microsoft.AspNetCore.Http
+﻿@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
 @model DaisyStudy.Models.Catalog.ExamSchedules.ExamSchedulesViewModel
 @{
@@ -68,6 +67,7 @@
                 <br><br>
                 <h6 class="text-info">Thời gian bắt đầu làm bài</h6>
                 @HttpContextAccessor.HttpContext.Session.GetString("DateTimeStudentExamD").ToString()
+                <input hidden id="ExamScheduleID" value="@HttpContextAccessor.HttpContext.Session.GetString("ExamScheduleID").ToString()">
                 <br><br>
             </div>
             <div class="card-body" style="padding-top: 0;">

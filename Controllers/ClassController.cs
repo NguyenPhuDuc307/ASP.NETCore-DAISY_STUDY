@@ -64,7 +64,7 @@ namespace DaisyStudy.Controllers
             return View(classes);
         }
 
-        [Route("admin/danh-sach-lop-hoc")]
+        [Route("giao-vien/danh-sach-lop-hoc")]
         public async Task<IActionResult> MyAdminClass(string keyword, int pageIndex = 1, int pageSize = 10)
         {
             var request = new ClassPagingRequest()

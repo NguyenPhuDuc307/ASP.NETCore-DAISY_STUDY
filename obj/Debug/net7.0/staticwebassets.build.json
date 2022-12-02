@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uOXF94oNK92/brQgUZDNPaNO1wIxKx1EtqFNFOOyNfc=",
+  "Hash": "u4y9WSpdngTh0B/YjFUlx1/jVzgo/E/8QZUzENhMfRk=",
   "Source": "DaisyStudy",
   "BasePath": "_content/DaisyStudy",
   "Mode": "Default",
@@ -2854,6 +2854,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/user-content/a1e14258-1bdb-4b4c-ad2c-69aa49c4d296.pdf"
+    },
+    {
+      "Identity": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/b297163e-804d-4001-bebe-e0696ed825cb.jpg",
+      "SourceId": "DaisyStudy",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/",
+      "BasePath": "_content/DaisyStudy",
+      "RelativePath": "user-content/b297163e-804d-4001-bebe-e0696ed825cb.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/user-content/b297163e-804d-4001-bebe-e0696ed825cb.jpg"
     },
     {
       "Identity": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/bcb26d13-94ef-453c-adba-bc7dbd4d82b2.png",

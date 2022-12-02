@@ -9,5 +9,6 @@ public class Contact
     public string? Email { set; get; }
     public string? PhoneNumber { set; get; }
     public string? Message { set; get; }
+    public DateTime DateTimeCreated { set; get; }
     public Status Status { set; get; }
 }

@@ -12,5 +12,7 @@ public interface IExamScheduleService
     Task<ExamSchedulesViewModel> GetById(int ExamScheduleID);
     Task<PagedResult<ExamSchedulesViewModel>> GetAllPaging(GetManageExamSchedulesPagingRequest request);
     Task<PagedResult<ExamSchedulesViewModel>> GetAllMyExamSchedulesPaging(GetManageExamSchedulesPagingRequest request);
+    Task<PagedResult<ExamSchedulesViewModel>> GetAllMyExamAdminSchedulesPaging(GetManageExamSchedulesPagingRequest request);
+    Task<List<ExamSchedulesViewModel>> GetAllMyExamAdminSchedules(string UserId);
     Task<List<ExamSchedulesViewModel>> GetAllMyExamSchedules(string UserName);
 }

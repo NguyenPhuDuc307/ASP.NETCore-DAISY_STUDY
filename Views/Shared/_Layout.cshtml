@@ -232,8 +232,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Quản lý lớp học:</h6>
-                        <a class="collapse-item" asp-area="" asp-controller="Class" asp-action="MyAdminClass">Lớp học sở
-                            hữu</a>
+                        <a class="collapse-item" asp-area="" asp-controller="Class" asp-action="MyAdminClass">Lớp học đang dạy</a>
                     </div>
                 </div>
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadminHomework"
@@ -269,7 +268,7 @@
                 <div id="collapseadminExamSchedule" class="collapse" aria-labelledby="headingadminExamSchedule" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Quản lý lịch thi:</h6>
-                        <a class="collapse-item" asp-area="" asp-controller="Submission" asp-action="Index">Danh sách lịch thi</a>
+                        <a class="collapse-item" asp-area="" asp-action="AdminLichThi" asp-controller="ExamSchedule" asp-action="Index">Danh sách lịch thi</a>
                     </div>
                 </div>
 
@@ -288,25 +287,12 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadminCheck"
                     aria-expanded="true" aria-controls="collapseadminCheck">
                     <i class="fa-solid fa-file-pen"></i>
-                    <span>Chấm điểm</span>
+                    <span>Kết quả thi</span>
                 </a>
                 <div id="collapseadminCheck" class="collapse" aria-labelledby="headingadminCheck" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        
-                    </div>
-                </div>
-
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse9"
-                    aria-expanded="true" aria-controls="collapse9">
-                    <i class="fa-solid fa-bell"></i>
-                    <span>Thông báo</span>
-                </a>
-                <div id="collapse9" class="collapse" aria-labelledby="heading9" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
+                        <h6 class="collapse-header">Quản lý kết quả thi:</h6>
+                        <a class="collapse-item" asp-controller="ExamSchedule" asp-action="AdminKetQuaThi">Xem kết quả thi</a>
                         
                     </div>
                 </div>
@@ -339,13 +325,13 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
+                    <form asp-controller="Home"
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small"
+                            <input name="keyword" autocomplete="off" type="text" class="form-control bg-light border-0 small"
                                 placeholder="Tìm kiếm lớp học..." aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>

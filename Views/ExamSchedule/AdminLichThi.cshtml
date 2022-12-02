@@ -1,8 +1,8 @@
 ﻿@using DaisyStudy.Models.Common;
-@model PagedResult<DaisyStudy.Models.Catalog.Homeworks.HomeworkViewModel>
+@model PagedResult<DaisyStudy.Models.Catalog.ExamSchedules.ExamSchedulesViewModel>
 
 @{
-    ViewData["Title"] = "Quản lý bài tập";
+    ViewData["Title"] = "Quản lý lịch thi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Scripts{
@@ -12,27 +12,22 @@
     }, 2000);
 </script>
 }
-<h1 class="mt-4">Quản lý bài tập</h1>
+<h1 class="mt-4">Quản lý lịch thi</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-    <li class="breadcrumb-item"><a asp-controller="Homework">Bài tập</a></li>
-    <li class="breadcrumb-item active">Danh sách bài tập</li>
+    <li class="breadcrumb-item"><a asp-action="AdminLichThi" asp-controller="ExamSchedule">Lịch thi</a></li>
+    <li class="breadcrumb-item active">Danh sách lịch thi</li>
 </ol>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách bài tập</h6>
-    </div>
-    <div class="card-header">
-        <div style="padding: 0;" class="col-md-6 col-xs-12">
-            <a class="btn btn-success" asp-action="Create" asp-controller="Homework">Tạo mới</a>
-        </div>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách lịch thi</h6>
     </div>
 
     <div class="card-body" style="padding-top: 0;">
         <div class="table-responsive">
-            <form asp-action="Index" method="get">
+            <form asp-action="AdminLichThi" method="get">
                 <div class="col-sm-12 col-md-12 my-3">
                     <div class="row">
                         @if (ViewBag.SuccessMsg != null)
@@ -44,10 +39,9 @@
                     </div>
                     <div class="dataTables_filter">
                         <div class="input-group">
-                            <input value="@ViewBag.Keyword" name="keyword" autocomplete="off" type="search"
-                                class="form-control bg-light border-0 small" placeholder="Tìm kiếm..."
-                                aria-controls="dataTable">
-
+                            <input value="@ViewBag.Keyword" name="keyword" type="search"
+                                class="form-control bg-light border-0 small" autocomplete="off"
+                                placeholder="Tìm kiếm..." aria-controls="dataTable">
                             <select class="form-control bg-light border-0 small" name="ClassID"
                                 aria-label="Chọn lớp học">
                                 <option>Tất cả lớp học</option>
@@ -65,7 +59,7 @@
                                 }
                             </select>
                             <div class="input-group-append">
-                                <a asp-controller="Homework" class="btn btn-secondary" type="submit">
+                                <a asp-controller="ExamSchedule" class="btn btn-secondary" type="submit">
                                     <i class="fa-solid fa-rotate-left"></i>
                                 </a>
                             </div>
@@ -78,7 +72,6 @@
                     </div>
                 </div>
             </form>
-
             <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -86,10 +79,19 @@
                             Tên lớp học
                         </th>
                         <th>
-                            Tên bài tập
+                            Tên kỳ thi
                         </th>
                         <th>
-                            Hạn nộp bài
+                            Ngày thi
+                        </th>
+                        <th>
+                            Hạn làm bài
+                        </th>
+                        <th>
+                            Thời gian làm bài
+                        </th>
+                        <th class="text-nowrap">
+                            Trạng thái
                         </th>
 
                         <th></th>
@@ -104,45 +106,38 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.ClassName)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.HomeworkName)
+                                <td class="text-nowrap">
+                                    @Html.DisplayFor(modelItem => item.ExamScheduleName)
                                 </td>
-                                <td>
+                                <td class="text-nowrap">
+                                    @Html.DisplayFor(modelItem => item.ExamDateTime)
+                                </td>
+                                <td class="text-nowrap">
                                     @Html.DisplayFor(modelItem => item.Deadline)
                                 </td>
+                                <td class="text-nowrap">
+                                    @Html.DisplayFor(modelItem => item.ExamTime) phút
+                                </td>
+                                <td class="text-nowrap">
+                                    @if(Convert.ToDateTime(item.Deadline) < DateTime.Now){
+                                        <p class="text-danger">Ngoài thời gian thi</p>
+                                    }
+                                    else{
+                                        if(Convert.ToDateTime(item.ExamDateTime) > DateTime.Now){
+                                            <p class="text-success">Chưa đến thời gian thi</p>
+                                        }
+                                        else{
+                                            <p class="text-warning">Đang trong thời gian thi</p>
+                                        }
+                                    }
+                                </td>
                                 <td>
                                     <a style="text-decoration: none;"
-                                href="@Url.Action("Details", "Homework", new { id = item.HomeworkID })">
+                                href="@Url.Action("OverView", "ExamSchedule", new { id = item.ExamScheduleID })">
                                         <i class="fa-solid fa-circle-info"></i>
-                                    </a>
-                                    <a style="text-decoration: none;"
-                                href="@Url.Action("Edit", "Homework", new { id = item.HomeworkID })">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#_@item.HomeworkID"
-                                style="text-decoration: none;">
-                                        <i class="fa-solid fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>
-                            <div class="modal fade" id="_@item.HomeworkID" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận xoá bài tập!</h1>
-                                        </div>
-                                        <div class="modal-body">
-                                            Tất cả thông tin của bài tập này cũng như danh sách nộp bài của học sinh đều bị xoá,
-                                            bạn nên tải xuống bảng điểm trước khi thực hiện.
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                            <a href="@Url.Action("Delete", "Homework", new { id = item.HomeworkID, returnUrl = "giao-vien/bai-tap"})" type="button" class="btn btn-danger">Xoá</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         }
                     }
                 </tbody>

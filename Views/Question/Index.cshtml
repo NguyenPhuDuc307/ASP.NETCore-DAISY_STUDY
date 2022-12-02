@@ -1,7 +1,7 @@
 ﻿@model DaisyStudy.Models.Catalog.ExamSchedules.ExamSchedulesViewModel
 
 @{
-    ViewData["Title"] = "Danh sách câu hỏi";
+    ViewData["Title"] = "Quản lý đề thi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Scripts{
@@ -26,7 +26,7 @@
         font-size: 1rem;
     }
 </style>
-    <h1 class="mt-4">Danh sách câu hỏi</h1>
+    <h1 class="mt-4">Quản lý đề thi</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
         <li class="breadcrumb-item"><a href="/Class">Câu hỏi</a></li>
@@ -120,13 +120,13 @@
                     </div>
                     <div class="dataTables_filter">
                         <div class="input-group">
-                            <input value="@ViewBag.Keyword" name="keyword" type="search"
+                            <input value="@ViewBag.Keyword" name="keyword" autocomplete="off" type="search"
                                 class="form-control bg-light border-0 small" placeholder="Tìm kiếm..."
                                 aria-controls="dataTable">
                             <select asp-for="ExamScheduleID" id="selectList" class="form-control bg-light border-0 small" asp-items="ViewBag.ExamScheduleID">
                             </select>
                             <div class="input-group-append">
-                                <a href="/Class" class="btn btn-secondary" type="submit">
+                                <a asp-controller="Question" asp-action="Index" class="btn btn-secondary" type="submit">
                                     <i class="fa-solid fa-rotate-left"></i>
                                 </a>
                             </div>

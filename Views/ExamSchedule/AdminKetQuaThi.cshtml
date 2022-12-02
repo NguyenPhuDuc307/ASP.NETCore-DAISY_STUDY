@@ -1,8 +1,8 @@
 ﻿@using DaisyStudy.Models.Common;
-@model PagedResult<DaisyStudy.Models.Catalog.Submissions.SubmissionViewModel>
+@model PagedResult<DaisyStudy.Models.Catalog.StudentExams.StudentExamsViewModel>
 
 @{
-    ViewData["Title"] = "Quản lý nộp bài";
+    ViewData["Title"] = "Quản lý kết quả thi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Scripts{
@@ -12,45 +12,58 @@
     }, 2000);
 </script>
 }
-<h1 class="mt-4">Quản lý nộp bài</h1>
+<h1 class="mt-4">Quản lý kết quả thi</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-    <li class="breadcrumb-item"><a asp-controller="Submission">Nộp bài</a></li>
-    <li class="breadcrumb-item active">Danh sách nộp bài</li>
+    <li class="breadcrumb-item"><a asp-action="AdminLichThi" asp-controller="ExamSchedule">kết quả thi</a></li>
+    <li class="breadcrumb-item active">Danh sách kết quả thi</li>
 </ol>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách nộp bài</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách kết quả thi</h6>
     </div>
 
     <div class="card-body" style="padding-top: 0;">
         <div class="table-responsive">
-            <form asp-action="Report" class="m-3" method="get">
-                <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary">
-                    <i class="fa-solid fa-file-arrow-down"></i> Xuất bảng điểm Excel
-                </a>
-                <input hidden value="@ViewBag.Keyword" name="keyword" type="search"
-                    class="form-control bg-light border-0 small" autocomplete="off" placeholder="Tìm kiếm..."
-                    aria-controls="dataTable">
-
-                <select hidden class="form-control bg-light border-0 small" name="HomeworkID" aria-label="Chọn bài tập">
-                    <option>Tất cả bài tập</option>
-                    @foreach (var item in ViewBag.listH)
-                    {
-                        if (ViewBag.HomeworkID == item.HomeworkID)
+            <form asp-action="Report" method="get">
+                <div class="col-sm-12 col-md-12 my-3">
+                    <div class="row">
+                        @if (ViewBag.SuccessMsg != null)
                         {
-                            <option selected value="@item.HomeworkID">@item.HomeworkName - @item.ClassName
-                            </option>
+                            <div id="msgAlert" class="alert alert-success" role="alert">
+                                @ViewBag.SuccessMsg
+                            </div>
                         }
-                        else
-                        {
-                            <option value="@item.HomeworkID">@item.HomeworkName - @item.ClassName</option>
-                        }
-                    }
-                </select>
+                    </div>
+                    <div class="dataTables_filter">
+                        <div>
+                            <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary">
+                                <i class="fa-solid fa-file-arrow-down"></i> Xuất bảng điểm Excel
+                            </a>
+                            <input hidden value="@ViewBag.Keyword" name="keyword" type="search"
+                                class="form-control bg-light border-0 small" autocomplete="off"
+                                placeholder="Tìm kiếm..." aria-controls="dataTable">
+                            <select hidden class="form-control bg-light border-0 small" name="ExamScheduleID"
+                                aria-label="Chọn kỳ thi">
+                                <option>Tất cả kỳ thi</option>
+                                @foreach (var item in ViewBag.listES)
+                                {
+                                    if (ViewBag.ExamScheduleID == item.ExamScheduleID)
+                                    {
+                                        <option selected value="@item.ExamScheduleID">@item.ExamScheduleName - @item.ClassName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.ExamScheduleID">@item.ExamScheduleName - @item.ClassName</option>
+                                    }
 
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered animated--grow-in">
@@ -72,7 +85,7 @@
                     </div>
                 </div>
             </form>
-            <form asp-action="Index" method="get">
+            <form asp-action="AdminKetQuaThi" method="get">
                 <div class="col-sm-12 col-md-12 my-3">
                     <div class="row">
                         @if (ViewBag.SuccessMsg != null)
@@ -87,25 +100,24 @@
                             <input value="@ViewBag.Keyword" name="keyword" type="search"
                                 class="form-control bg-light border-0 small" autocomplete="off"
                                 placeholder="Tìm kiếm..." aria-controls="dataTable">
-
-                            <select class="form-control bg-light border-0 small" name="HomeworkID"
-                                aria-label="Chọn bài tập">
-                                <option>Tất cả bài tập</option>
-                                @foreach (var item in ViewBag.listH)
+                            <select class="form-control bg-light border-0 small" name="ExamScheduleID"
+                                aria-label="Chọn kỳ thi">
+                                <option>Tất cả kỳ thi</option>
+                                @foreach (var item in ViewBag.listES)
                                 {
-                                    if (ViewBag.HomeworkID == item.HomeworkID)
+                                    if (ViewBag.ExamScheduleID == item.ExamScheduleID)
                                     {
-                                        <option selected value="@item.HomeworkID">@item.HomeworkName - @item.ClassName
-                                        </option>
+                                        <option selected value="@item.ExamScheduleID">@item.ExamScheduleName - @item.ClassName</option>
                                     }
                                     else
                                     {
-                                        <option value="@item.HomeworkID">@item.HomeworkName - @item.ClassName</option>
+                                        <option value="@item.ExamScheduleID">@item.ExamScheduleName - @item.ClassName</option>
                                     }
+
                                 }
                             </select>
                             <div class="input-group-append">
-                                <a asp-controller="Submission" class="btn btn-secondary" type="submit">
+                                <a asp-controller="ExamSchedule" asp-action="AdminKetQuaThi" class="btn btn-secondary" type="submit">
                                     <i class="fa-solid fa-rotate-left"></i>
                                 </a>
                             </div>
@@ -118,7 +130,6 @@
                     </div>
                 </div>
             </form>
-
             <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -126,16 +137,17 @@
                             Tên lớp học
                         </th>
                         <th>
-                            Tên bài tập
+                            Tên kỳ thi
                         </th>
                         <th>
-                            Học sinh
+                            Họ tên học sinh
                         </th>
                         <th>
-                            Thời gian nộp bài
+                            Ngày giờ làm bài
                         </th>
-                        <th>Điểm</th>
-                        <th></th>
+                        <th>
+                            Điểm
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -147,41 +159,17 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.ClassName)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.HomeworkName)
+                                <td class="text-nowrap">
+                                    @Html.DisplayFor(modelItem => item.ExamScheduleName)
                                 </td>
-                                <td>
+                                <td class="text-nowrap">
                                     @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
                                 </td>
-                                <td>
-                                    @if (Convert.ToDateTime(@item.DateTimeUpdated) < Convert.ToDateTime(@item.Deadline))
-                                    {
-                                        @Html.DisplayFor(modelItem => item.SubmissionDateTime)
-                                        <p class="text-success small mb-0">Nộp đúng hạn</p>
-                                    }
-                                    else
-                                    {
-                                        @Html.DisplayFor(modelItem => item.SubmissionDateTime)
-                                        <p class="text-danger small mb-0">Nộp trễ</p>
-                                    }
-
+                                <td class="text-nowrap">
+                                    @Html.DisplayFor(modelItem => item.DateTimeStudentExam)
                                 </td>
-                                <td>
-                                    @if (item.Mark == 0)
-                                    {
-                                        <p class="text-danger">@item.Mark</p>
-                                    }
-                                    else
-                                    {
-                                        <p class="text-success">@item.Mark</p>
-                                    }
-
-                                </td>
-                                <td>
-                                    <a style="text-decoration: none;"
-                                href="@Url.Action("Details", "Submission", new { id = item.SubmissionID })">
-                                        <i class="fa-solid fa-circle-info"></i>
-                                    </a>
+                                <td class="text-nowrap">
+                                    @Html.DisplayFor(modelItem => item.Mark)
                                 </td>
                             </tr>
                         }
