@@ -11,7 +11,7 @@ namespace DaisyStudy.Controllers
             return View();
         }
 
-        [Authorize(Policy = Constants.Policies.RequireManager)]
+        [Authorize(Policy = Constants.Policies.RequireAdmin)]
         public IActionResult Manager()
         {
             return View();

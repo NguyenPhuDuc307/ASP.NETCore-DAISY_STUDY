@@ -2,6 +2,7 @@
 using DaisyStudy.Data;
 using DaisyStudy.Data.Enums;
 using DaisyStudy.Models.Catalog.Classes;
+using DaisyStudy.Models.Catalog.ExamSchedules;
 using DaisyStudy.Models.Catalog.Notifications;
 
 namespace DaisyStudy.Models.Catalog.Classes;
@@ -59,5 +60,6 @@ public class ClassViewModel
     public ICollection<ClassDetail>? ClassDetails { set; get; }
     public ICollection<Homework>? Homeworks { set; get; }
     public ICollection<NotificationViewModel>? Notifications { set; get; }
+    public ICollection<ExamSchedulesViewModel>? ExamSchedules { set; get; }
 }
 

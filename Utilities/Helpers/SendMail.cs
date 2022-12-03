@@ -5,7 +5,7 @@ namespace DaisyStudy.Utilities.Helpers;
 
 public class SendMail
 {
-    public static bool SendEmail(string toEmail, string subject, string body, string attachFile)
+    public static async Task<bool> SendEmail(string toEmail, string subject, string body, string attachFile)
     {
         try
         {

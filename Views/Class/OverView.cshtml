@@ -1,4 +1,6 @@
-﻿@model DaisyStudy.Models.Catalog.Classes.ClassViewModel;
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@model DaisyStudy.Models.Catalog.Classes.ClassViewModel;
 @{
     ViewData["Title"] = @Html.DisplayFor(model => model.ClassName);
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -23,7 +25,6 @@
 }
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-    <li class="breadcrumb-item"><a href="/Class">Lớp học</a></li>
     <li class="breadcrumb-item active">@Html.DisplayFor(model => model.ClassName)</li>
 </ol>
 
@@ -31,9 +32,16 @@
     <div class="row">
         @if (ViewBag.SuccessMsg != null)
         {
-            <div id="msgAlert" class="alert alert-danger" role="alert">
-                @ViewBag.SuccessMsg
-            </div>
+            if(Convert.ToString(ViewBag.SuccessMsg).Contains("thành công")){
+                <div id="msgAlert" class="alert alert-success" role="alert">
+                    @ViewBag.SuccessMsg
+                </div>
+            }
+            else{
+                <div id="msgAlert" class="alert alert-danger" role="alert">
+                    @ViewBag.SuccessMsg
+                </div>
+            }
         }
     </div>
 </div>
@@ -47,7 +55,7 @@
     </div>
     <div class="card-header">
         <div style="padding: 0;" class="col-md-6 col-xs-12">
-            @if (Model.TeacherUserName == User.Identity.Name)
+            @if (Model.TeacherUserName == User.Identity.Name || HttpContextAccessor.HttpContext.Session.GetString("RoleName")=="Administrator")
             {
                 <a href="@Url.Action("Details", "Class", new {id = Model.ID })" class="btn btn-success">Truy
                     cập</a>

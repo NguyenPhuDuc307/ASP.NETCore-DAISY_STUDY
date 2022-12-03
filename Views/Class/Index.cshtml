@@ -12,10 +12,18 @@
     }, 2000);
 </script>
 }
+
+<style>
+    .bg-gradient-primary {
+        background-color: #1cc88a;
+        background-image: linear-gradient(180deg, #1cc88a 10%, #13855c 100%);
+        background-size: cover;
+    }
+</style>
 <h1 class="mt-4">Danh sách lớp học</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-    <li class="breadcrumb-item"><a href="/Class">Lớp học</a></li>
+    <li class="breadcrumb-item"><a asp-controller="Class">Lớp học</a></li>
     <li class="breadcrumb-item active">Danh sách lớp học</li>
 </ol>
 
@@ -26,7 +34,9 @@
     </div>
     <div class="card-header">
         <div style="padding: 0;" class="col-md-6 col-xs-12">
-            <a class="btn btn-success" asp-action="Create" asp-controller="Class">Tạo mới</a>
+            <a asp-action="Report" class="btn btn-primary">
+                <i class="fa-solid fa-file-arrow-down"></i> Xuất danh sách lớp học file Excel
+            </a>
         </div>
     </div>
 
@@ -44,7 +54,7 @@
                     </div>
                     <div class="dataTables_filter">
                         <div class="input-group">
-                            <input value="@ViewBag.Keyword" name="keyword" type="search"
+                            <input value="@ViewBag.Keyword" autocomplete="off" name="keyword" type="search"
                                 class="form-control bg-light border-0 small" placeholder="Tìm kiếm..."
                                 aria-controls="dataTable">
                             <div class="input-group-append">
@@ -82,6 +92,9 @@
                         <th>
                             Công khai
                         </th>
+                        <th>
+                            Học phí
+                        </th>
 
                         <th></th>
                     </tr>
@@ -110,13 +123,16 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.isPublic)
                                 </td>
+                                <td> 
+                                    @Html.DisplayFor(modelItem => item.Tuition) VND
+                                </td>
                                 <td>
                                     <a style="text-decoration: none;"
                                 href="@Url.Action("OverView", "Class", new { id = item.ID })">
                                         <i class="fa-solid fa-circle-info"></i>
                                     </a>
                                     <a style="text-decoration: none;"
-                                href="@Url.Action("Edit", "Class", new { id = item.ID })">
+                                href="@Url.Action("AdminEdit", "Class", new { id = item.ID })">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
                                     <a style="text-decoration: none;"

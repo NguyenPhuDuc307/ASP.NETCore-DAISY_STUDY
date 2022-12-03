@@ -1,9 +1,11 @@
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
 
@@ -17,12 +19,17 @@
 
     <title>Trò chuyện - DaisyStudy</title>
 
-    <!-- Custom fonts for this template-->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
 
@@ -47,16 +54,242 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Daisy Study -->
-            <li class="nav-item active">
-                <a class="nav-link" href="/">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Daisy Study</span></a>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            @if(HttpContextAccessor.HttpContext.Session.GetString("RoleName") == "Administrator"){
+                <div class="sidebar-heading">
+                    Quản trị website
+                </div>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                        aria-expanded="true" aria-controls="collapseThree">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Người dùng</span>
+                    </a>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Quản lý người dùng:</h6>
+                            <a class="collapse-item" asp-area="" asp-controller="User" asp-action="Index">Danh sách người
+                                dùng</a>
+                            <a class="collapse-item" asp-area="" asp-controller="User" asp-action="Create">Thêm người dùng
+                                mới</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdminClass"
+                    aria-expanded="true" aria-controls="collapseAdminClass">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Lớp học</span>
+                </a>
+                <div id="collapseAdminClass" class="collapse" aria-labelledby="headingAdminClass" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" asp-area="" asp-controller="Class" asp-action="Index">Danh sách lớp
+                            học</a>
+                    </div>
+                </div>
+            </li>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseContact"
+                        aria-expanded="true" aria-controls="collapseContact">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>Phản hồi</span>
+                    </a>
+                    <div id="collapseContact" class="collapse" aria-labelledby="headingContact" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Quản lý phản hồi:</h6>
+                            <a class="collapse-item" asp-area="" asp-controller="Contact" asp-action="Index">Danh sách phản hồi</a>
+                        </div>
+                    </div>
+                </li>
+
+                <hr class="sidebar-divider">
+            }
+            
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Lớp học
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+                    aria-expanded="true" aria-controls="collapseFour">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Lớp học</span>
+                </a>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" asp-area="" asp-controller="Class" asp-action="MyClass">Danh sách lớp
+                            học</a>
+                        <a class="collapse-item" asp-area="" asp-controller="Class" asp-action="Create">Tạo lớp học
+                            mới</a>
+                        <a class="collapse-item" data-bs-toggle="modal" data-bs-target="#joinModal">Tham gia lớp học</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Join Modal -->
+            <div class="modal fade" id="joinModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered animated--grow-in">
+                    <form asp-controller="Class" asp-action="JoinClassById" class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tham gia lớp học</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input class="form-control" name="ClassID" placeholder="Nhập mã lớp..." autocomplete="off">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Tham gia</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
+                    aria-expanded="true" aria-controls="collapseFive">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <span>Bài tập</span>
+                </a>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="BaiTap">Danh sách bài
+                            tập</a>
+                        @* <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Create">Thêm bài
+                            tập
+                            mới</a> *@
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven"
+                    aria-expanded="true" aria-controls="collapseSeven">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Lịch thi</span>
+                </a>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" asp-area="" asp-controller="ExamSchedule" asp-action="Index">Danh sách
+                            lịch thi</a>
+                        @* <a class="collapse-item" asp-area="" asp-controller="ExamSchedule" asp-action="Create">Kiểm
+                            tra
+                            mới</a> *@
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Giáo viên
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadClass"
+                    aria-expanded="true" aria-controls="collapseadClass">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Lớp học</span>
+                </a>
+                <div id="collapseadClass" class="collapse" aria-labelledby="headingadClass"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản lý lớp học:</h6>
+                        <a class="collapse-item" asp-area="" asp-controller="Class" asp-action="MyAdminClass">Lớp học
+                            đang dạy</a>
+                    </div>
+                </div>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadminHomework"
+                    aria-expanded="true" aria-controls="collapseadminHomework">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <span>Bài tập</span>
+                </a>
+                <div id="collapseadminHomework" class="collapse" aria-labelledby="headingadminHomework"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản lý bài tập:</h6>
+                        <a class="collapse-item" asp-area="" asp-controller="Homework" asp-action="Index">Danh sách bài
+                            tập</a>
+                    </div>
+                </div>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadminSubmission"
+                    aria-expanded="true" aria-controls="collapseadminSubmission">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>Nộp bài</span>
+                </a>
+                <div id="collapseadminSubmission" class="collapse" aria-labelledby="headingadminSubmission"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản lý nộp bài:</h6>
+                        <a class="collapse-item" asp-area="" asp-controller="Submission" asp-action="Index">Danh sách
+                            nộp bài</a>
+                    </div>
+                </div>
+
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadminExamSchedule"
+                    aria-expanded="true" aria-controls="collapseadminExamSchedule">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Lịch thi</span>
+                </a>
+                <div id="collapseadminExamSchedule" class="collapse" aria-labelledby="headingadminExamSchedule"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản lý lịch thi:</h6>
+                        <a class="collapse-item" asp-area="" asp-action="AdminLichThi" asp-controller="ExamSchedule"
+                            asp-action="Index">Danh sách lịch thi</a>
+                    </div>
+                </div>
+
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadminQuestion"
+                    aria-expanded="true" aria-controls="collapseadminQuestion">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>Đề thi</span>
+                </a>
+                <div id="collapseadminQuestion" class="collapse" aria-labelledby="headingadminQuestion"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản lý đề thi:</h6>
+                        <a class="collapse-item" asp-area="" asp-controller="Question" asp-action="Index">Danh sách đề
+                            thi</a>
+                    </div>
+                </div>
+
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadminCheck"
+                    aria-expanded="true" aria-controls="collapseadminCheck">
+                    <i class="fa-solid fa-file-pen"></i>
+                    <span>Kết quả thi</span>
+                </a>
+                <div id="collapseadminCheck" class="collapse" aria-labelledby="headingadminCheck"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản lý kết quả thi:</h6>
+                        <a class="collapse-item" asp-controller="ExamSchedule" asp-action="AdminKetQuaThi">Xem kết quả
+                            thi</a>
+
+                    </div>
+                </div>
+            </li>
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
 
 
             <!-- Divider -->
@@ -119,6 +352,7 @@
                                         </svg>
                                     </a>
                                 </div>
+
                                 <ul class="rooms list-unstyled" id="rooms-list" data-bind="foreach: chatRooms">
                                     <li>
                                         <a href="#"

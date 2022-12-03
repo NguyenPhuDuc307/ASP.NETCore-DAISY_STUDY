@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Data;
 using Microsoft.EntityFrameworkCore;
 using DaisyStudy.Utilities.Exceptions;
 using System.Net.Http.Headers;
@@ -12,6 +13,7 @@ using DaisyStudy.Models.Common;
 using DaisyStudy.Models.Catalog.Comments;
 using DaisyStudy.Models.Catalog.Notifications;
 using AutoMapper;
+using DaisyStudy.Models.Catalog.ExamSchedules;
 
 namespace DaisyStudy.Application.Catalog.Classes
 {
@@ -157,6 +159,170 @@ namespace DaisyStudy.Application.Catalog.Classes
             return pageResult;
         }
 
+        public async Task<List<ClassViewModel>> GetAllClass()
+        {
+            //1. Select
+            var classes = _context.Classes.Include(x => x.ClassDetails);
+            var data = await classes.ToListAsync();
+
+            var classViewModel = _mapper.Map<IEnumerable<Class>, IEnumerable<ClassViewModel>>(data);
+
+            foreach (var item in classViewModel)
+            {
+                string idTeacher = _context.ClassDetails.FirstOrDefault(x => x.IsTeacher == Data.Enums.Teacher.Teacher && x.ClassID == item.ID).UserID;
+                var userViewModel = await _userManager.FindByIdAsync(idTeacher);
+                item.Teacher = userViewModel.FirstName + " " + userViewModel.LastName;
+            }
+            return classViewModel.ToList();
+        }
+
+        public async Task<PagedResult<ClassViewModel>> GetAllMyClassPaging(ClassPagingRequest request, string UserId)
+        {
+            //1. Select
+            var classes = _context.Classes
+            .Include(x => x.ClassDetails)
+            .Skip((request.PageIndex - 1) * request.PageSize)
+            .Take(request.PageSize);
+
+
+
+            //2. Filter
+            if (!string.IsNullOrEmpty(request.Keyword))
+            {
+                classes = classes.Where(x => x.ClassName.Contains(request.Keyword)
+                    || x.ClassID.Contains(request.Keyword)
+                    || x.Topic.Contains(request.Keyword));
+            }
+
+            var data = await classes.ToListAsync();
+
+            foreach (var item in data.ToList())
+            {
+                bool check = false;
+                foreach (var i in item.ClassDetails)
+                {
+                    if (i.UserID == UserId)
+                    {
+                        check = true;
+                        break;
+                    }
+                }
+                if (check == false)
+                {
+                    data.Remove(item);
+                }
+            }
+
+            var classViewModel = _mapper.Map<IEnumerable<Class>, IEnumerable<ClassViewModel>>(data);
+
+            foreach (var item in classViewModel)
+            {
+                string idTeacher = _context.ClassDetails.FirstOrDefault(x => x.IsTeacher == Data.Enums.Teacher.Teacher && x.ClassID == item.ID).UserID;
+                var userViewModel = await _userManager.FindByIdAsync(idTeacher);
+                item.Teacher = userViewModel.FirstName + " " + userViewModel.LastName;
+            }
+
+            //3. Paging
+            int totalRow = await classes.CountAsync();
+
+            //4. Select and projection
+            var pageResult = new PagedResult<ClassViewModel>()
+            {
+                TotalRecords = totalRow,
+                PageIndex = request.PageIndex,
+                PageSize = request.PageSize,
+                Items = classViewModel
+            };
+            return pageResult;
+        }
+
+        public async Task<PagedResult<ClassViewModel>> GetAllMyAdminClassPaging(ClassPagingRequest request, string UserId)
+        {
+            //1. Select
+            var classes = _context.Classes
+            .Include(x => x.ClassDetails)
+            .Skip((request.PageIndex - 1) * request.PageSize)
+            .Take(request.PageSize);
+
+
+
+            //2. Filter
+            if (!string.IsNullOrEmpty(request.Keyword))
+            {
+                classes = classes.Where(x => x.ClassName.Contains(request.Keyword)
+                    || x.ClassID.Contains(request.Keyword)
+                    || x.Topic.Contains(request.Keyword));
+            }
+
+            var data = await classes.ToListAsync();
+
+            foreach (var item in data.ToList())
+            {
+                bool check = false;
+                foreach (var i in item.ClassDetails)
+                {
+                    if (i.UserID == UserId && i.IsTeacher == Teacher.Teacher)
+                    {
+                        check = true;
+                        break;
+                    }
+                }
+                if (check == false)
+                {
+                    data.Remove(item);
+                }
+            }
+
+            var classViewModel = _mapper.Map<IEnumerable<Class>, IEnumerable<ClassViewModel>>(data);
+
+            foreach (var item in classViewModel)
+            {
+                string idTeacher = _context.ClassDetails.FirstOrDefault(x => x.IsTeacher == Data.Enums.Teacher.Teacher && x.ClassID == item.ID).UserID;
+                var userViewModel = await _userManager.FindByIdAsync(idTeacher);
+                item.Teacher = userViewModel.FirstName + " " + userViewModel.LastName;
+            }
+
+            //3. Paging
+            int totalRow = await classes.CountAsync();
+
+            //4. Select and projection
+            var pageResult = new PagedResult<ClassViewModel>()
+            {
+                TotalRecords = totalRow,
+                PageIndex = request.PageIndex,
+                PageSize = request.PageSize,
+                Items = classViewModel
+            };
+            return pageResult;
+        }
+
+        public async Task<List<Class>> GetAllMyAdminClass(string? UserId)
+        {
+            //1. Select
+            var classes = _context.Classes
+            .Include(x => x.ClassDetails);
+
+            var data = await classes.ToListAsync();
+
+            foreach (var item in data.ToList())
+            {
+                bool check = false;
+                foreach (var i in item.ClassDetails)
+                {
+                    if (i.UserID == UserId && i.IsTeacher == Teacher.Teacher)
+                    {
+                        check = true;
+                        break;
+                    }
+                }
+                if (check == false)
+                {
+                    data.Remove(item);
+                }
+            }
+            return data;
+        }
+
         public async Task<PagedResult<ClassViewModel>> GetAllClassPagingHome(ClassPagingRequest request)
         {
             //1. Select
@@ -258,7 +424,7 @@ namespace DaisyStudy.Application.Catalog.Classes
                 Content = x.n.Content,
                 DateTimeCreated = x.n.DateTimeCreated,
                 NotificationImages = _context.NotificationImages.Where(p => p.NotificationID == x.n.NotificationID).ToList()
-            }).OrderByDescending(x=> x.DateTimeCreated).ToListAsync();
+            }).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
 
             foreach (var item in data)
             {
@@ -268,12 +434,91 @@ namespace DaisyStudy.Application.Catalog.Classes
             return data;
         }
 
+        public async Task<ICollection<ExamSchedulesViewModel>> GetAllExamScheduleByClassID(int ClassID)
+        {
+            //1. Select join
+            var query = from n in _context.ExamSchedules
+                        where n.ClassID == ClassID
+                        select new { n };
+
+            var data = await query.Select(x => new ExamSchedulesViewModel()
+            {
+                ExamScheduleID = x.n.ExamScheduleID,
+                ClassID = x.n.ClassID,
+                ExamScheduleName = x.n.ExamScheduleName,
+                DateTimeCreated = x.n.DateTimeCreated,
+                ExamDateTime = x.n.ExamDateTime,
+                ExamTime = x.n.ExamTime
+            }).OrderByDescending(x => x.DateTimeCreated).ToListAsync();
+
+            return data;
+        }
+
         public async Task<ClassViewModel> GetById(int id)
         {
-            var @class = await _context.Classes.Include(x => x.ClassDetails).Include(x=> x.Homeworks)
+            var @class = await _context.Classes.Include(x => x.ClassDetails).Include(x => x.Homeworks).Where(x => x.Status == Status.Active)
                 .FirstOrDefaultAsync(x => x.ID == id);
+            if (@class == null)
+            {
+                return null;
+            }
             var classDetail = _context.ClassDetails.FirstOrDefault(x => x.ClassID == @class.ID && x.IsTeacher == Teacher.Teacher);
-            if (classDetail == null) throw new DaisyStudyException($"Cannot find a class detail {id}");
+            if (classDetail == null) return null;
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == classDetail.UserID);
+
+
+            foreach (var item in @class.ClassDetails)
+            {
+                var _user = await _userManager.FindByIdAsync(item.UserID);
+                item.User = _user;
+            }
+
+            var classViewModel = _mapper.Map<Class, ClassViewModel>(@class);
+            classViewModel.Teacher = user.FirstName + " " + user.LastName;
+            classViewModel.StudentNumber = _context.ClassDetails.Where(c => c.ClassID == @class.ID).Count() - 1;
+            classViewModel.TeacherImage = user.Avatar;
+            classViewModel.TeacherUserName = user.UserName;
+            classViewModel.Notifications = await GetAllNotificationByClassID(@class.ID);
+            classViewModel.ExamSchedules = await GetAllExamScheduleByClassID(@class.ID);
+            return classViewModel;
+        }
+
+        public async Task<ClassViewModel> GetAdminById(int id)
+        {
+            var @class = await _context.Classes.Include(x => x.ClassDetails).Include(x => x.Homeworks)
+                .FirstOrDefaultAsync(x => x.ID == id);
+            if (@class == null)
+            {
+                return null;
+            }
+            var classDetail = _context.ClassDetails.FirstOrDefault(x => x.ClassID == @class.ID && x.IsTeacher == Teacher.Teacher);
+            if (classDetail == null) return null;
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == classDetail.UserID);
+
+
+            foreach (var item in @class.ClassDetails)
+            {
+                var _user = await _userManager.FindByIdAsync(item.UserID);
+                item.User = _user;
+            }
+
+            var classViewModel = _mapper.Map<Class, ClassViewModel>(@class);
+            classViewModel.Teacher = user.FirstName + " " + user.LastName;
+            classViewModel.StudentNumber = _context.ClassDetails.Where(c => c.ClassID == @class.ID).Count() - 1;
+            classViewModel.TeacherImage = user.Avatar;
+            classViewModel.TeacherUserName = user.UserName;
+            classViewModel.Notifications = await GetAllNotificationByClassID(@class.ID);
+            classViewModel.ExamSchedules = await GetAllExamScheduleByClassID(@class.ID);
+            return classViewModel;
+        }
+
+        public async Task<ClassViewModel> GetById(string ClassID)
+        {
+            var @class = await _context.Classes.Include(x => x.ClassDetails).Include(x => x.Homeworks)
+                .FirstOrDefaultAsync(x => x.ClassID == ClassID);
+            if (@class == null) return null;
+            var classDetail = _context.ClassDetails.FirstOrDefault(x => x.ClassID == @class.ID && x.IsTeacher == Teacher.Teacher);
+            if (classDetail == null) return null;
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == classDetail.UserID);
             if (@class == null)
             {
@@ -292,13 +537,14 @@ namespace DaisyStudy.Application.Catalog.Classes
             classViewModel.TeacherImage = user.Avatar;
             classViewModel.TeacherUserName = user.UserName;
             classViewModel.Notifications = await GetAllNotificationByClassID(@class.ID);
+            classViewModel.ExamSchedules = await GetAllExamScheduleByClassID(@class.ID);
             return classViewModel;
         }
 
         public async Task<int> Update(ClassUpdateRequest request)
         {
             var _class = await _context.Classes.FindAsync(request.ID);
-            if (_class == null) throw new DaisyStudyException($"Cannot find a class {request.ID}");
+            if (_class == null) return 0;
             _class.ClassName = request.ClassName;
             _class.Topic = request.Topic;
             _class.ClassRoom = request.ClassRoom;
@@ -306,22 +552,22 @@ namespace DaisyStudy.Application.Catalog.Classes
             _class.isPublic = request.IsPublic;
             _class.Status = request.Status;
 
-            if(_class.Status != request.Status) 
-            //Save image
-            if (request.ThumbnailImage != null)
-            {
-                if (_class.ImagePath != null)
+            if (_class.Status != request.Status)
+                //Save image
+                if (request.ThumbnailImage != null)
                 {
-                    _class.ImagePath = await this.SaveFile(request.ThumbnailImage);
+                    if (_class.ImagePath != null)
+                    {
+                        _class.ImagePath = await this.SaveFile(request.ThumbnailImage);
+                    }
                 }
-            }
             return await _context.SaveChangesAsync();
         }
 
         public async Task<bool> UpdateIsPublic(int ID, IsPublic isPublic)
         {
             var _class = await _context.Classes.FindAsync(ID);
-            if (_class == null) throw new DaisyStudyException($"Cannot find a class {ID}");
+            if (_class == null) return false;
             _class.isPublic = isPublic;
             return await _context.SaveChangesAsync() > 0;
         }
@@ -329,7 +575,7 @@ namespace DaisyStudy.Application.Catalog.Classes
         public async Task<bool> UpdateStatus(int ID, Status status)
         {
             var _class = await _context.Classes.FindAsync(ID);
-            if (_class == null) throw new DaisyStudyException($"Cannot find a class {ID}");
+            if (_class == null) return false;
             _class.Status = status;
             return await _context.SaveChangesAsync() > 0;
         }
@@ -337,7 +583,7 @@ namespace DaisyStudy.Application.Catalog.Classes
         public async Task<bool> UpdateTuition(int ID, decimal tuition)
         {
             var _class = await _context.Classes.FindAsync(ID);
-            if (_class == null) throw new DaisyStudyException($"Cannot find a class {ID}");
+            if (_class == null) return false;
             _class.Tuition = tuition;
             return await _context.SaveChangesAsync() > 0;
         }
@@ -457,6 +703,36 @@ namespace DaisyStudy.Application.Catalog.Classes
                 Items = data
             };
             return pagedResult;
+        }
+
+        public async Task<List<ClassDetailViewModel>> GetAllStudentByClassIDD(int ClassID)
+        {
+            //1. Select join
+            var query = from st in _userManager.Users
+                        join cd in _context.ClassDetails on st.Id equals cd.UserID into cdst
+                        from cd in cdst.DefaultIfEmpty()
+                        join c in _context.Classes on cd.ClassID equals c.ID
+                        select new { cd, st, c };
+
+            query = query.Where(x => x.cd.ClassID == ClassID);
+
+            var data = await query
+                .Select(x => new ClassDetailViewModel()
+                {
+                    Email = x.st.Email,
+                    PhoneNumber = x.st.PhoneNumber,
+                    UserName = x.st.UserName,
+                    FirstName = x.st.FirstName,
+                    UserID = x.st.Id,
+                    Dob = x.st.Dob,
+                    LastName = x.st.LastName,
+                    IsTeacher = x.cd.IsTeacher,
+                    ClassName = x.c.ClassName,
+                    ClassID = x.c.ClassID,
+                    Avatar = x.st.Avatar
+                }).ToListAsync();
+                
+            return data;
         }
     }
 }

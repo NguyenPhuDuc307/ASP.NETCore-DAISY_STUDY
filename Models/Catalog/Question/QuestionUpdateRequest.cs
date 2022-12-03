@@ -19,7 +19,14 @@ public class QuestionUpdateRequest
     [Display(Name = "Điểm số")]
     public float Point { set; get; }
 
-    public IFormFile? ThumbnailImage { get; set; }
-
-    public long FileSize { set; get; }
+    [Display(Name = "Đáp án 1")]
+    public string? Option1 { get; set; }
+    [Display(Name = "Đáp án 2")]
+    public string? Option2 { get; set; }
+    [Display(Name = "Đáp án 3")]
+    public string? Option3 { get; set; }
+    [Display(Name = "Đáp án 4")]
+    public string? Option4 { get; set; }
+    [Display(Name = "Đáp án đúng")]
+    public int OptionCorrect { get; set; }
 }

@@ -35,6 +35,8 @@ public class UserViewModel
 
     [Display(Name = "Phòng hiện tại")]
     public string? CurrentRoom { get; set; }
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:N0} đ")]
+    public decimal AccountBalance { get; set; }
 
     public string? ConnectionId { get; set; }
 

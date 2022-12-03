@@ -8,6 +8,11 @@ public class HomeworkUpdateRequest
 
     [Display(Name = "Tên bài tập")]
     public string? HomeworkName { set; get; }
+    [Display(Name = "Mã lớp học")]
+    public int ID { set; get; }
+
+    [Display(Name = "Tên lớp học")]
+    public string? ClassName { set; get; }
 
     [Display(Name = "Mô tả")]
     public string? Description { set; get; }

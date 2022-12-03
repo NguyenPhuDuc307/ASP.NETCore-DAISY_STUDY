@@ -121,7 +121,7 @@
                 'bulletedList', 'numberedList', 'todoList', '|',
                 'outdent', 'indent', '|',
                 'undo', 'redo',
-                
+
                 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
                 'alignment', '|',
                 'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', '|',
@@ -245,6 +245,7 @@
             console.log(error);
         });
 </script>
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
 <style>
@@ -260,62 +261,67 @@
     }
 </style>
 
-<div class="container-fluid">
-    <h1 class="mt-4">Tạo mới lớp học</h1>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-        <li class="breadcrumb-item"><a href="/Class">Lớp học</a></li>
-        <li class="breadcrumb-item active">Tạo mới lớp học</li>
-    </ol>
+<h1 class="mt-4">Tạo mới lớp học</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+    <li class="breadcrumb-item"><a asp-controller="Class" asp-action="MyClass">Lớp học</a></li>
+    <li class="breadcrumb-item active">Tạo mới lớp học</li>
+</ol>
 
-    <div class="card mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Tạo mới lớp học</h6>
-        </div>
-        <div class="card-header">
-            <a class="btn btn-success" asp-action="Index" asp-controller="Class">Về danh sách</a>
-        </div>
+<div class="card mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Thông tin lớp học</h6>
+    </div>
 
-        <div class="card-body">
-            <div class="col-md-12">
-                <form asp-action="Create" enctype="multipart/form-data" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="ClassName" class="control-label"></label>
-                        <input asp-for="ClassName" class="form-control" autocomplete="off" />
-                        <span asp-validation-for="ClassName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Topic" class="control-label"></label>
-                        <input asp-for="Topic" class="form-control" autocomplete="off"/>
-                        <span asp-validation-for="Topic" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ClassRoom" class="control-label"></label>
-                        <input asp-for="ClassRoom" type="text" class="form-control" autocomplete="off"/>
-                        <span asp-validation-for="ClassRoom" class="text-danger"></span>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label asp-for="Tuition" class="control-label"></label>
-                        <input asp-for="Tuition" value="0" type="number" class="form-control" autocomplete="off"/>
-                        <span asp-validation-for="Tuition" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ThumbnailImage" class="control-label"></label>
-                        <input asp-for="ThumbnailImage" type="file" class="form-control" />
-                        <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Description" class="control-label"></label>
-                        <textarea id="editor" asp-for="Description" class="form-control"></textarea>
-                        <span asp-validation-for="Description" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Tạo mới" class="btn btn-primary" />
-                    </div>
-                </form>
+    <div class="card-body">
+
+        <form asp-action="Create" class="row" enctype="multipart/form-data" method="post">
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ClassName" class="control-label"></label>
+                    <input asp-for="ClassName" class="form-control" autocomplete="off"
+                        placeholder="Nhập tên lớp học..." />
+                    <span asp-validation-for="ClassName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Topic" class="control-label"></label>
+                    <input asp-for="Topic" class="form-control" autocomplete="off"
+                        placeholder="Nhập chủ đề lớp học..." />
+                    <span asp-validation-for="Topic" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ThumbnailImage" class="control-label"></label>
+                    <input asp-for="ThumbnailImage" type="file" class="form-control" />
+                    <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
+                </div>
             </div>
-        </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="ClassRoom" class="control-label"></label>
+                    <input asp-for="ClassRoom" type="text" class="form-control" autocomplete="off"
+                        placeholder="Nhập phòng học (nếu có)" />
+                    <span asp-validation-for="ClassRoom" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Tuition" class="control-label"></label>
+                    <input asp-for="Tuition" value="0" type="number" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="Tuition" class="text-danger"></span>
+                </div>
+                
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea id="editor" asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Tạo lớp học mới" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+
     </div>
 </div>

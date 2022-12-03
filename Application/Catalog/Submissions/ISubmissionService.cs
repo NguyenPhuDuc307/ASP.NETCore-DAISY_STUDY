@@ -10,4 +10,6 @@ public interface ISubmissionService
     Task<bool> Delete(int SubmissionID);
     Task<SubmissionViewModel> GetById(int SubmissionID);
     Task<PagedResult<SubmissionViewModel>> GetAllPaging(GetManageSubmissionPagingRequest request);
+    Task<PagedResult<SubmissionViewModel>> GetMyAllPaging(GetManageSubmissionPagingRequest request);
+    Task<PagedResult<SubmissionViewModel>> GetMyAll(GetManageSubmissionPagingRequest request);
 }

@@ -10,9 +10,13 @@ public class ExamSchedulesUpdateRequest
     public string? ExamScheduleName { set; get; }
 
     [Display(Name = "Ngày thi")]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-    public DateTime ExamDatetime { set; get; }
+    public DateTime ExamDateTime { set; get; }
+
+    [Display(Name = "Hạn làm bài")]
+    public DateTime Deadline { set; get; }
 
     [Display(Name = "Thời gian thi")]
     public int ExamTime { set; get; }
+    [Display(Name = "Mô tả")]
+    public string? Description { set; get; }
 }

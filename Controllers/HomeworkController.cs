@@ -1,34 +1,67 @@
 ﻿using AutoMapper;
+using DaisyStudy.Application.Catalog.Classes;
 using DaisyStudy.Application.Catalog.Homeworks;
 using DaisyStudy.Models.Catalog.Homeworks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DaisyStudy.Controllers;
 
 public class HomeworkController : BaseController
 {
     private readonly IHomeworkService _homeworkService;
+    private readonly IClassService _classService;
     private readonly IConfiguration _configuration;
     private readonly IMapper _mapper;
 
     public HomeworkController(IHomeworkService homeworkService,
+                              IClassService classService,
                               IConfiguration configuration,
                               IMapper mapper)
     {
-        _configuration = configuration;
         _homeworkService = homeworkService;
+        _classService = classService;
+        _configuration = configuration;
         _mapper = mapper;
     }
 
-    public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
+    [Route("giao-vien/bai-tap")]
+    public async Task<IActionResult> Index(int ClassID, string keyword, int pageIndex = 1, int pageSize = 10)
     {
         var request = new GetManageHomeworkPagingRequest()
         {
+            UserId = HttpContext.Session.GetString("UserId"),
+            ClassID = ClassID,
             Keyword = keyword,
             PageIndex = pageIndex,
             PageSize = pageSize
         };
-        var data = await _homeworkService.GetAllPaging(request);
+        var data = await _homeworkService.GetAllMyAdminHomeworkPaging(request);
+        ViewBag.Keyword = keyword;
+        ViewBag.ClassID = ClassID;
+
+        var list = await _classService.GetAllMyAdminClass(HttpContext.Session.GetString("UserId"));
+        ViewBag.listCl = list;
+
+        if (TempData["result"] != null)
+        {
+            ViewBag.SuccessMsg = TempData["result"];
+        }
+
+        return View(data);
+    }
+
+    [Route("bai-tap")]
+    public async Task<IActionResult> BaiTap(string keyword, int pageIndex = 1, int pageSize = 10)
+    {
+        var request = new GetManageHomeworkPagingRequest()
+        {
+            UserId = HttpContext.Session.GetString("UserId"),
+            Keyword = keyword,
+            PageIndex = pageIndex,
+            PageSize = pageSize
+        };
+        var data = await _homeworkService.GetAllMyHomeworkPaging(request);
         ViewBag.Keyword = keyword;
         if (TempData["result"] != null)
         {
@@ -55,15 +88,15 @@ public class HomeworkController : BaseController
         var result = await _homeworkService.Create(request);
         if (result != null)
         {
-            TempData["result"] = "Thêm mới lớp học thành công";
-            return RedirectToAction("Index");
+            TempData["result"] = "Thêm mới bài tập thành công";
+            return RedirectToAction("Details", "Class", new { id = request.ClassID });
         }
 
-        ModelState.AddModelError("", "Thêm lớp học thất bại");
+        ModelState.AddModelError("", "Thêm bài tập thất bại");
         return View(request);
     }
 
-    [HttpGet]
+    [HttpGet("chi-tiet-bai-tap")]
     public async Task<IActionResult> Details(int id)
     {
         var result = await _homeworkService.GetById(id);
@@ -75,7 +108,19 @@ public class HomeworkController : BaseController
         return View(result);
     }
 
-    [HttpGet]
+    [HttpPost("gui-mail-bai-tap")]
+    public async Task<IActionResult> SendMail(int ClassID, int HomeworkID)
+    {
+        var students = await _classService.GetAllStudentByClassIDD(ClassID);
+        foreach (var item in students)
+        {
+            await DaisyStudy.Utilities.Helpers.SendMail.SendEmail(item.Email, "Thông báo từ DaisyStudy", "<p>\n    <img class=\"image_resized\" style=\"width:24.92%;\" src=\"https://localhost:5000/img/logo.png\" alt=\"logo-white.svg\">\n</p>\n<p>\n    <span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;font-size:20px;\"><mark class=\"marker-yellow\"><strong>Thông báo từ DaisyStudy</strong></mark></span>\n</p>\n<p>\n    <span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\">Lớp học của bạn vừa cập nhật một bài tập mới</mark></span>\n</p>\n<p>\n    <span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\">Nhấn vào &nbsp;</mark></span><a href=\"https://localhost:5000/\"><span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\">https://localhost:5000/</mark></span></a><span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\"> để kiểm tra.</mark></span>\n</p>\n", "");
+        }
+        TempData["result"] = "Đã gửi mail thành công";
+        return RedirectToAction("Details", "Homework", new { id = HomeworkID });
+    }
+
+    [HttpGet("chinh-sua-bai-tap")]
     public async Task<IActionResult> Edit(int id)
     {
         var result = await _homeworkService.GetById(id);
@@ -84,7 +129,7 @@ public class HomeworkController : BaseController
         return View(homeworkViewModel);
     }
 
-    [HttpPost]
+    [HttpPost("chinh-sua-bai-tap")]
     [ValidateAntiForgeryToken]
     [Consumes("multipart/form-data")]
     public async Task<IActionResult> Edit([FromForm] HomeworkUpdateRequest request)
@@ -107,7 +152,7 @@ public class HomeworkController : BaseController
         if (result != 0)
         {
             TempData["result"] = "Xoá bài tập thành công";
-            return RedirectToAction("Details", "Class", new { id = homework.ID});
+            return RedirectToAction("Details", "Class", new { id = homework.ID });
         }
 
         ModelState.AddModelError("", "Xoá bài tập thất bại");

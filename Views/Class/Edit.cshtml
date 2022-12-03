@@ -268,18 +268,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
-                    <textarea id="editor" asp-for="Description" class="form-control"></textarea>
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-                <div class="form-group">
                     <label asp-for="ClassRoom" class="control-label"></label>
-                    <input asp-for="ClassRoom" class="form-control" />
+                    <input asp-for="ClassRoom" placeholder="Nhập phòng học" class="form-control" />
                     <span asp-validation-for="ClassRoom" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Topic" class="control-label"></label>
-                    <input asp-for="Topic" class="form-control" />
+                    <input asp-for="Topic" placeholder="Nhập chủ đề" class="form-control" />
                     <span asp-validation-for="Topic" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -301,7 +296,7 @@
                     </select>
                     <span asp-validation-for="IsPublic" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div hidden class="form-group">
                     <label class="control-label">Trạng thái</label>
                     <select name="Status" class="form-control" aria-label="Default select example">
                         @if(Convert.ToString(Model.Status) == "InActive"){
@@ -320,6 +315,11 @@
                     <label asp-for="ThumbnailImage" class="control-label"></label>
                     <input asp-for="ThumbnailImage" type="file" class="form-control" />
                     <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea id="editor" asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Cập nhật" class="btn btn-primary" />

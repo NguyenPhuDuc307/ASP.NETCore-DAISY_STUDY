@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets/DaisyStudy.bundle.scp.css"
     },
     {
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/.DS_Store",
+      "PackagePath": "staticwebassets/.DS_Store"
+    },
+    {
       "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/css/_auth.scss",
       "PackagePath": "staticwebassets/css/_auth.scss"
     },
@@ -81,6 +85,10 @@
       "PackagePath": "staticwebassets/img/background.svg"
     },
     {
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/img/file.svg",
+      "PackagePath": "staticwebassets/img/file.svg"
+    },
+    {
       "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/img/image_null.png",
       "PackagePath": "staticwebassets/img/image_null.png"
     },
@@ -129,20 +137,24 @@
       "PackagePath": "staticwebassets/js/ckeditor.js"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/demo/chart-area-demo.js",
-      "PackagePath": "staticwebassets/js/demo/chart-area-demo.js"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/controllers/examController.js",
+      "PackagePath": "staticwebassets/js/controllers/examController.js"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/demo/chart-bar-demo.js",
-      "PackagePath": "staticwebassets/js/demo/chart-bar-demo.js"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/controllers/questionController.js",
+      "PackagePath": "staticwebassets/js/controllers/questionController.js"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/demo/chart-pie-demo.js",
-      "PackagePath": "staticwebassets/js/demo/chart-pie-demo.js"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/plugins/bootbox.min.js",
+      "PackagePath": "staticwebassets/js/plugins/bootbox.min.js"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/demo/datatables-demo.js",
-      "PackagePath": "staticwebassets/js/demo/datatables-demo.js"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/plugins/jquery.twbsPagination.min.js",
+      "PackagePath": "staticwebassets/js/plugins/jquery.twbsPagination.min.js"
+    },
+    {
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/plugins/mustache.min.js",
+      "PackagePath": "staticwebassets/js/plugins/mustache.min.js"
     },
     {
       "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/js/sb-admin-2.js",
@@ -341,260 +353,144 @@
       "PackagePath": "staticwebassets/uploads/202251201103_android.png"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/000fe1b2-b45a-4d92-bf13-632da83be40a.pdf",
-      "PackagePath": "staticwebassets/user-content/000fe1b2-b45a-4d92-bf13-632da83be40a.pdf"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/.DS_Store",
+      "PackagePath": "staticwebassets/user-content/.DS_Store"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/02386232-48da-445d-a2fa-5c3798a94afc.png",
-      "PackagePath": "staticwebassets/user-content/02386232-48da-445d-a2fa-5c3798a94afc.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/1b1f7a29-8851-49ff-9a7c-cbf899c6e4f9.doc",
+      "PackagePath": "staticwebassets/user-content/1b1f7a29-8851-49ff-9a7c-cbf899c6e4f9.doc"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/02fd0906-7f7d-44cf-8f68-79d3e1093bd8.png",
-      "PackagePath": "staticwebassets/user-content/02fd0906-7f7d-44cf-8f68-79d3e1093bd8.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/20b53b1d-df6e-40c8-9f1c-11a893504ba5.jpg",
+      "PackagePath": "staticwebassets/user-content/20b53b1d-df6e-40c8-9f1c-11a893504ba5.jpg"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/07a0d071-f68f-4006-92e2-baf00d373482.png",
-      "PackagePath": "staticwebassets/user-content/07a0d071-f68f-4006-92e2-baf00d373482.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/245795d0-e18b-48e7-9ef6-da1997fddc11.png",
+      "PackagePath": "staticwebassets/user-content/245795d0-e18b-48e7-9ef6-da1997fddc11.png"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/0825d4d2-93e6-4721-8654-7dddfa962250.png",
-      "PackagePath": "staticwebassets/user-content/0825d4d2-93e6-4721-8654-7dddfa962250.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/39f1c3b1-ef1d-400e-944c-881c5dca36b2.jpeg",
+      "PackagePath": "staticwebassets/user-content/39f1c3b1-ef1d-400e-944c-881c5dca36b2.jpeg"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/18b3599f-4387-44d2-a156-0494a0e617f3.png",
-      "PackagePath": "staticwebassets/user-content/18b3599f-4387-44d2-a156-0494a0e617f3.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/3c752896-cb65-4f19-af23-b815e801e8d8.png",
+      "PackagePath": "staticwebassets/user-content/3c752896-cb65-4f19-af23-b815e801e8d8.png"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/21cd4f26-df1c-4e2c-9c78-93b37a5252aa.png",
-      "PackagePath": "staticwebassets/user-content/21cd4f26-df1c-4e2c-9c78-93b37a5252aa.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/423e9761-e02c-48bc-9c8b-d1fa2b2ded77.jpg",
+      "PackagePath": "staticwebassets/user-content/423e9761-e02c-48bc-9c8b-d1fa2b2ded77.jpg"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/255ae7fa-0a29-4952-b6bb-e0f4cb9dfad0.svg",
-      "PackagePath": "staticwebassets/user-content/255ae7fa-0a29-4952-b6bb-e0f4cb9dfad0.svg"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/4592657f-b967-4aeb-91dd-3f7e340b849b.png",
+      "PackagePath": "staticwebassets/user-content/4592657f-b967-4aeb-91dd-3f7e340b849b.png"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/2cf8119c-fb76-494c-9b98-91d841e8b5e0.png",
-      "PackagePath": "staticwebassets/user-content/2cf8119c-fb76-494c-9b98-91d841e8b5e0.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/4734c02e-3d96-4441-9772-f61898496752.png",
+      "PackagePath": "staticwebassets/user-content/4734c02e-3d96-4441-9772-f61898496752.png"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/3bf5633d-7ffb-4b95-8ca0-a9d017b11e26.svg",
-      "PackagePath": "staticwebassets/user-content/3bf5633d-7ffb-4b95-8ca0-a9d017b11e26.svg"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/49776aa8-4b58-431d-be6e-975f94110abb.pdf",
+      "PackagePath": "staticwebassets/user-content/49776aa8-4b58-431d-be6e-975f94110abb.pdf"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/3fa0a580-e459-48bc-aa37-f0674ca912a2.pdf",
-      "PackagePath": "staticwebassets/user-content/3fa0a580-e459-48bc-aa37-f0674ca912a2.pdf"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/4a9d6eee-0a5b-4210-a523-010cc987a1cc.docx",
+      "PackagePath": "staticwebassets/user-content/4a9d6eee-0a5b-4210-a523-010cc987a1cc.docx"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/427b0fa5-84a0-459d-aa94-a35a30d949ed.png",
-      "PackagePath": "staticwebassets/user-content/427b0fa5-84a0-459d-aa94-a35a30d949ed.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/50569298-2312-41e4-aab4-87e217531a30.pdf",
+      "PackagePath": "staticwebassets/user-content/50569298-2312-41e4-aab4-87e217531a30.pdf"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/42b78e6c-1378-4b53-9d1f-610140f36938.png",
-      "PackagePath": "staticwebassets/user-content/42b78e6c-1378-4b53-9d1f-610140f36938.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/641971cb-bcb5-46bc-a76e-416f40f9ecda.png",
+      "PackagePath": "staticwebassets/user-content/641971cb-bcb5-46bc-a76e-416f40f9ecda.png"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/45a0179a-687d-491f-94ea-56e5fc6c5b22.png",
-      "PackagePath": "staticwebassets/user-content/45a0179a-687d-491f-94ea-56e5fc6c5b22.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/6553e49e-3c4f-406b-8c2e-b7c7b84de8b4.pdf",
+      "PackagePath": "staticwebassets/user-content/6553e49e-3c4f-406b-8c2e-b7c7b84de8b4.pdf"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/48ce46f9-d71a-4d0c-bfc0-bfe5772af365.svg",
-      "PackagePath": "staticwebassets/user-content/48ce46f9-d71a-4d0c-bfc0-bfe5772af365.svg"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/66c449ec-9a88-4349-9f11-96bae24620f9.doc",
+      "PackagePath": "staticwebassets/user-content/66c449ec-9a88-4349-9f11-96bae24620f9.doc"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/4eae0eeb-9b74-4adc-bb4d-41c17cd8f658.png",
-      "PackagePath": "staticwebassets/user-content/4eae0eeb-9b74-4adc-bb4d-41c17cd8f658.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/789c17be-b5ca-4a62-ad5f-991d088d0d6e.png",
+      "PackagePath": "staticwebassets/user-content/789c17be-b5ca-4a62-ad5f-991d088d0d6e.png"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/50c146fb-5dcb-47b3-b749-d97a951d9379.png",
-      "PackagePath": "staticwebassets/user-content/50c146fb-5dcb-47b3-b749-d97a951d9379.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/7a31b22e-1f6d-4182-a0c3-d5cfb401ea8a.docx",
+      "PackagePath": "staticwebassets/user-content/7a31b22e-1f6d-4182-a0c3-d5cfb401ea8a.docx"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/55b3e03c-3bc8-497c-bf15-f027ca10e159.svg",
-      "PackagePath": "staticwebassets/user-content/55b3e03c-3bc8-497c-bf15-f027ca10e159.svg"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/86dc9356-dcfa-4cfd-9164-ff658dc902bd.png",
+      "PackagePath": "staticwebassets/user-content/86dc9356-dcfa-4cfd-9164-ff658dc902bd.png"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/579392f5-51ba-4e06-b767-4a2a14d205bc.png",
-      "PackagePath": "staticwebassets/user-content/579392f5-51ba-4e06-b767-4a2a14d205bc.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/8a7e4540-adc2-492e-84ef-c96171ad71a0.png",
+      "PackagePath": "staticwebassets/user-content/8a7e4540-adc2-492e-84ef-c96171ad71a0.png"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/5d2298b5-4d21-44ef-a05b-00bb4d2d29bc.svg",
-      "PackagePath": "staticwebassets/user-content/5d2298b5-4d21-44ef-a05b-00bb4d2d29bc.svg"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/921e995d-1ae0-4548-817c-1df5125976e8.png",
+      "PackagePath": "staticwebassets/user-content/921e995d-1ae0-4548-817c-1df5125976e8.png"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/5d3ebf5e-42c8-4316-ba61-088e8329108b.svg",
-      "PackagePath": "staticwebassets/user-content/5d3ebf5e-42c8-4316-ba61-088e8329108b.svg"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/9aafd98f-5960-4ae1-94d1-f6a6cddd0e51.jpg",
+      "PackagePath": "staticwebassets/user-content/9aafd98f-5960-4ae1-94d1-f6a6cddd0e51.jpg"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/5f86e6c0-73b1-4ff3-a089-1b3a1d925d2d.png",
-      "PackagePath": "staticwebassets/user-content/5f86e6c0-73b1-4ff3-a089-1b3a1d925d2d.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/9bf29fc8-d760-41a1-9a5f-608edf3285d8.png",
+      "PackagePath": "staticwebassets/user-content/9bf29fc8-d760-41a1-9a5f-608edf3285d8.png"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/5fd517e4-bd58-42e8-b649-4565a76b2643.png",
-      "PackagePath": "staticwebassets/user-content/5fd517e4-bd58-42e8-b649-4565a76b2643.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/9db376aa-fad7-465c-b6f3-c2568401e05b.pdf",
+      "PackagePath": "staticwebassets/user-content/9db376aa-fad7-465c-b6f3-c2568401e05b.pdf"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/616d746c-9d1a-43d5-9b7b-ba9a8ec9b087.png",
-      "PackagePath": "staticwebassets/user-content/616d746c-9d1a-43d5-9b7b-ba9a8ec9b087.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/a1e14258-1bdb-4b4c-ad2c-69aa49c4d296.pdf",
+      "PackagePath": "staticwebassets/user-content/a1e14258-1bdb-4b4c-ad2c-69aa49c4d296.pdf"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/64a17a9d-2648-44fa-a4f5-cfb7ae2774ab.docx",
-      "PackagePath": "staticwebassets/user-content/64a17a9d-2648-44fa-a4f5-cfb7ae2774ab.docx"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/b297163e-804d-4001-bebe-e0696ed825cb.jpg",
+      "PackagePath": "staticwebassets/user-content/b297163e-804d-4001-bebe-e0696ed825cb.jpg"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/689a9d91-506d-4ddd-88e5-74527eda0dfa.doc",
-      "PackagePath": "staticwebassets/user-content/689a9d91-506d-4ddd-88e5-74527eda0dfa.doc"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/bcb26d13-94ef-453c-adba-bc7dbd4d82b2.png",
+      "PackagePath": "staticwebassets/user-content/bcb26d13-94ef-453c-adba-bc7dbd4d82b2.png"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/6af3e992-9841-4f3a-85a9-f4fb64040946.png",
-      "PackagePath": "staticwebassets/user-content/6af3e992-9841-4f3a-85a9-f4fb64040946.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/c2867ad0-6f32-4e0c-902c-2b7edf7c9044.png",
+      "PackagePath": "staticwebassets/user-content/c2867ad0-6f32-4e0c-902c-2b7edf7c9044.png"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/6deacf15-0c40-4c4e-b5ca-af6aeff67df7.pdf",
-      "PackagePath": "staticwebassets/user-content/6deacf15-0c40-4c4e-b5ca-af6aeff67df7.pdf"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/c2b5a7f2-1436-4447-8336-e7360402b63c.png",
+      "PackagePath": "staticwebassets/user-content/c2b5a7f2-1436-4447-8336-e7360402b63c.png"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/6e8815c3-2fa3-47f8-a09e-0487f9b499d6.png",
-      "PackagePath": "staticwebassets/user-content/6e8815c3-2fa3-47f8-a09e-0487f9b499d6.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/c38d6218-2be8-4fa4-ae1f-b81c9f7622e6.doc",
+      "PackagePath": "staticwebassets/user-content/c38d6218-2be8-4fa4-ae1f-b81c9f7622e6.doc"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/6f8da42d-2a3f-479f-8d5b-00236d5e52a8.png",
-      "PackagePath": "staticwebassets/user-content/6f8da42d-2a3f-479f-8d5b-00236d5e52a8.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/cc417f0b-dfe2-4e37-b6d8-f70fc854c367.doc",
+      "PackagePath": "staticwebassets/user-content/cc417f0b-dfe2-4e37-b6d8-f70fc854c367.doc"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/700920e5-6ca8-43c4-9304-03e149e8179a.svg",
-      "PackagePath": "staticwebassets/user-content/700920e5-6ca8-43c4-9304-03e149e8179a.svg"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/e1d36496-4b7e-47d9-a922-4ea90f69f166.jpeg",
+      "PackagePath": "staticwebassets/user-content/e1d36496-4b7e-47d9-a922-4ea90f69f166.jpeg"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/70e794be-8553-4f67-8161-1f62fb9d2131.svg",
-      "PackagePath": "staticwebassets/user-content/70e794be-8553-4f67-8161-1f62fb9d2131.svg"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/e6902926-6686-4b58-9633-34ab23c7eaac.pdf",
+      "PackagePath": "staticwebassets/user-content/e6902926-6686-4b58-9633-34ab23c7eaac.pdf"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/798fce9b-3656-4534-b9cd-44156823692e.png",
-      "PackagePath": "staticwebassets/user-content/798fce9b-3656-4534-b9cd-44156823692e.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/f09ea7f9-4165-438d-8a3e-e67ee9a81254.pdf",
+      "PackagePath": "staticwebassets/user-content/f09ea7f9-4165-438d-8a3e-e67ee9a81254.pdf"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/79fe962b-4f9b-4a43-abaa-b5ed99e91a0a.jpeg",
-      "PackagePath": "staticwebassets/user-content/79fe962b-4f9b-4a43-abaa-b5ed99e91a0a.jpeg"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/f5d22ffc-48e8-4a70-828d-a13860a8bc36.jpg",
+      "PackagePath": "staticwebassets/user-content/f5d22ffc-48e8-4a70-828d-a13860a8bc36.jpg"
     },
     {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/81fbcef6-d547-4069-b66d-280c1b97e6ca.pdf",
-      "PackagePath": "staticwebassets/user-content/81fbcef6-d547-4069-b66d-280c1b97e6ca.pdf"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/8a8b0c22-7525-4d6a-98c7-e8b6a3315861.doc",
-      "PackagePath": "staticwebassets/user-content/8a8b0c22-7525-4d6a-98c7-e8b6a3315861.doc"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/8c99bfee-1d64-4ab5-ae1b-2abf2283786f.png",
-      "PackagePath": "staticwebassets/user-content/8c99bfee-1d64-4ab5-ae1b-2abf2283786f.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/8fe982c3-0dab-471b-a168-891d52623e01.png",
-      "PackagePath": "staticwebassets/user-content/8fe982c3-0dab-471b-a168-891d52623e01.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/98a32695-fd6b-44e2-9120-fe672814e80a.pdf",
-      "PackagePath": "staticwebassets/user-content/98a32695-fd6b-44e2-9120-fe672814e80a.pdf"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/98d6d433-4d7e-4281-85e2-3280e57a7f93.svg",
-      "PackagePath": "staticwebassets/user-content/98d6d433-4d7e-4281-85e2-3280e57a7f93.svg"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/a21b9458-1726-4dfa-8417-dfad180c0171.png",
-      "PackagePath": "staticwebassets/user-content/a21b9458-1726-4dfa-8417-dfad180c0171.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/a3b79d59-804b-4418-8c87-76f2560fc138.svg",
-      "PackagePath": "staticwebassets/user-content/a3b79d59-804b-4418-8c87-76f2560fc138.svg"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/a3da4642-7503-488b-ad9f-b703cab356d5.png",
-      "PackagePath": "staticwebassets/user-content/a3da4642-7503-488b-ad9f-b703cab356d5.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/a4107cde-a541-41a0-82e1-22d1fe9f851b.pdf",
-      "PackagePath": "staticwebassets/user-content/a4107cde-a541-41a0-82e1-22d1fe9f851b.pdf"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/a5a97248-dbdc-4fde-b9d2-038e0ce89f6a.png",
-      "PackagePath": "staticwebassets/user-content/a5a97248-dbdc-4fde-b9d2-038e0ce89f6a.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/a5eb5321-285d-4583-9991-690ace46c563.rar",
-      "PackagePath": "staticwebassets/user-content/a5eb5321-285d-4583-9991-690ace46c563.rar"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/b16c069d-2c23-4f6b-97da-036e407ffa23.pdf",
-      "PackagePath": "staticwebassets/user-content/b16c069d-2c23-4f6b-97da-036e407ffa23.pdf"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/b59c76b5-a147-4dec-b5e6-b4689e51b7a9.png",
-      "PackagePath": "staticwebassets/user-content/b59c76b5-a147-4dec-b5e6-b4689e51b7a9.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/becac95c-9c4f-4b3d-b84c-5d4ab89c1008.pdf",
-      "PackagePath": "staticwebassets/user-content/becac95c-9c4f-4b3d-b84c-5d4ab89c1008.pdf"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/c077b78b-c55b-43cc-96bd-21fc01bb1093.png",
-      "PackagePath": "staticwebassets/user-content/c077b78b-c55b-43cc-96bd-21fc01bb1093.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/c12c5486-1bc9-4cc3-8d50-456f38eec143.png",
-      "PackagePath": "staticwebassets/user-content/c12c5486-1bc9-4cc3-8d50-456f38eec143.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/c7262d8a-cd53-4b44-bdfe-86c4b5eb43f8.png",
-      "PackagePath": "staticwebassets/user-content/c7262d8a-cd53-4b44-bdfe-86c4b5eb43f8.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/caf5a267-b1bf-4144-bf80-1a3e6243808c.png",
-      "PackagePath": "staticwebassets/user-content/caf5a267-b1bf-4144-bf80-1a3e6243808c.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/d4ddbd6d-2141-4b13-8e3b-dae6d638252b.pdf",
-      "PackagePath": "staticwebassets/user-content/d4ddbd6d-2141-4b13-8e3b-dae6d638252b.pdf"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/dc13d54f-aa26-44b1-900e-1f4b4af12d38.svg",
-      "PackagePath": "staticwebassets/user-content/dc13d54f-aa26-44b1-900e-1f4b4af12d38.svg"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/dc3ea24d-8fa2-4d0f-ac2f-1c9de615255e.png",
-      "PackagePath": "staticwebassets/user-content/dc3ea24d-8fa2-4d0f-ac2f-1c9de615255e.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/dd1000de-ab78-4cb0-8ecc-ded25229853d.svg",
-      "PackagePath": "staticwebassets/user-content/dd1000de-ab78-4cb0-8ecc-ded25229853d.svg"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/ddd25de0-bf23-4445-b3b8-16af9f302451.png",
-      "PackagePath": "staticwebassets/user-content/ddd25de0-bf23-4445-b3b8-16af9f302451.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/e0d59291-a23a-4e58-8bd2-c6446ef5e2bf.pdf",
-      "PackagePath": "staticwebassets/user-content/e0d59291-a23a-4e58-8bd2-c6446ef5e2bf.pdf"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/e111d286-ea93-4dcc-8fb7-d2712bb5912f.png",
-      "PackagePath": "staticwebassets/user-content/e111d286-ea93-4dcc-8fb7-d2712bb5912f.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/e9899694-cddc-4a55-89d2-241a944948a8.png",
-      "PackagePath": "staticwebassets/user-content/e9899694-cddc-4a55-89d2-241a944948a8.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/ede44669-48e4-4ee1-afaf-08febfa97175.png",
-      "PackagePath": "staticwebassets/user-content/ede44669-48e4-4ee1-afaf-08febfa97175.png"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/fb799032-b1a3-45e6-8bfc-44d9350c8746.svg",
-      "PackagePath": "staticwebassets/user-content/fb799032-b1a3-45e6-8bfc-44d9350c8746.svg"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/fcc42cca-f63b-40b9-b0e7-aacd49c3a74d.png",
-      "PackagePath": "staticwebassets/user-content/fcc42cca-f63b-40b9-b0e7-aacd49c3a74d.png"
+      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/user-content/ff99ce2a-23f4-45ac-b6ce-52a0cf942684.pdf",
+      "PackagePath": "staticwebassets/user-content/ff99ce2a-23f4-45ac-b6ce-52a0cf942684.pdf"
     },
     {
       "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/vendor/bootstrap/js/bootstrap.bundle.js",
@@ -987,22 +883,6 @@
     {
       "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/vendor/bootstrap/scss/vendor/_rfs.scss",
       "PackagePath": "staticwebassets/vendor/bootstrap/scss/vendor/_rfs.scss"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/vendor/chart.js/Chart.bundle.js",
-      "PackagePath": "staticwebassets/vendor/chart.js/Chart.bundle.js"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/vendor/chart.js/Chart.bundle.min.js",
-      "PackagePath": "staticwebassets/vendor/chart.js/Chart.bundle.min.js"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/vendor/chart.js/Chart.js",
-      "PackagePath": "staticwebassets/vendor/chart.js/Chart.js"
-    },
-    {
-      "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/vendor/chart.js/Chart.min.js",
-      "PackagePath": "staticwebassets/vendor/chart.js/Chart.min.js"
     },
     {
       "Id": "/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/wwwroot/vendor/datatables/dataTables.bootstrap4.css",

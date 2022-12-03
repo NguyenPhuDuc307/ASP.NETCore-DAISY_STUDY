@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using DaisyStudy.Data;
-using DaisyStudy.Data.Enums;
 
 namespace DaisyStudy.Models.Catalog.Submissions;
 
@@ -8,6 +7,7 @@ public class SubmissionViewModel
 {
     public int SubmissionID { set; get; }
     public int HomeworkID { set; get; }
+    public string? TeacherId { set; get; }
     public string? StudentID { set; get; }
 
     [Display(Name = "Tên")]
@@ -27,19 +27,20 @@ public class SubmissionViewModel
 
     [Display(Name = "Mã lớp học")]
     public string? ClassID { set; get; }
+    public int ID { set; get; }
 
     [Display(Name = "Tên lớp học")]
     public string? ClassName { set; get; }
 
     [Display(Name = "Mô tả")]
-    public string? Description { set; get; }
+    public string? DescriptionHomework { set; get; }
 
     [Display(Name = "Ngày tạo")]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0: HH:mm dddd dd/MM/yyyy}")]
     public DateTime DateTimeCreated { set; get; }
 
     [Display(Name = "Hạn nộp bài")]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0: HH:mm dddd dd/MM/yyyy}")]
     public DateTime Deadline { set; get; }
 
     [Display(Name = "Điểm số")]
@@ -49,16 +50,15 @@ public class SubmissionViewModel
     public string? Note { set; get; }
 
     [Display(Name = "Bài làm")]
-    public string? DescriptionSubmission { set; get; }
+    public string? Description { set; get; }
 
     [Display(Name = "Thời gian nộp bài")]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0: HH:mm dddd dd/MM/yyyy}")]
     public DateTime SubmissionDateTime { set; get; }
 
     [Display(Name = "Thời gian cập nhật")]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-    public DateTime? DateTimeUpdated { set; get; }
-
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0: HH:mm dddd dd/MM/yyyy}")]
+    public DateTime DateTimeUpdated { set; get; }
     public ICollection<SubmissionImage>? SubmissionImages { get; set; }
 }
 

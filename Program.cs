@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using DaisyStudy.Data;
@@ -16,6 +17,10 @@ using DaisyStudy.Application.Catalog.Comments;
 using Microsoft.AspNetCore.Authentication;
 using DaisyStudy.Application.Catalog.Homeworks;
 using DaisyStudy.Application.Catalog.Submissions;
+using DaisyStudy.Application.Catalog.ExamSchedules;
+using DaisyStudy.Application.Catalog.Questions;
+using DaisyStudy.Application.Catalog.StudentExams;
+using DaisyStudy.Application.Catalog.Contacts;
 
 var builder = WebApplication.CreateBuilder(args);
 var mvcBuilder = builder.Services.AddRazorPages();
@@ -89,6 +94,41 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseStatusCodePages(appError =>
+{
+    appError.Run(async context =>
+    {
+        var respone = context.Response;
+        var code = respone.StatusCode;
+        var content = @$"<html>
+        <head>
+            <meta charset='utf-8'>
+            <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+            <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+            <meta name='description' content=''>
+            <meta name='author' content=''>
+
+            <title>404 - DaisyStudy</title>
+            <link rel='icon' href='/img/logo.png' type='image/x-icon'>
+            <link href='/css/sb-admin-2.min.css' rel='stylesheet'>
+        </head>
+        <body id='page-top'>
+        <div class='container-fluid'>
+
+            <!-- 404 Error Text -->
+            <div class='text-center'>
+                <div class='error mx-auto' data-text='{code}'>{code}</div>
+                <p class='lead text-gray-800 mb-5'>{(HttpStatusCode)code}</p>
+                <p class='text-gray-500 mb-0'>Có vẻ như bạn đã tìm thấy một vấn đề...</p>
+                <a href='/'>&larr; Quay về trang chủ</a>
+            </div>
+        </div>
+    </body>
+        </html>";
+        await respone.WriteAsync(content);
+    });
+});
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -133,4 +173,8 @@ void AddTransient()
     builder.Services.AddTransient<ICommentService, CommentService>();
     builder.Services.AddTransient<IHomeworkService, HomeworkService>();
     builder.Services.AddTransient<ISubmissionService, SubmissionService>();
+    builder.Services.AddTransient<IExamScheduleService, ExamScheduleService>();
+    builder.Services.AddTransient<IQuestionService, QuestionService>();
+    builder.Services.AddTransient<IStudentExamService, StudentExamService>();
+    builder.Services.AddTransient<IContactService, ContactService>();
 }
