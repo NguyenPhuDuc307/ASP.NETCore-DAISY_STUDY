@@ -12,6 +12,7 @@ public class ExamSchedulesViewModel
 
     [Display(Name = "Tên lớp học")]
     public string? ClassName { get; set; }
+    public string? TeacherID { get; set; }
 
     [Display(Name = "Tên kì thi")]
     public string? ExamScheduleName { set; get; }

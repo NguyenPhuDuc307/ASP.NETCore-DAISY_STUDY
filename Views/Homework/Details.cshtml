@@ -288,7 +288,15 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">@Model.HomeworkName</h6>
-            <div class="dropdown no-arrow">
+            
+            @if(Model.TeacherID == HttpContextAccessor.HttpContext.Session.GetString("UserId").ToString()){
+                <form asp-action="SendMail">
+                <input type="text" name="ClassID" value="@Model.ClassID" hidden>
+                <input type="text" name="HomeworkID" value="@Model.HomeworkID" hidden>
+                <button type="submit" class="btn btn-primary">Gửi email thông báo</button>
+            </form>
+                <div class="dropdown no-arrow">
+                    
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -298,10 +306,10 @@
                         <div class="dropdown-header">Tuỳ chọn:</div>
                         <a class="dropdown-item text-danger" href="@Url.Action("Delete", "Homework", new{id = @Model.HomeworkID, returnUrl = returnUrl})">Xoá bài tập</a>
                         <a class="dropdown-item" href="@Url.Action("Edit", "Homework", new{id = @Model.HomeworkID})">Chỉnh sửa bài tập</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 </div>
+            }
+            
         </div>
         <div class="card-body">
             <h6 class="text-info">Lớp học</h6>
@@ -353,20 +361,6 @@
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Làm bài</h6>
-                <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Dropdown Header:</div>
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </div>
             </div>
             <!-- Card Body -->
             <div class="card-body">
@@ -428,18 +422,6 @@
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Học sinh đã nộp (@Model.Submissions.Count)</h6>
                 <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Tuỳ chọn:</div>
-                        <a class="dropdown-item" asp-controller="Submission" asp-action="ListSubmission">Danh sách nộp bài</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
                 </div>
             </div>
             <!-- Card Body -->

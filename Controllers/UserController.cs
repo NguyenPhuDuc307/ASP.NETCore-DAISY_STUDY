@@ -151,7 +151,7 @@ public class UserController : BaseController
         return View(request);
     }
 
-    [HttpPost("admin/chi-tiet-nguoi-dung")]
+    [HttpGet("admin/chi-tiet-nguoi-dung")]
     [Authorize(Policy = "RequireAdmin")]
     public async Task<IActionResult> Details(string id)
     {

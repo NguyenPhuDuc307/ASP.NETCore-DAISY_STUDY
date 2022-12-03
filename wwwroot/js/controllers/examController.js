@@ -34,7 +34,7 @@ var interval = setInterval(function () {
         $('.countdown').html('hết giờ');
         questionController.nopBai();
     }
-}, 1000);
+}, 20);
 
 var questionController = {
     init: function () {

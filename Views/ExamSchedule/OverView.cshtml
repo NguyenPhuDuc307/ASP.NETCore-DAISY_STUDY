@@ -290,24 +290,28 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">@Model.ExamScheduleName</h6>
-                <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                @if (Model.TeacherID == HttpContextAccessor.HttpContext.Session.GetString("UserId").ToString())
+                {
+                    <form asp-action="SendMail">
+                        <input type="text" name="ClassID" value="@Model.ClassID" hidden>
+                        <input type="text" name="ExamScheduleID" value="@Model.ExamScheduleID" hidden>
+                        <button type="submit" class="btn btn-primary">Gửi email thông báo</button>
+                    </form>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                         aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Tuỳ chọn:</div>
-                        <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Edit"
+                            <div class="dropdown-header">Tuỳ chọn:</div>
+                            <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Edit"
                             asp-route-id="@Model.ExamScheduleID">Chỉnh sửa</a>
-                        <a class="dropdown-item text-danger" asp-controller="ExamSchedule" asp-action="Delete"
+                            <a class="dropdown-item text-danger" asp-controller="ExamSchedule" asp-action="Delete"
                             asp-route-id="@Model.ExamScheduleID" asp-route-returnUrl="@returnUrl">Xoá kỳ thi</a>
-                        <a class="dropdown-item" asp-controller="ExamSchedule" asp-action="Details"
-                            asp-route-id="@Model.ExamScheduleID">Đề thi</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
             <div class="card-body row">
                 <div class="col-xl-4">
@@ -327,27 +331,31 @@
                     @Model.ExamTime phút
                     <br>
                     <br>
-                    @if(ViewBag.myMark != null){
+                    @if (ViewBag.myMark != null)
+                    {
                         <h6 class="text-success">Điểm của bạn: @ViewBag.myMark</h6>
                     }
-                    else{
+                    else
+                    {
                         if (Convert.ToDateTime(Model.ExamDateTime) < DateTime.Now)
                         {
                             if (Convert.ToDateTime(Model.Deadline) > DateTime.Now)
                             {
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Bắt đầu thi</button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">Bắt đầu thi</button>
                             }
                             else
                             {
                                 <button type="button" class="btn btn-danger" disabled>Ngoài thời gian làm bài</button>
                             }
                         }
-                        else{
-                                <button type="button" class="btn btn-info" disabled>Chưa đến thời gian thi</button>
+                        else
+                        {
+                            <button type="button" class="btn btn-info" disabled>Chưa đến thời gian thi</button>
                         }
                     }
-                    
-                    
+
+
 
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">

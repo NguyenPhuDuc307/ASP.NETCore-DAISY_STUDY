@@ -170,6 +170,18 @@ namespace ASP.NETCoreIdentityCustom.Controllers
             return View(request);
         }
 
+        [HttpPost("gui-mail-ky-thi")]
+        public async Task<IActionResult> SendMail(int ClassID, int ExamScheduleID)
+        {
+            var students = await _classService.GetAllStudentByClassIDD(ClassID);
+            foreach (var item in students)
+            {
+                await DaisyStudy.Utilities.Helpers.SendMail.SendEmail(item.Email, "Thông báo từ DaisyStudy", "<p>\n    <img class=\"image_resized\" style=\"width:24.92%;\" src=\"https://localhost:5000/img/logo.png\" alt=\"logo-white.svg\">\n</p>\n<p>\n    <span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;font-size:20px;\"><mark class=\"marker-yellow\"><strong>Thông báo từ DaisyStudy</strong></mark></span>\n</p>\n<p>\n    <span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\">Lớp học của bạn vừa cập nhật một kỳ thi mới</mark></span>\n</p>\n<p>\n    <span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\">Nhấn vào &nbsp;</mark></span><a href=\"https://localhost:5000/\"><span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\">https://localhost:5000/</mark></span></a><span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\"> để kiểm tra.</mark></span>\n</p>\n", "");
+            }
+            TempData["result"] = "Đã gửi mail thành công";
+            return RedirectToAction("OverView", "ExamSchedule", new { id = ExamScheduleID });
+        }
+
         [HttpGet("ky-thi")]
         public async Task<IActionResult> OverView(int id)
         {

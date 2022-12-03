@@ -305,7 +305,7 @@ public class SubmissionConfiguration : IEntityTypeConfiguration<Submission>
         builder.Property(x => x.Mark).IsRequired();
 
         builder.HasOne(x => x.Homework).WithMany(x => x.Submissions).HasForeignKey(x => x.HomeworkID);
-        builder.HasOne(x => x.Student).WithMany(x => x.Submissions).HasForeignKey(x => x.StudentID);
+        builder.HasOne(x => x.Student).WithMany(x => x.Submissions).HasForeignKey(x => x.StudentID).OnDelete(DeleteBehavior.Cascade);
     }
 }
 

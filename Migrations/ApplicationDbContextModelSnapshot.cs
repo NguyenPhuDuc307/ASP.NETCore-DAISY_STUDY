@@ -917,7 +917,8 @@ namespace DaisyStudy.Migrations
 
                     b.HasOne("DaisyStudy.Data.ApplicationUser", "Student")
                         .WithMany("Submissions")
-                        .HasForeignKey("StudentID");
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Homework");
 

@@ -1,4 +1,5 @@
 using DaisyStudy.Data;
+using DaisyStudy.Data.Enums;
 using DaisyStudy.Models.Catalog.ExamSchedules;
 using DaisyStudy.Models.Common;
 using DaisyStudy.Utilities.Exceptions;
@@ -69,7 +70,7 @@ public class ExamScheduleService : IExamScheduleService
                 ExamTime = x.es.ExamTime,
                 Description = x.es.Description,
                 Deadline = x.es.Deadline
-            }).OrderByDescending(x=> x.ExamDateTime).ToListAsync();
+            }).OrderByDescending(x => x.ExamDateTime).ToListAsync();
         return data;
     }
 
@@ -106,7 +107,7 @@ public class ExamScheduleService : IExamScheduleService
                 ExamTime = x.es.ExamTime,
                 Description = x.es.Description,
                 Deadline = x.es.Deadline
-            }).OrderByDescending(x=> x.ExamDateTime).ToListAsync();
+            }).OrderByDescending(x => x.ExamDateTime).ToListAsync();
 
         //4. Select and projection
         var pagedResult = new PagedResult<ExamSchedulesViewModel>()
@@ -123,7 +124,7 @@ public class ExamScheduleService : IExamScheduleService
     {
         //1. Select join
         var query = from es in _context.ExamSchedules
-                    join c in _context.Classes.Include(x=> x.ClassDetails) on es.ClassID equals c.ID into esc
+                    join c in _context.Classes.Include(x => x.ClassDetails) on es.ClassID equals c.ID into esc
                     from c in esc.DefaultIfEmpty()
                     select new { es, c };
         //2. filter
@@ -136,8 +137,9 @@ public class ExamScheduleService : IExamScheduleService
             query = query.Where(p => p.es.ClassID == request.ClassID);
         }
 
-        if(request.UserId != null){
-            query = query.Where(x=> x.c.ClassDetails.Any(x=> x.UserID == request.UserId));
+        if (request.UserId != null)
+        {
+            query = query.Where(x => x.c.ClassDetails.Any(x => x.UserID == request.UserId));
         }
 
         //3. Paging
@@ -157,7 +159,7 @@ public class ExamScheduleService : IExamScheduleService
                 Description = x.es.Description,
                 Deadline = x.es.Deadline,
                 MyStudentExam = _context.StudentExams.FirstOrDefault(p => p.ExamScheduleID == x.es.ExamScheduleID && p.StudentID == request.UserId)
-            }).OrderByDescending(x=> x.ExamDateTime).ToListAsync();
+            }).OrderByDescending(x => x.ExamDateTime).ToListAsync();
 
         //4. Select and projection
         var pagedResult = new PagedResult<ExamSchedulesViewModel>()
@@ -174,7 +176,7 @@ public class ExamScheduleService : IExamScheduleService
     {
         //1. Select join
         var query = from es in _context.ExamSchedules
-                    join c in _context.Classes.Include(x=> x.ClassDetails) on es.ClassID equals c.ID into esc
+                    join c in _context.Classes.Include(x => x.ClassDetails) on es.ClassID equals c.ID into esc
                     from c in esc.DefaultIfEmpty()
                     select new { es, c };
         //2. filter
@@ -187,8 +189,9 @@ public class ExamScheduleService : IExamScheduleService
             query = query.Where(p => p.es.ClassID == request.ClassID);
         }
 
-        if(request.UserId != null){
-            query = query.Where(x=> x.c.ClassDetails.Any(x=> x.UserID == request.UserId && x.IsTeacher == Data.Enums.Teacher.Teacher));
+        if (request.UserId != null)
+        {
+            query = query.Where(x => x.c.ClassDetails.Any(x => x.UserID == request.UserId && x.IsTeacher == Data.Enums.Teacher.Teacher));
         }
 
         //3. Paging
@@ -205,7 +208,7 @@ public class ExamScheduleService : IExamScheduleService
                 ExamDateTime = x.es.ExamDateTime,
                 ExamTime = x.es.ExamTime,
                 Deadline = x.es.Deadline,
-            }).OrderByDescending(x=> x.ExamDateTime).ToListAsync();
+            }).OrderByDescending(x => x.ExamDateTime).ToListAsync();
 
         //4. Select and projection
         var pagedResult = new PagedResult<ExamSchedulesViewModel>()
@@ -222,13 +225,14 @@ public class ExamScheduleService : IExamScheduleService
     {
         //1. Select join
         var query = from es in _context.ExamSchedules
-                    join c in _context.Classes.Include(x=> x.ClassDetails) on es.ClassID equals c.ID into esc
+                    join c in _context.Classes.Include(x => x.ClassDetails) on es.ClassID equals c.ID into esc
                     from c in esc.DefaultIfEmpty()
                     select new { es, c };
 
 
-        if(UserId != null){
-            query = query.Where(x=> x.c.ClassDetails.Any(x=> x.UserID == UserId && x.IsTeacher == Data.Enums.Teacher.Teacher));
+        if (UserId != null)
+        {
+            query = query.Where(x => x.c.ClassDetails.Any(x => x.UserID == UserId && x.IsTeacher == Data.Enums.Teacher.Teacher));
         }
 
         var data = await query
@@ -241,7 +245,7 @@ public class ExamScheduleService : IExamScheduleService
                 ExamDateTime = x.es.ExamDateTime,
                 ExamTime = x.es.ExamTime,
                 Deadline = x.es.Deadline,
-            }).OrderByDescending(x=> x.ExamDateTime).ToListAsync();
+            }).OrderByDescending(x => x.ExamDateTime).ToListAsync();
 
         return data;
     }
@@ -249,13 +253,15 @@ public class ExamScheduleService : IExamScheduleService
     public async Task<ExamSchedulesViewModel> GetById(int ExamScheduleID)
     {
         var examSchedule = await _context.ExamSchedules.FindAsync(ExamScheduleID);
-        if (examSchedule == null) throw new DaisyStudyException($"Cannot find a exam schedules {ExamScheduleID}");
+        if (examSchedule == null) return null;
 
         var _class = await _context.Classes.FindAsync(examSchedule.ClassID);
-        if (_class == null) throw new DaisyStudyException($"Cannot find a class {examSchedule.ClassID}");
-
+        if (_class == null) return null;
+        var classDetail = _context.ClassDetails.FirstOrDefault(x => x.ClassID == _class.ID && x.IsTeacher == Teacher.Teacher);
+        classDetail.User = await _userManager.FindByIdAsync(classDetail.UserID);
         var examScheduleViewModel = new ExamSchedulesViewModel()
         {
+            TeacherID = classDetail.User.Id,
             ExamScheduleID = examSchedule.ExamScheduleID,
             ClassID = _class.ID,
             ClassName = _class.ClassName,
@@ -268,7 +274,7 @@ public class ExamScheduleService : IExamScheduleService
         };
         return examScheduleViewModel;
     }
-    
+
     public async Task<int> Update(ExamSchedulesUpdateRequest request)
     {
         var examSchedule = await _context.ExamSchedules.FindAsync(request.ExamScheduleID);

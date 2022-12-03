@@ -11,6 +11,7 @@ public class HomeworkViewModel
     public int ID { set; get; }
 
     [Display(Name = "Tên lớp học")]
+    public int ClassID { set; get; }
     public string? ClassName { set; get; }
 
     [Display(Name = "Tên bài tập")]

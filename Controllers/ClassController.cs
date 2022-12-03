@@ -5,6 +5,7 @@ using DaisyStudy.Application.Catalog.Classes;
 using AutoMapper;
 using DaisyStudy.Application.Catalog.Rooms;
 using DaisyStudy.Application.System.Users;
+using ClosedXML.Excel;
 
 namespace DaisyStudy.Controllers
 {
@@ -27,7 +28,7 @@ namespace DaisyStudy.Controllers
             _userService = userService;
         }
 
-        // GET: Classes
+        [HttpGet("admin/quan-tri-lop-hoc")]
         public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
         {
             var request = new ClassPagingRequest()
@@ -43,6 +44,50 @@ namespace DaisyStudy.Controllers
                 ViewBag.SuccessMsg = TempData["result"];
             }
             return View(classes);
+        }
+
+        public async Task<IActionResult> Report(int HomeworkID, string keyword)
+        {
+            var data = await _classService.GetAllClass();
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Submissions");
+                worksheet.Cell(1, 1).Value = "DANH SÁCH LỚP HỌC";
+                var currentRow = 3;
+                worksheet.Cell(currentRow, 1).Value = "STT";
+                worksheet.Cell(currentRow, 2).Value = "Mã lớp học";
+                worksheet.Cell(currentRow, 3).Value = "Tên lớp học";
+                worksheet.Cell(currentRow, 4).Value = "Chủ đề";
+                worksheet.Cell(currentRow, 5).Value = "Ngày tạo lớp học";
+                worksheet.Cell(currentRow, 6).Value = "Trạng thái";
+                worksheet.Cell(currentRow, 7).Value = "Công khai";
+                worksheet.Cell(currentRow, 8).Value = "Học phí";
+
+                foreach (var _class in data)
+                {
+                    currentRow++;
+                    worksheet.Cell(currentRow, 1).Value = currentRow - 3;
+                    worksheet.Cell(currentRow, 2).Value = _class.ClassID;
+                    worksheet.Cell(currentRow, 3).Value = _class.ClassName;
+                    worksheet.Cell(currentRow, 4).Value = _class.Topic;
+                    worksheet.Cell(currentRow, 5).Value = _class.DateCreated;
+                    worksheet.Cell(currentRow, 6).Value = _class.Status;
+                    worksheet.Cell(currentRow, 7).Value = _class.isPublic;
+                    worksheet.Cell(currentRow, 8).Value = _class.Tuition;
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+                    var FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + " Danh sách lớp học ";
+                    return File(
+                    content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        FileName + ".xlsx"
+                    );
+                }
+            }
         }
 
         [Route("danh-sach-lop-hoc")]
@@ -87,7 +132,7 @@ namespace DaisyStudy.Controllers
         public async Task<IActionResult> OverView(int id)
         {
             var result = await _classService.GetById(id);
-            if (result == null) NotFound();
+            if (result == null) return Redirect("khong-tim-thay-lop-hoc");
             await _classService.AddViewCount(id);
             if (TempData["result"] != null)
             {
@@ -100,7 +145,7 @@ namespace DaisyStudy.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var result = await _classService.GetById(id);
-            if (result == null) NotFound();
+            if (result == null) return Redirect("khong-tim-thay-lop-hoc");
             await _classService.AddViewCount(id);
             if (TempData["result"] != null)
             {
@@ -130,11 +175,17 @@ namespace DaisyStudy.Controllers
             if (result != 0)
             {
                 TempData["result"] = "Thêm mới lớp học thành công";
-                return RedirectToAction("OverView", "Class", new{id = result});
+                return RedirectToAction("OverView", "Class", new { id = result });
             }
 
             ModelState.AddModelError("", "Thêm lớp học thất bại");
             return View(request);
+        }
+
+        [Route("khong-tim-thay-lop-hoc")]
+        public IActionResult NotFind()
+        {
+            return View();
         }
 
         [HttpPost, ActionName("JoinClass")]
@@ -160,7 +211,7 @@ namespace DaisyStudy.Controllers
         public async Task<IActionResult> JoinClassById(string ClassID)
         {
             var @class = await _classService.GetById(ClassID.Trim());
-            if(@class == null) return BadRequest(); 
+            if (@class == null) return Redirect("khong-tim-thay-lop-hoc");
             var result = await _classService.JoinClass(@class.ID, User.Identity.Name);
             return RedirectToAction("OverView", new { id = @class.ID });
         }
@@ -169,7 +220,7 @@ namespace DaisyStudy.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var result = await _classService.GetById(id);
-            if (result == null) return NotFound();
+            if (result == null) return Redirect("khong-tim-thay-lop-hoc");
             var classViewModel = _mapper.Map<ClassViewModel, ClassUpdateRequest>(result);
             return View(classViewModel);
         }
@@ -185,6 +236,28 @@ namespace DaisyStudy.Controllers
             await _classService.Update(request);
             TempData["result"] = "Cập nhật lớp học thành công";
             return RedirectToAction("Details", "Class", new { id = request.ID });
+        }
+
+        [HttpGet("admin/chinh-sua-lop-hoc")]
+        public async Task<IActionResult> AdminEdit(int id)
+        {
+            var result = await _classService.GetAdminById(id);
+            if (result == null) return Redirect("/khong-tim-thay-lop-hoc");
+            var classViewModel = _mapper.Map<ClassViewModel, ClassUpdateRequest>(result);
+            return View(classViewModel);
+        }
+
+        [HttpPost("admin/chinh-sua-lop-hoc")]
+        [ValidateAntiForgeryToken]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> AdminEdit([FromForm] ClassUpdateRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View(request);
+
+            await _classService.Update(request);
+            TempData["result"] = "Cập nhật lớp học thành công";
+            return RedirectToAction("Index", "Class");
         }
 
         public async Task<IActionResult> ChangeClassID(int id)
@@ -220,7 +293,7 @@ namespace DaisyStudy.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _classService.GetById(id);
-            if (result == null) return NotFound();
+            if (result == null) return Redirect("khong-tim-thay-lop-hoc");
             return View(result);
         }
 

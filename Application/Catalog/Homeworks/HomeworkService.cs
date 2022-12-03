@@ -74,6 +74,7 @@ public class HomeworkService : IHomeworkService
             HomeworkID = homework.HomeworkID,
             ID = _class.ID,
             ClassName = _class.ClassName,
+            ClassID = _class.ID,
             HomeworkName = homework.HomeworkName,
             Description = homework.Description,
             DateTimeCreated = homework.DateTimeCreated,
