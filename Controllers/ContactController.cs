@@ -42,7 +42,7 @@ public class ContactController : Controller
         }
         return View(data);
     }
-    [Authorize(Policy = "RequireAdmin")]
+
     [HttpPost("phan-hoi")]
     public async Task<IActionResult> Create([FromForm] Contact request)
     {

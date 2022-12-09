@@ -2318,3 +2318,4 @@
 /Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/obj/Debug/net7.0/DaisyStudy.pdb
 /Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/obj/Debug/net7.0/DaisyStudy.genruntimeconfig.cache
 /Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/obj/Debug/net7.0/ref/DaisyStudy.dll
+/Users/nguyenphuduc/Desktop/DaisyStudy/ASP.NETCoreIdentityCustom/bin/Debug/net7.0/global.json
