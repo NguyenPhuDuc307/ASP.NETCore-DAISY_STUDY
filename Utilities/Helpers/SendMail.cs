@@ -5,7 +5,7 @@ namespace DaisyStudy.Utilities.Helpers;
 
 public class SendMail
 {
-    public static async Task<bool> SendEmail(string toEmail, string subject, string body, string attachFile)
+    public static void SendEmail(string toEmail, string subject, string body, string attachFile)
     {
         try
         {
@@ -18,7 +18,7 @@ public class SendMail
                 {
                     Attachment attachment = new Attachment(attachFile);
                     msg.Attachments.Add(attachment);
-                }    
+                }
                 NetworkCredential credential = new NetworkCredential(ConstantHelper.email, ConstantHelper.pass);
                 client.EnableSsl = true;
                 client.Timeout = 100000;
@@ -30,10 +30,8 @@ public class SendMail
                 client.Send(msg);
             }
         }
-        catch(Exception)
+        catch (Exception)
         {
-            return false;
         }
-        return true;
     }
 }

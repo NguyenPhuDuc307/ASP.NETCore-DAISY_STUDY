@@ -10,10 +10,10 @@ namespace DaisyStudy.Models.Mappings
         public MessageProfile()
         {
             CreateMap<Message, MessageViewModel>()
-                .ForMember(dst => dst.From, opt => opt.MapFrom(x => x.FromUser.FirstName + " "+ x.FromUser.LastName))
-                .ForMember(dst => dst.Room, opt => opt.MapFrom(x => x.ToRoom.Name))
-                .ForMember(dst => dst.Avatar, opt => opt.MapFrom(x => x.FromUser.Avatar))
-                .ForMember(dst => dst.Content, opt => opt.MapFrom(x => BasicEmojis.ParseEmojis(x.Content)));
+                .ForMember(dst => dst.From, opt => opt.MapFrom(x => x.FromUser != null ? x.FromUser.FirstName + " " + x.FromUser.LastName : null))
+                .ForMember(dst => dst.Room, opt => opt.MapFrom(x => x.ToRoom != null ? x.ToRoom.Name : null))
+                .ForMember(dst => dst.Avatar, opt => opt.MapFrom(x => x.FromUser != null ? x.FromUser.Avatar : null))
+                .ForMember(dst => dst.Content, opt => opt.MapFrom(x => BasicEmojis.ParseEmojis(x.Content != null ? x.Content : "" )));
 
             CreateMap<MessageViewModel, Message>();
         }

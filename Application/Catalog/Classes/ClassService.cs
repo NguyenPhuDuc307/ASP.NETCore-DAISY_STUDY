@@ -61,7 +61,11 @@ namespace DaisyStudy.Application.Catalog.Classes
         {
             var _class = await _context.Classes.FindAsync(ID);
             if (_class == null) throw new DaisyStudyException($"Cannot find a class {ID}");
-            _class.ClassID = SystemVariable.GetRanDomClassID(7);
+            string ClassID = SystemVariable.GetRanDomClassID(7);
+            while(_context.Classes.FirstOrDefault(x=> x.ClassID == ClassID) != null){
+                ClassID = SystemVariable.GetRanDomClassID(7);
+            }
+            _class.ClassID = ClassID;
             return await _context.SaveChangesAsync() > 0;
         }
 

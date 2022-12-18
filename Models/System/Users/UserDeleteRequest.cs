@@ -4,7 +4,7 @@ namespace DaisyStudy.Models.System.Users;
 
 public class UserDeleteRequest
 {
-    public string Id { get; set; }
+    public string? Id { get; set; }
     [Display(Name = "Tên")]
     public string? FirstName { get; set; }
 
