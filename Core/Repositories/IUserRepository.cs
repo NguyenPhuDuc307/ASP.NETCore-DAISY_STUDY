@@ -6,7 +6,7 @@ public interface IUserRepository
 {
     ICollection<ApplicationUser> GetUsers(string? keyword);
 
-    Task<ApplicationUser> GetUser(string id);
+    Task<ApplicationUser?> GetUser(string id);
 
     ApplicationUser UpdateUser(ApplicationUser user);
 }
