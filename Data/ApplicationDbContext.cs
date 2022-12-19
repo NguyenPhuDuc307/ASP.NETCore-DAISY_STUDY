@@ -21,6 +21,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
         // Add your customizations after calling base.OnModelCreating(builder);
 
         builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
+        builder.ApplyConfiguration(new ApplicationRoleEntityConfiguration());
         builder.ApplyConfiguration(new ClassConfiguration());
         builder.ApplyConfiguration(new ClassDetailConfiguration());
         builder.ApplyConfiguration(new CommentConfiguration());
@@ -36,7 +37,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
         builder.ApplyConfiguration(new StudentExamConfiguration());
         builder.ApplyConfiguration(new SubmissionConfiguration());
         builder.ApplyConfiguration(new SubmissionImageConfiguration());
-        builder.Entity<IdentityRole<string>>().ToTable("AppRoles");
         builder.Entity<IdentityUserClaim<string>>().ToTable("AppUserClaims");
         builder.Entity<IdentityUserRole<string>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
         builder.Entity<IdentityUserLogin<string>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
@@ -72,6 +72,14 @@ public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<Appli
         builder.Property(x => x.LastName).IsRequired().HasMaxLength(255);
         builder.Property(x => x.Dob).IsRequired();
         builder.Property(x => x.AccountBalance).IsRequired().HasColumnType("decimal(18,2)");
+    }
+}
+
+public class ApplicationRoleEntityConfiguration : IEntityTypeConfiguration<IdentityRole>
+{
+    public void Configure(EntityTypeBuilder<IdentityRole> builder)
+    {
+        builder.ToTable("AppRoles");
     }
 }
 
