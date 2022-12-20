@@ -8,6 +8,7 @@ using DaisyStudy.Models.Catalog.StudentExams;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using OfficeOpenXml;
 
 namespace DaisyStudy.Controllers;
 
@@ -164,7 +165,7 @@ public class QuestionController : BaseController
     [HttpGet("bai-thi")]
     public async Task<IActionResult> Exam(int id)
     {
-        if(id == 0) return NotFound();
+        if (id == 0) return NotFound();
         var exS = await _examScheduleService.GetById(id);
         HttpContext.Session.SetString("DateTimeStudentExam", DateTime.Now.ToString());
         HttpContext.Session.SetString("DateTimeStudentExamD", DateTime.Now.ToString("HH:mm - dddd dd/MM/yyyy"));
@@ -178,7 +179,8 @@ public class QuestionController : BaseController
         var exId = Convert.ToInt32(HttpContext.Session.GetString("ExamScheduleID"));
         var dtEx = Convert.ToDateTime(HttpContext.Session.GetString("DateTimeStudentExam"));
 
-        StudentExamsCreateRequest secr = new StudentExamsCreateRequest(){
+        StudentExamsCreateRequest secr = new StudentExamsCreateRequest()
+        {
             ExamScheduleID = exId,
             UserName = User.Identity.Name,
             Mark = mark,
@@ -214,6 +216,48 @@ public class QuestionController : BaseController
 
         ModelState.AddModelError("", "Thêm bài tập thất bại");
         return View(request);
+    }
+
+    public async Task<IActionResult> Import(IFormFile file, int ExamScheduleId)
+    {
+        if(file == null) {
+            TempData["result"] = $"Vui lòng chọn file";
+            return RedirectToAction("Index", "Question");
+        }
+        using (var stream = new MemoryStream())
+        {
+            await file.CopyToAsync(stream);
+            ExcelPackage.LicenseContext = LicenseContext.Commercial;
+            using (var package = new ExcelPackage(stream))
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                var rowCount = worksheet.Dimension.Rows;
+                for (int row = 3; row <= rowCount; row++)
+                {
+                    try
+                    {
+                        var question = new QuestionsCreateRequest
+                        {
+                            ExamScheduleID = ExamScheduleId,
+                            QuestionString = worksheet.Cells[row, 2].Value.ToString().Trim(),
+                            Point = Int32.Parse(worksheet.Cells[row, 3].Value.ToString().Trim()),
+                            Option1 = worksheet.Cells[row, 4].Value.ToString().Trim(),
+                            Option2 = worksheet.Cells[row, 5].Value.ToString().Trim(),
+                            Option3 = worksheet.Cells[row, 6].Value.ToString().Trim(),
+                            Option4 = worksheet.Cells[row, 7].Value.ToString().Trim(),
+                            OptionCorrect = Int32.Parse(worksheet.Cells[row, 8].Value.ToString().Trim()),
+                        };
+                        await _questionService.Create(question);
+                    }catch{
+                        
+                        break;
+                    }
+                }
+                TempData["result"] = $"Nhập file câu hỏi thành công";
+            }
+        }
+
+        return RedirectToAction("Index", "Question");
     }
 
     [HttpGet]

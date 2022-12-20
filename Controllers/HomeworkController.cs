@@ -3,7 +3,6 @@ using DaisyStudy.Application.Catalog.Classes;
 using DaisyStudy.Application.Catalog.Homeworks;
 using DaisyStudy.Models.Catalog.Homeworks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DaisyStudy.Controllers;
 
@@ -114,7 +113,11 @@ public class HomeworkController : BaseController
         var students = await _classService.GetAllStudentByClassIDD(ClassID);
         foreach (var item in students)
         {
-            await DaisyStudy.Utilities.Helpers.SendMail.SendEmail(item.Email, "Thông báo từ DaisyStudy", "<p>\n    <img class=\"image_resized\" style=\"width:24.92%;\" src=\"https://localhost:5000/img/logo.png\" alt=\"logo-white.svg\">\n</p>\n<p>\n    <span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;font-size:20px;\"><mark class=\"marker-yellow\"><strong>Thông báo từ DaisyStudy</strong></mark></span>\n</p>\n<p>\n    <span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\">Lớp học của bạn vừa cập nhật một bài tập mới</mark></span>\n</p>\n<p>\n    <span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\">Nhấn vào &nbsp;</mark></span><a href=\"https://localhost:5000/\"><span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\">https://localhost:5000/</mark></span></a><span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\"> để kiểm tra.</mark></span>\n</p>\n", "");
+            if (string.IsNullOrEmpty(item.Email)) return RedirectToAction("Details", "Homework", new { id = HomeworkID });
+            DaisyStudy.Utilities.Helpers.SendMail.SendEmail(item.Email,
+                                                            "Thông báo từ DaisyStudy",
+                                                            "<p>\n    <img class=\"image_resized\" style=\"width:24.92%;\" src=\"https://localhost:5000/img/logo.png\" alt=\"logo-white.svg\">\n</p>\n<p>\n    <span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;font-size:20px;\"><mark class=\"marker-yellow\"><strong>Thông báo từ DaisyStudy</strong></mark></span>\n</p>\n<p>\n    <span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\">Lớp học của bạn vừa cập nhật một bài tập mới</mark></span>\n</p>\n<p>\n    <span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\">Nhấn vào &nbsp;</mark></span><a href=\"https://localhost:5000/\"><span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\">https://localhost:5000/</mark></span></a><span style=\"font-family:'Trebuchet MS', Helvetica, sans-serif;\"><mark class=\"marker-yellow\"> để kiểm tra.</mark></span>\n</p>\n",
+                                                            "");
         }
         TempData["result"] = "Đã gửi mail thành công";
         return RedirectToAction("Details", "Homework", new { id = HomeworkID });

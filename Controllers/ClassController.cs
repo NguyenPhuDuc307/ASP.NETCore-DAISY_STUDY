@@ -272,8 +272,6 @@ namespace DaisyStudy.Controllers
         public async Task<IActionResult> UploadImage()
         {
             string filePath = "";
-            if (!ModelState.IsValid)
-                return View();
             List<ClassImageUpdateRequest> list = new List<ClassImageUpdateRequest>();
             foreach (IFormFile image in Request.Form.Files)
             {

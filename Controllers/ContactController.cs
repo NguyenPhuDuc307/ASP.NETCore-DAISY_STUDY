@@ -42,7 +42,7 @@ public class ContactController : Controller
         }
         return View(data);
     }
-    [Authorize(Policy = "RequireAdmin")]
+
     [HttpPost("phan-hoi")]
     public async Task<IActionResult> Create([FromForm] Contact request)
     {
@@ -64,15 +64,11 @@ public class ContactController : Controller
     }
     [Authorize(Policy = "RequireAdmin")]
     [HttpPost("gui-mail")]
-    public async Task<IActionResult> Send(int ContactID, string Email, string message)
+    public IActionResult Send(int ContactID, string Email, string message)
     {
-        var result = await DaisyStudy.Utilities.Helpers.SendMail.SendEmail(Email, "Phản hồi từ DaisyStudy", message, "");
-        if (result == true)
-        {
-            TempData["result"] = "Gửi email phản hồi đến người dùng thành công";
-            return RedirectToAction("Details", "Contact", new { id = ContactID });
-        }
-        TempData["result"] = "Gửi email phản hồi đến người dùng thất bại";
+        DaisyStudy.Utilities.Helpers.SendMail.SendEmail(Email, "Phản hồi từ DaisyStudy", message, "");
+
+        TempData["result"] = "Gửi email phản hồi đến người dùng thành công";
         return RedirectToAction("Details", "Contact", new { id = ContactID });
     }
     [Authorize(Policy = "RequireAdmin")]
